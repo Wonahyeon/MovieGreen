@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background: #e9ecef;
+    color: black;
   }
 `;
 
