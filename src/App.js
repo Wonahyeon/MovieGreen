@@ -14,6 +14,9 @@ function App() {
   return (
     <>
       <GlobalStyle/>
+      <div>
+        메인
+      </div>
     </>
   );
 }
