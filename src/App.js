@@ -12,6 +12,7 @@ import MovieList2023 from "./category/movieyear/MovieList2023";
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router";
+import Login from "./pages/Login";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -29,6 +30,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route path="/log-in" />
+          <Route path="/sign-in" element={<Signin />} />
+          <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={
             <>
               <MovieList2023 />
