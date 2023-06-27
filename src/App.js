@@ -23,11 +23,11 @@ function App() {
   return (
     <>
       <GlobalStyle/>
+      <Header />
       <MovieList2023 />
       <MovieList2015 />
       <MovieList2010 />
       <MovieList2005 />
-      <Header />
     </>
   );
 }
