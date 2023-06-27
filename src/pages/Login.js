@@ -55,11 +55,11 @@ const CheckBox = styled.div`
 `;
 
 function Login(props) {
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
 
-  const handleChange = (e) => {
-    setValue(e.target)
-  }
+  // const handleChange = (e) => {
+  //   setValue(e.target)
+  // }
 
 
   return (
@@ -70,8 +70,8 @@ function Login(props) {
           <label>
             <Input type='text' 
               placeholder='이메일 주소 또는 아이디'
-              value={value}
-              onChange={handleChange}
+              // value={value}
+              // onChange={handleChange}
             />
           </label>
           <label>
