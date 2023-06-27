@@ -1,5 +1,6 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Signin from "./components/Signin";
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 
@@ -16,6 +17,8 @@ function App() {
   return (
     <>
       <GlobalStyle/>
+      <Signin />
+
       <Header />
     </>
   );
