@@ -1,5 +1,12 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import MovieList2005 from "./category/movieyear/MovieList2005";
+import MovieList2010 from "./category/movieyear/MovieList2010";
+import MovieList2015 from "./category/movieyear/MovieList2015";
+import MovieList2023 from "./category/movieyear/MovieList2023";
+
+
+
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -14,9 +21,10 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <div>
-        메인
-      </div>
+      <MovieList2023 />
+      <MovieList2015 />
+      <MovieList2010 />
+      <MovieList2005 />
     </>
   );
 }
