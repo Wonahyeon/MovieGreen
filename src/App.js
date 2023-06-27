@@ -12,6 +12,7 @@ import Signin from "./components/Signin";
 
 import Detail from "./components/Detail";
 import Header from "./components/Header";
+import { Route, Routes } from "react-router";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -26,13 +27,20 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      {/* <Signin /> */}
-
-      <Header />
-      <MovieList2023 />
-      <MovieList2015 />
-      <MovieList2010 />
-      <MovieList2005 />
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route path="/sign-in" element={<Signin />} />
+          <Route path="/log-in" />
+          <Route path="/movie-year" element={
+            <>
+              <MovieList2023 />
+              <MovieList2015 />
+              <MovieList2010 />
+              <MovieList2005 />
+            </>
+          }/>
+        </Route>
+      </Routes>
     </>
   );
 }

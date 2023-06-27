@@ -98,7 +98,7 @@ const Input = styled.input`
 function Header(props) {
   const [submenuView, setSubmenuView] = useState(false);
   const [value, setValue] = useState('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmenu = () => {
     setSubmenuView(!submenuView);
@@ -115,14 +115,14 @@ function Header(props) {
   return (
     <>
         <HeaderNav>
-          <a className='signIn' onClick={undefined} >회원가입</a>
-          <a className='logIn' onClick={undefined} >로그인</a>
+          <a className='signIn' onClick={() => { navigate('/sign-in'); }} >회원가입</a>
+          <a className='logIn' onClick={() => { navigate("/log-in") }} >로그인</a>
         </HeaderNav>
 
       <HeaderWrapper>
         <Container>
         <Navbar>
-        <a href='#' className='home' >홈</a>
+        <a href='#' className='home' onClick={() => { navigate('/'); }} >홈</a>
         <a className='categori' onClick={handleSubmenu}>카테고리</a>
         
         </Navbar>
@@ -139,7 +139,7 @@ function Header(props) {
         </Container>
         { submenuView &&
           <ul className='submenu'>
-            <li className='li'>연도</li>
+            <li className='li' onClick={() => {navigate('/movie-year');}}>연도</li>
             <li className='li'>장르</li>
             <li className='li'>평점</li>
             <li className='li'>연령</li>
@@ -148,7 +148,7 @@ function Header(props) {
         }
       </HeaderWrapper>
 
-      {/* <Outlet /> */}
+      <Outlet />
     </>
 
   );
