@@ -1,5 +1,8 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import Signin from "./components/Signin";
+import Detail from "./components/Detail";
+import Header from "./components/Header";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -14,9 +17,9 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <div>
-        메인 페이지
-      </div>
+      <Signin />
+
+      <Header />
     </>
   );
 }
