@@ -7,6 +7,9 @@ import MovieList2023 from "./category/movieyear/MovieList2023";
 
 
 
+
+import Signin from "./components/Signin";
+
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 
@@ -23,6 +26,8 @@ function App() {
   return (
     <>
       <GlobalStyle/>
+      <Signin />
+
       <Header />
       <MovieList2023 />
       <MovieList2015 />
