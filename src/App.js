@@ -13,6 +13,7 @@ import Signin from "./components/Signin";
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router";
+import Login from "./pages/Login";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -30,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route path="/sign-in" element={<Signin />} />
-          <Route path="/log-in" />
+          <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={
             <>
               <MovieList2023 />
