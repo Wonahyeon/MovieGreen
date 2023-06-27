@@ -26,7 +26,6 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      {/* <Signin /> */}
 
       <Header />
       <MovieList2023 />
