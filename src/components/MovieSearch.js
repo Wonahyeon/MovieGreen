@@ -7,21 +7,19 @@ import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
 
 const MovieSearchWrapper = styled.div`
   margin-top: 1rem;
-  h2 {
-    font-size: 1.2rem;
+  font-size: 2rem;
+  h3 {
     font-weight: bold;
-    text-align: center;
   }
   li {
+    margin: 3rem;
     display: flex;
-    justify-content: space-between;
-    margin: 2rem;
+    flex-direction: column;
+    align-items: center;
   }
   img {
-    width: 10rem;
+    width: 20rem;
     border-radius: 1.2rem;
-  }
-  .contents {
   }
 `;
 
@@ -31,8 +29,6 @@ function MovieSearch() {
   const searchResults = useSelector((state) => state.movie.searchResults);
   const status = useSelector((state) => state.movie.status);
   const error = useSelector((state) => state.movie.error);
-
-  
 
   useEffect(() => {
    dispatch(searchMovies('어벤져스')); // 검색어
@@ -48,7 +44,7 @@ function MovieSearch() {
 
   const handleMovieClick = (movie) => {
     dispatch(selectMovie(movie));
-    navigate("/movie-detail");
+    navigate(`/movie-detail/${movie.id}`);
   };
 
   if (status === 'loading') {
@@ -61,18 +57,12 @@ function MovieSearch() {
 
   return (
     <MovieSearchWrapper>
-      <h2>어벤져스 검색 결과</h2>
       <ul>
         {searchResults.map((movie) => (
-          <li key={movie.id} onClick={() => {handleMovieClick(movie)}}>
+          <li key={movie.id} onClick={() => {handleMovieClick(movie);}}>
             <img src={getImageUrl(movie.poster_path)
 } alt={movie.title} />
-            <div className='contents'>
-              <h3>{movie.title}</h3>
-              <h3>{movie.release_date}</h3>
-              <h3>{movie.popularity}</h3>
-              <h3>{movie.overview}</h3>
-            </div>
+            <h3>{movie.title}</h3>
           </li>
         ))}
       </ul>
