@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
+import { fetchMovieDetails, searchMovies, selectMovie } from '../feature/movie/movieSlice';
 
 const MovieSearchWrapper = styled.div`
   margin-top: 1rem;
@@ -32,8 +32,7 @@ function MovieSearch() {
   const error = useSelector((state) => state.movie.error);
 
   useEffect(() => {
-    dispatch(searchMovies('어벤져스')); // 검색어
-    
+    dispatch(searchMovies('')); // 검색어
   }, [dispatch]);
 
   // 이미지  상대 경로를 절대 경로로 변환하는 함수
@@ -45,6 +44,7 @@ function MovieSearch() {
   };
 
   const handleMovieClick = (movie) => {
+    dispatch(selectMovie(movie));
     navigate(`/movie-detail/${movie.id}`);
   };
 

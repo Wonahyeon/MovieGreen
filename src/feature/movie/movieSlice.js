@@ -24,6 +24,7 @@ export const searchMovies = createAsyncThunk('movie/searchMovies', async (query)
 
 const initialState = {
   searchResults : [],
+  selectedMovie: null,
   status: 'idle',
   error: null,
 };

@@ -79,7 +79,7 @@ function Detail(props) {
           <img src={getImageUrl(selectedMovie.poster_path)}/>
           <Content>
             <h3 style={{fontSize: '1.5rem'}}>{selectedMovie.title}</h3>
-            <h3>감독 : <span>{undefined}</span></h3>
+            <h3>감독 : <span>{selectedMovie.director}</span></h3>
             <h3>출연 : <span>{undefined}</span></h3>
             <h3>장르 : <span>{undefined}</span></h3>
             <h3>국가 : <span>{undefined}</span></h3>
