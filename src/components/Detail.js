@@ -57,7 +57,6 @@ const Intro = styled.div`
 
 function Detail(props) {
   const [pick, setPick] = useState(false);
-  const [movieList, setMovieList] = useState(null);
   const selectedMovie = useSelector((state) => state.movie.selectedMovie);
 
 
@@ -73,7 +72,7 @@ function Detail(props) {
     return `https://image.tmdb.org/t/p/w500${path}`;
   };
 
-
+  console.log(selectedMovie);
   return (
       <DetailWrapper>
         <div className='up'>

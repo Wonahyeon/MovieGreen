@@ -27,9 +27,9 @@ function App() {
 
       {/* <Signin /> */}
 
-      <Header />
+      {/* <Header />
       <MovieListYear />
-      <MovieListCountry />
+      <MovieListCountry /> */}
 
       <Routes>
         <Route path="/" element={<Header />}>

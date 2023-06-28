@@ -16,6 +16,7 @@ const MovieSearchWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
   }
   img {
     width: 20rem;
@@ -31,10 +32,11 @@ function MovieSearch() {
   const error = useSelector((state) => state.movie.error);
 
   useEffect(() => {
-   dispatch(searchMovies('어벤져스')); // 검색어
+    dispatch(searchMovies('어벤져스')); // 검색어
+    
   }, [dispatch]);
 
-  // 이미지 경로를 절대 경로로 변환하는 함수
+  // 이미지  상대 경로를 절대 경로로 변환하는 함수
   const getImageUrl = (path) => {
     if (!path) {
       return '';
@@ -43,7 +45,6 @@ function MovieSearch() {
   };
 
   const handleMovieClick = (movie) => {
-    dispatch(selectMovie(movie));
     navigate(`/movie-detail/${movie.id}`);
   };
 
@@ -54,7 +55,8 @@ function MovieSearch() {
   if (status === 'failed') {
     return <div>Error: {error}</div>;
   }
-
+  
+  console.log(searchResults);
   return (
     <MovieSearchWrapper>
       <ul>
