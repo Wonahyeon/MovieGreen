@@ -46,14 +46,8 @@ function App() {
           <Route path="/log-in" />
           {/* <Route path="/sign-in" element={<Signin />} /> */}
           <Route path="/log-in" element={<Login />} />
-          <Route path="/movie-year" element={
-            <>
-              <MovieList2023 />
-              <MovieList2015 />
-              <MovieList2010 />
-              <MovieList2005 />
-            </>
-          }/> 
+          <Route path="/movie-year" element={<MovieListYear />}/> 
+          <Route path="/movie-Country" element={<MovieListCountry />}/> 
         </Route>
       </Routes>
 
