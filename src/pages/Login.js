@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { MdCheckBox, MdCheckBoxOutlineBlank  } from "react-icons/md";
+import { MdCheckBox, MdCheckBoxOutlineBlank, MdInfoOutline  } from "react-icons/md";
+import { Navigate, Outlet } from 'react-router-dom';
 
 const LoginWrapper = styled.div`
   background: #212126;
   /* opacity: 0.6; */
   max-width: 450px;
-  height: 660px;
+  height: 450px;
   margin: auto;
   margin-top: 70px;
 `;
@@ -36,62 +37,175 @@ const Input = styled.input`
   margin: 10px 0 5px;
 `;
 
+// Id 경고
+const IdWarn = styled.div`
+  /* display: none; */
+  display: flex;
+  color: orange;
+  font-size: 12px;
+  margin: 5px 0 10px;
+  .warnMessage {
+    margin: 0 80px 0 5px;
+  }
+`;
+
+const PwShow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #d9d9d9;
+  margin: 5px 170px 5px 0;
+  .inputcheck {
+    margin-right: 10px;
+  }
+`;
+const CheckBox = styled.div`
+  margin: 5px 8px 5px 0;
+  font-size: 23px;
+`;
+
+
 const Btn = styled.button`
   width: 300px;
   height: 50px;
   padding: 7px;
-  margin-top: 20px;
+  margin-top: 15px;
   background: #D9D9D9;
   outline: none;
   border: none;
   border-radius: 3px;
 `;
 
-const CheckBox = styled.div`
-  background: red;
-  margin-top: 15px;
-  margin-right: 126px;
-  
+
+
+const InFo = styled.div`
+  margin-top: 20px;
+  color: #D9D9D9;
+  display: flex;
+  flex-direction: row;
+
+  .SignIn {
+    margin-right: 20px;
+  }
+
+`;
+const GoToSign = styled.a`
+  color: #D9D9D9;
+  cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: white;
+  }
 `;
 
-function Login(props) {
-  // const [value, setValue] = useState('');
 
-  // const handleChange = (e) => {
-  //   setValue(e.target)
-  // }
+
+
+
+function Login(props) {
+
+  const [IdValue, setIdValue] = useState(''); // ID
+  const [PwValue, setPwValue] = useState(''); // PW
+  const [isShowPwChecked, setIsShowPwChecked] = useState(false); // PW 보이기,감추기
+
+  const passwordRef = useRef(null);
+
+  const [warnMsShow, setWarnMsShow] = useState(false); // 메세지 상태
+console.log(warnMsShow);
+
+  // 비밀번호 
+  // /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+
+  const handleChangeId = (e) => {
+    setIdValue(e.target.value);
+  };
+  const handleChangePw = (e) => {
+    setPwValue(e.target.value);
+  };  
+  const handleAddProduct = () => {
+    setPwValue('');
+    setIdValue('');
+    if (IdValue.length < 3 ) {
+      setWarnMsShow(true);
+    } 
+  };
+
+  const handleShowPwChecked = async () => {
+    const password = await passwordRef.current
+    if (password === null) return
+
+    await setIsShowPwChecked(!isShowPwChecked)
+    if(!isShowPwChecked) {
+      password.type = 'text';
+    } else {
+      password.type = 'password';
+    }
+  }
+
+
+  
+  // setIdValue 값이 ' '일 때 submit 하면 IdWarn 보임
+  const handleShowWarn = () => {
+    if (IdValue.length < 3) {
+      setWarnMsShow(true);
+    } 
+    // setIdValue(' ') && warnMsShow(true);
+    
+  }
+
+
 
 
   return (
-    <>
-      <LoginWrapper>
-        <MainLogin>
-          <h1 className='LogText'>로그인</h1>
-          <label>
-            <Input type='text' 
-              placeholder='이메일 주소 또는 아이디'
-              // value={value}
-              // onChange={handleChange}
-            />
-          </label>
-          <label>
-            <Input type='text' 
-              placeholder='비밀번호'
-            />
-          </label>
-          <Btn>로그인</Btn>
+    <LoginWrapper>
+      <MainLogin>
+        <h1 className='LogText'>로그인</h1>
+        <label>
+          <Input type='text' 
+            placeholder='이메일 주소 또는 아이디'
+            value={IdValue}
+            onChange={handleChangeId}
+          />
+        </label>
 
+        {warnMsShow && <IdWarn>
+          <MdInfoOutline />
+          <p className='warnMessage'>이메일 또는 아이디를 입력해주세요.</p>
+        </IdWarn>}
 
-          {/* <CheckBox>
-            <MdCheckBox />
-            로그인 상태 유지하기
+        <label>
+          <Input type='password' 
+            placeholder='비밀번호'
+            value={PwValue}
+            onChange={handleChangePw}
+            maxLength={16}   
+            ref={passwordRef}
+            onKeyUp={ (e) => {
+              if(e.key === 'Enter') {
+                handleAddProduct();
+              }}}
+            />
+        </label>
+        <PwShow>
+          <input className='inputcheck' type='checkbox' onClick={(handleShowPwChecked)} />
+          {/* <CheckBox onClick={handleShowPwChecked}>
+            {CheckBox ? <MdCheckBox /> : <MdCheckBoxOutlineBlank/>}
           </CheckBox> */}
+          <span>비밀번호 보기</span>
+        </PwShow>
 
-        </MainLogin>
-        
-        
-      </LoginWrapper>
-    </>
+        <Btn type='submit' onClick={handleShowWarn}>로그인</Btn>
+
+        <InFo>
+          <p className='SignIn'>아직 계정이 없으신가요?</p>
+          <GoToSign href='/sign-in'>회원가입하기</GoToSign>          
+        </InFo>
+
+      </MainLogin>
+      
+    </LoginWrapper>
+    
   );
 }
 
