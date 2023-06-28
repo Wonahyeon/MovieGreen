@@ -44,10 +44,11 @@ const MainSignin = styled.div`
   }
   button{
     width: 300px;
-    height: 4rem;
-    margin-top: 40px;
+    height: 50px;
+    padding: 7px;
+    margin-top: 15px;
     background: #D9D9D9;
-    border-radius: 40px;
+    border-radius: 3px;
     outline: none;
     border: none;
   }
@@ -74,6 +75,7 @@ function Signin(props) {
 
   const handleEmail = (e) => { //이메일
     if (signemail.length < 4) {
+      
     }
     setSignemail(e.target.value)
   }
@@ -145,6 +147,7 @@ function Signin(props) {
           <span></span>
           <ul>
             <li><a href='https://accounts.kakao.com'>카카오</a></li>
+            <li><a href='https://nid.naver.com'>네이버</a></li>
           </ul>
 
         
