@@ -82,6 +82,7 @@ function MovieList ({targetDate }) {
     setShowSeeLess(false);
   };
 
+
   return (
     <MovieListBlock>
       <div className="title">
