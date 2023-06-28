@@ -1,9 +1,7 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import MovieList2005 from "./category/movieyear/MovieList2005";
-import MovieList2010 from "./category/movieyear/MovieList2010";
-import MovieList2015 from "./category/movieyear/MovieList2015";
-import MovieList2023 from "./category/movieyear/MovieList2023";
+
+import MovieListYear from "./category/MovieListYear";
 
 
 
@@ -12,8 +10,8 @@ import Signin from "./components/Signin";
 
 import Detail from "./components/Detail";
 import Header from "./components/Header";
-import MovieListKorea from "./category/moviecountry/MovieListKorea";
-import MovieListNotKorea from "./category/moviecountry/MovieListNotKorea";
+import MovieListCountry from "./category/MovieListCountry";
+
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -31,12 +29,9 @@ function App() {
       {/* <Signin /> */}
 
       <Header />
-      <MovieList2023 />
-      <MovieList2015 />
-      <MovieList2010 />
-      <MovieList2005 />
-      <MovieListKorea />
-      <MovieListNotKorea />
+      <MovieListYear />
+      <MovieListCountry />
+
     </>
   );
 }

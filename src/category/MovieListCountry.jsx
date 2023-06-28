@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MovieItem from '../MovieItem';
+import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
@@ -50,7 +50,7 @@ const MovieListBlock = styled.div`
   }
 `;
 
-function MovieList() {
+function MovieListCountry({targetDate, targetCountry}) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -64,7 +64,7 @@ function MovieList() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=f5eef3421c602c6cb7ea224104795888&genre=3`);
+        const response = await axios.get(`https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${today - 1}&repNationCd=${targetDate}`);
         console.log(response.data.boxOfficeResult.dailyBoxOfficeList);
 
         setMovies(response.data.boxOfficeResult.dailyBoxOfficeList);
@@ -74,7 +74,7 @@ function MovieList() {
     };
 
     fetchMovie();
-  }, []);
+  }, [targetDate]);
 
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
@@ -91,7 +91,7 @@ function MovieList() {
   return (
     <MovieListBlock>
       <div className="title">
-        2015년<span>20151231</span>
+        {targetCountry}
       </div>
       <div className="content">
         {movies &&
@@ -113,4 +113,18 @@ function MovieList() {
   );
 }
 
-export default MovieList;
+function MovieListContainer() {
+
+  const targetDates = ['K', 'F'];
+  const targetCountry = ['한국영화', '외국영화'];
+  
+  return (
+    <div>
+      {targetDates.map((date, index) => (
+        <MovieListCountry key={date} targetDate={date} targetCountry={targetCountry[index]} />
+      ))}
+    </div>
+  );
+}
+
+export default MovieListContainer;
