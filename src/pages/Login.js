@@ -38,13 +38,16 @@ const Input = styled.input`
 `;
 
 // Id 경고
-const IdWarn = styled.div`
+const Warn = styled.div`
   /* display: none; */
   display: flex;
   color: orange;
   font-size: 12px;
   margin: 5px 0 10px;
   .warnMessage {
+    margin: 0 48px 0 5px;
+  }
+  .warnPwMessage {
     margin: 0 80px 0 5px;
   }
 `;
@@ -111,7 +114,9 @@ function Login(props) {
 
   const passwordRef = useRef(null);
 
-  const [warnMsShow, setWarnMsShow] = useState(false); // 메세지 상태
+  const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
+  const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
+
 console.log(warnMsShow);
 
   // 비밀번호 
@@ -126,10 +131,15 @@ console.log(warnMsShow);
   const handleAddProduct = () => {
     setPwValue('');
     setIdValue('');
-    if (IdValue.length < 3 ) {
-      setWarnMsShow(true);
-    } 
+    IdValue.length < 3 ? setWarnMsShow(true) : setWarnMsShow(false);
+    PwValue.length < 4 ? setwarnPwMsShow(true) : setwarnPwMsShow(false);
   };
+
+  const handleShowWarn = () => {
+    IdValue.length < 3 ? setWarnMsShow(true) : setWarnMsShow(false);
+    PwValue.length < 4 ? setwarnPwMsShow(true) : setwarnPwMsShow(false);
+  }
+  // Id 글자수 맞춰도 안 사라짐
 
   const handleShowPwChecked = async () => {
     const password = await passwordRef.current
@@ -142,18 +152,6 @@ console.log(warnMsShow);
       password.type = 'password';
     }
   }
-
-
-  
-  // setIdValue 값이 ' '일 때 submit 하면 IdWarn 보임
-  const handleShowWarn = () => {
-    if (IdValue.length < 3) {
-      setWarnMsShow(true);
-    } 
-    // setIdValue(' ') && warnMsShow(true);
-    
-  }
-
 
 
 
@@ -169,10 +167,10 @@ console.log(warnMsShow);
           />
         </label>
 
-        {warnMsShow && <IdWarn>
+        {warnMsShow && <Warn>
           <MdInfoOutline />
-          <p className='warnMessage'>이메일 또는 아이디를 입력해주세요.</p>
-        </IdWarn>}
+          <p className='warnMessage'>정확한 이메일 또는 아이디를 입력해주세요.</p>
+        </Warn>}
 
         <label>
           <Input type='password' 
@@ -187,6 +185,12 @@ console.log(warnMsShow);
               }}}
             />
         </label>
+
+        {warnPwMsShow && <Warn>
+          <MdInfoOutline />
+          <p className='warnPwMessage'>비밀번호는 4~16자 사이여야 합니다.</p>
+        </Warn>}
+
         <PwShow>
           <input className='inputcheck' type='checkbox' onClick={(handleShowPwChecked)} />
           {/* <CheckBox onClick={handleShowPwChecked}>
