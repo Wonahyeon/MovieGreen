@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const MovieItemBlock = styled.div`
   display: flex;
@@ -7,11 +7,11 @@ const MovieItemBlock = styled.div`
   color: #aabb93;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0 ;
+  margin: 1.5rem 0;
   padding: 1rem;
-  /* border-radius: 5rem; */
   width: 240px;
   height: 360px;
+
   h2 {
     display: flex;
     align-items: center;
@@ -20,6 +20,7 @@ const MovieItemBlock = styled.div`
     height: 3rem;
     text-decoration: underline;
   }
+
   div {
     flex: 1;
     display: flex;
@@ -29,12 +30,21 @@ const MovieItemBlock = styled.div`
     text-align: right;
     padding: 0 1.5rem;
   }
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
 `;
 
-function MovieItem({movie}) { 
-  const {rank, movieNm, openDt} = movie;
+function MovieItem({ movie }) {
+  const { rank, movieNm, openDt, poster_path } = movie;
+  const posterUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  console.log('movie', movie);
   return (
     <MovieItemBlock>
+      <img src={posterUrl} alt={movieNm} />
       <h2>{rank}</h2>
       <div>
         <h3>{movieNm}</h3>

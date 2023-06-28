@@ -49,7 +49,8 @@ const MovieListBlock = styled.div`
     font-size: 30px;
   }
 `;
-function MovieList ({targetDate }) {
+
+function MovieList({ targetDate }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -58,12 +59,25 @@ function MovieList ({targetDate }) {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${targetDate}`);
-        console.log(response.data.boxOfficeResult.dailyBoxOfficeList);
-
-        setMovies(response.data.boxOfficeResult.dailyBoxOfficeList);
-      } catch (e) {
-        console.error(e);
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/discover/movie`,
+          {
+            params: {
+              api_key: '43af09871fd391abc84a35b271386b01',
+              language: 'ko-KR', 
+              region: 'KR', 
+               sort_by: 'popularity.desc',
+              primary_release_date: targetDate,
+            },
+          }
+          
+        );
+        const movies = response.data.results;
+        setMovies(movies);
+        // return movies; 
+        console.log('ssssssssmovies', movies);
+      } catch (error) {
+        console.error(error);
       }
     };
 
@@ -78,7 +92,7 @@ function MovieList ({targetDate }) {
 
   const handleSeeLess = () => {
     setVisibleMovies(4);
-    setShowSeeMore(true);
+    setShowSeeMore(true);   
     setShowSeeLess(false);
   };
 
@@ -89,10 +103,10 @@ function MovieList ({targetDate }) {
         {targetDate.slice(0, 4)}년<span>{targetDate}</span>
       </div>
       <div className="content">
-        {movies &&
-          movies.slice(0, visibleMovies).map((movie) => (
-            <MovieItem key={movie.movieCd} movie={movie} />
-          ))}
+      {movies &&
+        movies.slice(0, visibleMovies).map((movie) => (
+          <MovieItem key={movie.id} movie={movie} /> 
+        ))}
       {showSeeMore && (
         <div className="see-more">
           <button onClick={handleSeeMore} className="more">➤</button>
@@ -108,20 +122,20 @@ function MovieList ({targetDate }) {
   );
 }
 
-function MovieListContainer() {
+function MovieListYearContainer() {
   const today_year = String(new Date().getFullYear());
-  const today_month = String(new Date().getMonth() + 1);
-  const today_date = String(new Date().getDate());
-  const today = today_year + (today_month < 10 ? '0' + today_month : today_month) + (today_date < 10 ? '0' + today_date : today_date);
-  const targetDates = ['20051231', '20101231', '20151231', `${today - 1}`];
-  
+  const today_month = String(new Date().getMonth() + 1).padStart(2, '0');
+  const today_date = String(new Date().getDate()).padStart(2, '0');
+  const today = today_year + today_month + today_date;
+  const targetDates = ['2005-12-31', '2010-12-31', '2015-12-31', `${today -  1}`];
+
   return (
     <div>
-      {targetDates.map((date) => (
+    {targetDates.map((date) => (
         <MovieList key={date} targetDate={date} />
       ))}
-    </div>
+  </div>
   );
 }
 
-export default MovieListContainer;
+export default MovieListYearContainer;

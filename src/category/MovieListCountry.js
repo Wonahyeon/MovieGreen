@@ -113,7 +113,7 @@ function MovieListCountry({targetDate, targetCountry}) {
   );
 }
 
-function MovieListContainer() {
+function MovieListCountryContainer() {
 
   const targetDates = ['K', 'F'];
   const targetCountry = ['한국영화', '외국영화'];
@@ -127,4 +127,4 @@ function MovieListContainer() {
   );
 }
 
-export default MovieListContainer;
+export default MovieListCountryContainer;
