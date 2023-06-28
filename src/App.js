@@ -6,10 +6,7 @@ import MovieListYear from "./category/MovieListYear";
 
 
 
-import Signin from "./components/Signin";
 
-import Detail from "./components/Detail";
-import Header from "./components/Header";
 import MovieListCountry from "./category/MovieListCountry";
 
 
@@ -35,9 +32,9 @@ function App() {
 
       {/* <Signin /> */}
 
-      <Header />
-      <MovieListYear />
-      <MovieListCountry />
+      {/* <Header /> */}
+      {/* <MovieListYear />
+      <MovieListCountry /> */}
 
       <Routes>
         <Route path="/" element={<Header />}>
