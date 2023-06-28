@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import MovieListCountry from "./category/MovieListCountry";
 
 import { Route, Routes } from "react-router";
+import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
 
@@ -40,7 +41,7 @@ function App() {
           <Route path="/" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
           <Route path="/log-in" />
-          {/* <Route path="/sign-in" element={<Signin />} /> */}
+          <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={<MovieListYear />}/> 
           <Route path="/movie-country" element={<MovieListCountry />}/> 
