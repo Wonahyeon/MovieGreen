@@ -32,8 +32,8 @@ function App() {
 
       {/* <Signin /> */}
 
-      {/* <Header /> */}
-      {/* <MovieListYear />
+      {/* <Header />
+      <MovieListYear />
       <MovieListCountry /> */}
 
       <Routes>
@@ -44,7 +44,7 @@ function App() {
           {/* <Route path="/sign-in" element={<Signin />} /> */}
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={<MovieListYear />}/> 
-          <Route path="/movie-Country" element={<MovieListCountry />}/> 
+          <Route path="/movie-country" element={<MovieListCountry />}/> 
         </Route>
       </Routes>
 
