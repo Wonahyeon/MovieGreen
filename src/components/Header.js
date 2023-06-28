@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineSearch as find  } from "react-icons/ai";
+import { AiOutlineSearch as Find  } from "react-icons/ai";
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { searchMovies } from '../feature/movie/movieSlice';
 
 const HeaderNav = styled.div`
   display: flex;
@@ -99,6 +101,7 @@ function Header(props) {
   const [submenuView, setSubmenuView] = useState(false);
   const [value, setValue] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmenu = () => {
     setSubmenuView(!submenuView);
@@ -107,8 +110,8 @@ function Header(props) {
   const handleChange = (e) => {
     setValue(e.target.value);
   }
-  const handleSubmit = (e) => {
-
+  const handleSubmit = () => {
+    dispatch(searchMovies(value));
   }
 
 
@@ -134,7 +137,7 @@ function Header(props) {
             placeholder='영화를 입력하세요.'
             value={value}
             onChange={handleChange}
-          />
+            />
         </form>
         </Container>
         { submenuView &&
@@ -143,7 +146,7 @@ function Header(props) {
             <li className='li'>장르</li>
             <li className='li'>평점</li>
             <li className='li'>연령</li>
-            <li className='li'>국가</li>
+            <li className='li' onClick={() => {navigate('/movie-country');}}>국가</li>
           </ul>
         }
       </HeaderWrapper>

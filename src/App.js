@@ -1,18 +1,18 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-import MovieList2005 from "./category/movieyear/MovieList2005";
-import MovieList2010 from "./category/movieyear/MovieList2010";
-import MovieList2015 from "./category/movieyear/MovieList2015";
-import MovieList2023 from "./category/movieyear/MovieList2023";
-
-
-
-
+import MovieListYear from "./category/MovieListYear";
 
 import Detail from "./components/Detail";
 import Header from "./components/Header";
+
+
+
+import MovieListCountry from "./category/MovieListCountry";
+
 import { Route, Routes } from "react-router";
+import Signin from "./pages/Signin";
 import Login from "./pages/Login";
+import MovieSearch from "./components/MovieSearch";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -24,23 +24,31 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+
+  
   return (
     <>
       <GlobalStyle/>
+
+      {/* <Signin /> */}
+
+      {/* <Header />
+      <MovieListYear />
+      <MovieListCountry /> */}
+
       <Routes>
         <Route path="/" element={<Header />}>
+
+          <Route path="/" element={<MovieSearch/>} />
+          <Route path="/movie-detail/:movieId" element={<Detail/>} />
+
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
-          <Route path="/movie-year" element={
-            <>
-              <MovieList2023 />
-              <MovieList2015 />
-              <MovieList2010 />
-              <MovieList2005 />
-            </>
-          }/>
+          <Route path="/movie-year" element={<MovieListYear />}/> 
+          <Route path="/movie-country" element={<MovieListCountry />}/> 
         </Route>
       </Routes>
+
     </>
   );
 }

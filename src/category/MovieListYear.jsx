@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MovieItem from '../MovieItem';
+import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
@@ -41,30 +41,24 @@ const MovieListBlock = styled.div`
       cursor: pointer;
     }
   }
-  .more{
-    font-size: 30px;
-    margin-top: 260%;
+  .more {
+  font-size: 30px;
+  margin-top: 260%;
   }
   .less {
     font-size: 30px;
   }
 `;
-
-function MovieList() {
+function MovieList ({targetDate }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
 
-  const today_year = String(new Date().getFullYear());
-  const today_month = String(new Date().getMonth() + 1);
-  const today_date = String(new Date().getDate());
-  const today = today_year + (today_month < 10 ? '0' + today_month : today_month) + (today_date < 10 ? '0' + today_date : today_date);
-
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20151231`);
+        const response = await axios.get(`https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${targetDate}`);
         console.log(response.data.boxOfficeResult.dailyBoxOfficeList);
 
         setMovies(response.data.boxOfficeResult.dailyBoxOfficeList);
@@ -74,7 +68,7 @@ function MovieList() {
     };
 
     fetchMovie();
-  }, []);
+  }, [targetDate]);
 
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
@@ -91,7 +85,7 @@ function MovieList() {
   return (
     <MovieListBlock>
       <div className="title">
-        2015년<span>20151231</span>
+        {targetDate.slice(0, 4)}년<span>{targetDate}</span>
       </div>
       <div className="content">
         {movies &&
@@ -100,17 +94,33 @@ function MovieList() {
           ))}
       {showSeeMore && (
         <div className="see-more">
-          <button onClick={handleSeeMore} className='more'>➤</button>
+          <button onClick={handleSeeMore} className="more">➤</button>
         </div>
       )}
       </div>
       {showSeeLess && (
         <div className="see-more">
-          <button onClick={handleSeeLess} className='less'>✕</button>
+          <button onClick={handleSeeLess} className="less">✕</button>
         </div>
       )}
     </MovieListBlock>
   );
 }
 
-export default MovieList;
+function MovieListContainer() {
+  const today_year = String(new Date().getFullYear());
+  const today_month = String(new Date().getMonth() + 1);
+  const today_date = String(new Date().getDate());
+  const today = today_year + (today_month < 10 ? '0' + today_month : today_month) + (today_date < 10 ? '0' + today_date : today_date);
+  const targetDates = ['20051231', '20101231', '20151231', `${today - 1}`];
+  
+  return (
+    <div>
+      {targetDates.map((date) => (
+        <MovieList key={date} targetDate={date} />
+      ))}
+    </div>
+  );
+}
+
+export default MovieListContainer;
