@@ -110,8 +110,10 @@ function Header(props) {
   const handleChange = (e) => {
     setValue(e.target.value);
   }
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     dispatch(searchMovies(value));
+    setValue('');
   };
 
 
