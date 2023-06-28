@@ -29,6 +29,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+
+  
   return (
     <>
       <GlobalStyle/>
@@ -42,7 +44,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route path="/" element={<MovieSearch/>} />
-          <Route path="/movie-detail" element={<Detail/>} />
+          <Route path="/movie-detail/:movieId" element={<Detail/>} />
           <Route path="/log-in" />
           {/* <Route path="/sign-in" element={<Signin />} /> */}
           <Route path="/log-in" element={<Login />} />
