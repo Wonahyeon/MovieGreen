@@ -29,7 +29,6 @@ function App() {
       <GlobalStyle/>
       <Routes>
         <Route path="/" element={<Header />}>
-          <Route path="/log-in" />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={

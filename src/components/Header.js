@@ -116,7 +116,7 @@ function Header(props) {
     <>
         <HeaderNav>
           <a className='signIn' onClick={() => { navigate('/sign-in'); }} >회원가입</a>
-          <a className='logIn' onClick={() => { navigate("/log-in") }} >로그인</a>
+          <a className='logIn' onClick={() => { navigate("/log-in"); }} >로그인</a>
         </HeaderNav>
 
       <HeaderWrapper>
