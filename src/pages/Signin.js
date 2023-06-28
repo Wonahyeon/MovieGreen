@@ -9,6 +9,15 @@ const SigninWrapper = styled.div`
   margin-top: 70px;
 `;
 
+const MainSignin = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+`;
+
+
 
 function Signin(props) {
   return (
