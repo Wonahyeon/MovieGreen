@@ -4,6 +4,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 // test
 import test from "../detail-test.json";
+// import { useParams } from 'react-router-dom';
 
 const DetailWrapper = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ const Intro = styled.div`
 function Detail(props) {
   const [pick, setPick] = useState(false);
   const [movieList, setMovieList] = useState(null);
+  // const { movieId } = useParams();
 
   const handlePick = () => {
     setPick(!pick);
