@@ -1,8 +1,12 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import MovieListYear from "./category/MovieListYear";
+
 import Detail from "./components/Detail";
 import Header from "./components/Header";
+
+
+
 import MovieListCountry from "./category/MovieListCountry";
 
 import { Route, Routes } from "react-router";
@@ -27,9 +31,9 @@ function App() {
 
       {/* <Signin /> */}
 
-      <Header />
+      {/* <Header />
       <MovieListYear />
-      <MovieListCountry />
+      <MovieListCountry /> */}
 
       <Routes>
         <Route path="/" element={<Header />}>
@@ -39,7 +43,7 @@ function App() {
           {/* <Route path="/sign-in" element={<Signin />} /> */}
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={<MovieListYear />}/> 
-          <Route path="/movie-Country" element={<MovieListCountry />}/> 
+          <Route path="/movie-country" element={<MovieListCountry />}/> 
         </Route>
       </Routes>
 
