@@ -1,23 +1,13 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
-
 import MovieListYear from "./category/MovieListYear";
-
-
-
-
-import Signin from "./components/Signin";
-
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 import MovieListCountry from "./category/MovieListCountry";
 
-
-import Header from "./components/Header";
 import { Route, Routes } from "react-router";
 import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
-import Detail from "./components/Detail";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
