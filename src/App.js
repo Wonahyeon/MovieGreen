@@ -13,10 +13,6 @@ import Header from "./components/Header";
 import MovieListCountry from "./category/MovieListCountry";
 
 
-import MovieList2005 from "./category/movieyear/MovieList2005";
-import MovieList2010 from "./category/movieyear/MovieList2010";
-import MovieList2015 from "./category/movieyear/MovieList2015";
-import MovieList2023 from "./category/movieyear/MovieList2023";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router";
 import Login from "./pages/Login";
