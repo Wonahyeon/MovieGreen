@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { MdCheckBox, MdCheckBoxOutlineBlank, MdInfoOutline  } from "react-icons/md";
+import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const LoginWrapper = styled.div`
@@ -39,7 +39,6 @@ const Input = styled.input`
 
 // Id 경고
 const Warn = styled.div`
-  /* display: none; */
   display: flex;
   color: orange;
   font-size: 12px;
@@ -53,21 +52,13 @@ const Warn = styled.div`
 `;
 
 const PwShow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: #d9d9d9;
-  margin: 5px 170px 5px 0;
-  .inputcheck {
-    margin-right: 10px;
-  }
+  position: relative;
+  left: 267px;
+  bottom: 38px;
+  color: #212126;
+  display: block;
+  height: 0px;
 `;
-const CheckBox = styled.div`
-  margin: 5px 8px 5px 0;
-  font-size: 23px;
-`;
-
 
 const Btn = styled.button`
   width: 300px;
@@ -82,7 +73,6 @@ const Btn = styled.button`
     background: #AD8888;
   }
 `;
-
 
 const InFo = styled.div`
   margin-top: 20px;
@@ -104,17 +94,19 @@ const GoToSign = styled.a`
   }
 `;
 
-
-
-
+// 비밀번호 보이기
 
 function Login(props) {
 
   const navigate = useNavigate();
 
-  const [IdValue, setIdValue] = useState(''); // ID
-  const [PwValue, setPwValue] = useState(''); // PW
-  const [isShowPwChecked, setIsShowPwChecked] = useState(false); // PW 보이기,감추기
+  const [showPassward, setShowPassward] = useState({
+    type: 'password',
+    visible: false
+  }); // 비밀번호 보이기
+  
+  const [idValue, setIdValue] = useState(''); // ID
+  const [pwValue, setPwValue] = useState(''); // PW
 
   const passwordRef = useRef(null);
 
@@ -128,57 +120,69 @@ function Login(props) {
     setPwValue(e.target.value);
   }; 
 
-
 // 영문자 또는 숫자 6~20자 
 // 대문자 하나 이상, 소문자 하나 및 숫자 하나
 
-  const Iderr = /^[a-z]+[a-z0-9]{5,19}$/;  
-  const Pwerr =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;  
+  const idErr = /^[a-z]+[a-z0-9]{5,19}$/;  
+  const pwErr =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;  
 
-const handleValid = () => {
-  const vaildData = (Iderr.test(IdValue) ? setWarnMsShow(false) : setWarnMsShow(true) &&
-  Pwerr.test(PwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true) ) ?
-  true : false;
-console.log(vaildData);
-  return vaildData;
-}
+  const handleValid = () => {
+    idErr.test(idValue) ? setWarnMsShow(false) : setWarnMsShow(true);
+    pwErr.test(pwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true);
+    if (idErr.test(idValue) && pwErr.test(pwValue)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  const handleAddInfo = () => {
 
-  // 엔터눌렀을 때
-  const handleAddProduct = () => {
-    // setPwValue('');
-    // setIdValue('');
-
-    handleValid() ? navigate('/') : setIdValue('');setPwValue('');
-
-    // 로그인 버튼 누를때 유효성 검사 후 true -> 메인 페이지 / false -> 그대로
-
+    if (!handleValid()) {
+      setPwValue('');
+      setIdValue('');
+    } else {
+      navigate('/');
+    }
   };
 
 
-  // 로그인 버튼 누를때
-  const handleShowWarn = () => {
-    setPwValue('');
-    setIdValue('');
-    // if (Pwerr.test(PwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true) ||
-    // Iderr.test(IdValue) ? setWarnMsShow(false) : setWarnMsShow(true)) {
-    //   navigate('/');
-      
-    navigate('/');
-  }
+
+// await 필요 없음
+// dom 직접 접근x type(Pw/text) state로 변경
 
 
+  // const handleShowPwChecked = async () => {
+  //   const password = await passwordRef.current
+  //   if (password === null) return
 
-  const handleShowPwChecked = async () => {
-    const password = await passwordRef.current
-    if (password === null) return
+  //   await setIsShowPwChecked(!isShowPwChecked)
+  //   if(!isShowPwChecked) {
+  //     password.type = 'text';
+  //   } else {
+  //     password.type = 'password';
+  //   }
+  // }
 
-    await setIsShowPwChecked(!isShowPwChecked)
-    if(!isShowPwChecked) {
-      password.type = 'text';
-    } else {
-      password.type = 'password';
-    }
+  // const handleShowPw = () => {
+  //   setShowPassward(!showPassward);
+  //   const password = passwordRef;
+  //   if (!showPassward) {
+  //     password.type = 'text';
+  //   } else {
+  //     password.type = 'password';
+  //   }
+  // };
+  // console.log(Input.type);
+
+  const handleShowPw = (e) => {
+    setShowPassward(() => {
+      if (!showPassward.visible) {
+        return { type: 'text', visible: true };
+      } else {
+        return { type: 'password', visible: false };
+      }
+    })
   }
 
   return (
@@ -188,7 +192,7 @@ console.log(vaildData);
         <label>
           <Input type='text' 
             placeholder='이메일 주소 또는 아이디'
-            value={IdValue}
+            value={idValue}
             onChange={handleChangeId}
           />
         </label>
@@ -199,17 +203,21 @@ console.log(vaildData);
         </Warn>}
 
         <label>
-          <Input type='password' 
+          <Input type={showPassward.type} 
             placeholder='비밀번호'
-            value={PwValue}
+            value={pwValue}
             onChange={handleChangePw}
             maxLength={16}   
             ref={passwordRef}
             onKeyUp={ (e) => {
               if(e.key === 'Enter') {
-                handleAddProduct();
+                handleAddInfo();
               }}}
             />
+        <PwShow>
+          {!showPassward && <MdOutlineVisibility onClick={handleShowPw}/>}
+          {showPassward && <MdOutlineVisibilityOff  onClick={handleShowPw}/>}
+        </PwShow>
         </label>
 
         {warnPwMsShow && <Warn>
@@ -217,15 +225,8 @@ console.log(vaildData);
           <p className='warnPwMessage'>대소문자/특수문자를 모두 포함해주세요.</p>
         </Warn>}
 
-        <PwShow>
-          <input className='inputcheck' type='checkbox' onClick={(handleShowPwChecked)} />
-          {/* <CheckBox onClick={handleShowPwChecked}>
-            {CheckBox ? <MdCheckBox /> : <MdCheckBoxOutlineBlank/>}
-          </CheckBox> */}
-          <span>비밀번호 보기</span>
-        </PwShow>
 
-        <Btn type='submit' onClick={() => handleShowWarn()} >로그인</Btn>
+        <Btn type='button' onClick={() => handleAddInfo()} >로그인</Btn>
 
         <InFo>
           <p className='SignIn'>아직 계정이 없으신가요?</p>
