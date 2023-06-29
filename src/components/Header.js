@@ -4,6 +4,7 @@ import { AiOutlineSearch as Find  } from "react-icons/ai";
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
+import Video from './Video';
 
 const HeaderNav = styled.div`
   display: flex;
@@ -159,6 +160,8 @@ function Header(props) {
           </ul>
         }
       </HeaderWrapper>
+
+      <Video />
 
       <Outlet />
     </>

@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
 import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
+import Video from "./components/Video";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
