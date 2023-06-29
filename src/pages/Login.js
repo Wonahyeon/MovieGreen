@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -146,35 +146,6 @@ function Login(props) {
     }
   };
 
-
-
-// await 필요 없음
-// dom 직접 접근x type(Pw/text) state로 변경
-
-
-  // const handleShowPwChecked = async () => {
-  //   const password = await passwordRef.current
-  //   if (password === null) return
-
-  //   await setIsShowPwChecked(!isShowPwChecked)
-  //   if(!isShowPwChecked) {
-  //     password.type = 'text';
-  //   } else {
-  //     password.type = 'password';
-  //   }
-  // }
-
-  // const handleShowPw = () => {
-  //   setShowPassward(!showPassward);
-  //   const password = passwordRef;
-  //   if (!showPassward) {
-  //     password.type = 'text';
-  //   } else {
-  //     password.type = 'password';
-  //   }
-  // };
-  // console.log(Input.type);
-
   const handleShowPw = (e) => {
     setShowPassward(() => {
       if (!showPassward.visible) {
@@ -215,8 +186,8 @@ function Login(props) {
               }}}
             />
         <PwShow>
-          {!showPassward && <MdOutlineVisibility onClick={handleShowPw}/>}
-          {showPassward && <MdOutlineVisibilityOff  onClick={handleShowPw}/>}
+          {!showPassward.visible && <MdOutlineVisibilityOff onClick={handleShowPw}/>}
+          {showPassward.visible && <MdOutlineVisibility  onClick={handleShowPw}/>}
         </PwShow>
         </label>
 
