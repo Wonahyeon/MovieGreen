@@ -40,6 +40,7 @@ function App() {
       {/* <CategoryHome /> */}
       <Routes>
         <Route path="/" element={<Header />}>
+          <Route path="/" element={<MovieSearch/>}/>
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
@@ -49,7 +50,7 @@ function App() {
           <Route path="/movie-genre" element={<MovieListGenre />}/>  */}
         </Route>
       </Routes>
-      <MovieSearch/> 
+      
     </>
   );
 }
