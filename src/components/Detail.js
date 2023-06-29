@@ -5,25 +5,39 @@ import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
+import MovieSearch from './MovieSearch';
 
 
 const DetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 2rem;
-  width: 80rem;
+  margin: 2rem auto;
+  width: 60rem;
   img {
     border-radius: 0.5rem;
   }
-  .up {
+  .content {
     display: flex;
     justify-content: space-around;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .toggle-button {
+    cursor: pointer;
   }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
   justify-content: center;
   h3 {
     margin-bottom: 1rem;
@@ -38,7 +52,7 @@ const Pick = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 10rem;
   svg {
     font-size: 3rem;
     margin-bottom: 1rem;
@@ -47,27 +61,10 @@ const Pick = styled.div`
   }
 `;
 
-const Intro = styled.div`
-  margin:  2rem 3rem;
-  font-weight: bold;
-  span {
-    font-weight: 400;
-  }
-`;
-
 const CastWrapper = styled.div`
   .cast-list {
     display: flex;
     flex-wrap: wrap;
-  }
-  .cast-item {
-    /* width: 33.33%; */
-    margin-bottom: 1rem;
-  }
-  .show-more {
-    cursor: pointer;
-    text-decoration: underline;
-    margin-top: 0.5rem;
   }
 `;
 
@@ -115,19 +112,20 @@ function Detail(props) {
   
 
   return (
+      <>
       <DetailWrapper>
-        <div className='up'>
-          <img src={getImageUrl(selectedMovie.poster_path)} alt={selectedMovie.title} />
+        <img src={getImageUrl(selectedMovie.backdrop_path)} alt={selectedMovie.title} />
+        <div className='content'>
           <Content>
-            <h3 style={{fontSize: '1.5rem'}}>{selectedMovie.title}</h3>
+            <h1>{selectedMovie.title}</h1>
             <h3>
-              장르 :{' '}
+              장르{' '}
               <span>
                 {movieDetails && movieDetails.genres.map((genre) => genre.name).join(', ')}
               </span>
             </h3>
             <h3>
-              국가 :{' '}
+              국가{' '}
               <span>
                 {movieDetails &&
                   movieDetails.production_countries
@@ -135,25 +133,41 @@ function Detail(props) {
                     .join(', ')}
               </span>
             </h3>
-            <h3>감독 : <span>{movieCredits && movieCredits.crew[2].name}</span></h3>
-            <h3>출연:</h3>
-            {movieCredits && (
-              <CastWrapper>
-                <div className="cast-list">
-                  {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
-                    <div key={cast.id} className="cast-item">
-                      {cast.name}
+            <h3>감독 <span>{movieCredits && movieCredits.crew[2].name}</span></h3>
+            <h3>출연
+              <span>
+                {movieCredits && (
+                  <CastWrapper>
+                    <div className="cast-list">
+                      {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
+                        <div key={cast.id} className="cast-item">
+                          {cast.name},
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                {movieCredits.cast.length > 3 && (
-                  <div className="toggle-button" onClick={handleToggleCast}>
-                    {showMoreCast ? '간략히 보기' : '더 보기'}
-                  </div>
+                    {movieCredits.cast.length > 3 && (
+                      <div className="toggle-button" onClick={handleToggleCast}>
+                        {showMoreCast ? '간략히 보기' : '자세히 보기'}
+                      </div>
+                    )}
+                  </CastWrapper>
                 )}
-              </CastWrapper>
-            )}
-
+              </span>
+            </h3>
+            <h3>소개
+              <div>
+                <span>{
+                  selectedMovie.overview.length <= 100 || isExpanded
+                  ? selectedMovie.overview :
+                  selectedMovie.overview.slice(0, 100) + '...'
+                  }</span>
+              </div>
+              {selectedMovie.overview.length > 100 && (
+                <span className="toggle-button" onClick={handleToggleIntro}>
+                  {isExpanded ? '간략히 보기' : '자세히 보기'}
+                </span>
+              )}
+            </h3>
           </Content>
           <Pick>
             {!pick && <MdFavoriteBorder onClick={handlePick}/>}
@@ -161,15 +175,8 @@ function Detail(props) {
             <p>찜하기</p>
           </Pick>
         </div>
-        <Intro>
-          소개 : <span>{renderIntroText()}</span>
-          {selectedMovie.overview.length > 100 && (
-            <span className="toggle-button" onClick={handleToggleIntro}>
-              {isExpanded ? '간략히 보기' : '자세히 보기'}
-            </span>
-          )}
-        </Intro>
       </DetailWrapper>
+      </>
   );
 }
 
