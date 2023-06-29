@@ -16,15 +16,22 @@ const HeaderNav = styled.div`
   .signIn {
     padding: 10px;
     cursor: pointer;
+    &:hover{
+      color: white;
+      transition: 1s ease-in-out;
+    }
   }
   .logIn {
     padding: 10px;
     cursor: pointer;
+    &:hover{
+      color: white;
+      transition: 1s ease-in-out;
+    }
   }
 `;
 
 const HeaderWrapper = styled.div`
-  width: 100%;
   height: 100px;
   background: #212126;
   padding: 8px;
@@ -132,7 +139,7 @@ function Header(props) {
         
         </Navbar>
 
-        <a href='#' className='Logo'>Movie Green</a>
+        <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>
 
         <form onSubmit={handleSubmit}>
           <Input type='text'

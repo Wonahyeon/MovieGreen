@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdCheckBox, MdCheckBoxOutlineBlank, MdInfoOutline  } from "react-icons/md";
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -48,7 +48,7 @@ const Warn = styled.div`
     margin: 0 48px 0 5px;
   }
   .warnPwMessage {
-    margin: 0 80px 0 5px;
+    margin: 0 55px 0 5px;
   }
 `;
 
@@ -78,8 +78,10 @@ const Btn = styled.button`
   outline: none;
   border: none;
   border-radius: 3px;
+  &:active{
+    background: #AD8888;
+  }
 `;
-
 
 
 const InFo = styled.div`
@@ -108,6 +110,8 @@ const GoToSign = styled.a`
 
 function Login(props) {
 
+  const navigate = useNavigate();
+
   const [IdValue, setIdValue] = useState(''); // ID
   const [PwValue, setPwValue] = useState(''); // PW
   const [isShowPwChecked, setIsShowPwChecked] = useState(false); // PW 보이기,감추기
@@ -117,29 +121,53 @@ function Login(props) {
   const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
   const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
 
-console.log(warnMsShow);
-
-  // 비밀번호 
-  // /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
-
   const handleChangeId = (e) => {
     setIdValue(e.target.value);
   };
   const handleChangePw = (e) => {
     setPwValue(e.target.value);
-  };  
+  }; 
+
+
+// 영문자 또는 숫자 6~20자 
+// 대문자 하나 이상, 소문자 하나 및 숫자 하나
+
+  const Iderr = /^[a-z]+[a-z0-9]{5,19}$/;  
+  const Pwerr =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;  
+
+const handleValid = () => {
+  const vaildData = (Iderr.test(IdValue) ? setWarnMsShow(false) : setWarnMsShow(true) &&
+  Pwerr.test(PwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true) ) ?
+  true : false;
+console.log(vaildData);
+  return vaildData;
+}
+
+
+  // 엔터눌렀을 때
   const handleAddProduct = () => {
-    setPwValue('');
-    setIdValue('');
-    IdValue.length < 3 ? setWarnMsShow(true) : setWarnMsShow(false);
-    PwValue.length < 4 ? setwarnPwMsShow(true) : setwarnPwMsShow(false);
+    // setPwValue('');
+    // setIdValue('');
+
+    handleValid() ? navigate('/') : setIdValue('');setPwValue('');
+
+    // 로그인 버튼 누를때 유효성 검사 후 true -> 메인 페이지 / false -> 그대로
+
   };
 
+
+  // 로그인 버튼 누를때
   const handleShowWarn = () => {
-    IdValue.length < 3 ? setWarnMsShow(true) : setWarnMsShow(false);
-    PwValue.length < 4 ? setwarnPwMsShow(true) : setwarnPwMsShow(false);
+    setPwValue('');
+    setIdValue('');
+    // if (Pwerr.test(PwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true) ||
+    // Iderr.test(IdValue) ? setWarnMsShow(false) : setWarnMsShow(true)) {
+    //   navigate('/');
+      
+    navigate('/');
   }
-  // Id 글자수 맞춰도 안 사라짐
+
+
 
   const handleShowPwChecked = async () => {
     const password = await passwordRef.current
@@ -152,8 +180,6 @@ console.log(warnMsShow);
       password.type = 'password';
     }
   }
-
-
 
   return (
     <LoginWrapper>
@@ -188,7 +214,7 @@ console.log(warnMsShow);
 
         {warnPwMsShow && <Warn>
           <MdInfoOutline />
-          <p className='warnPwMessage'>비밀번호는 4~16자 사이여야 합니다.</p>
+          <p className='warnPwMessage'>대소문자/특수문자를 모두 포함해주세요.</p>
         </Warn>}
 
         <PwShow>
@@ -199,7 +225,7 @@ console.log(warnMsShow);
           <span>비밀번호 보기</span>
         </PwShow>
 
-        <Btn type='submit' onClick={handleShowWarn}>로그인</Btn>
+        <Btn type='submit' onClick={() => handleShowWarn()} >로그인</Btn>
 
         <InFo>
           <p className='SignIn'>아직 계정이 없으신가요?</p>
