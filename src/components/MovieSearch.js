@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import { fetchMovieDetails, searchMovies, selectMovie } from '../feature/movie/movieSlice';
+import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
 
 const MovieSearchWrapper = styled.div`
   margin-top: 1rem;
