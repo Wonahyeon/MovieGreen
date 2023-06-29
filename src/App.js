@@ -38,17 +38,14 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Header />}>
-
-          <Route path="/" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
-
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-year" element={<MovieListYear />}/> 
           <Route path="/movie-country" element={<MovieListCountry />}/> 
         </Route>
       </Routes>
-
+      <MovieSearch/> 
     </>
   );
 }

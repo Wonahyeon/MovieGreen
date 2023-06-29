@@ -10,7 +10,7 @@ export const searchMovies = createAsyncThunk('movie/searchMovies', async (query)
         api_key,
         query,
         region: 'KR',
-        language: 'ko-KR'
+        language: 'ko-KR',
       },
     });
     const movies = response.data.results;
