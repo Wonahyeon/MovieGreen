@@ -122,6 +122,7 @@ function Header(props) {
     e.preventDefault();
     dispatch(searchMovies(value));
     setValue('');
+    navigate('/');
   };
 
 
