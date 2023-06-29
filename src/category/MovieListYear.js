@@ -66,15 +66,16 @@ function MovieList({ targetDate }) {
               api_key: '43af09871fd391abc84a35b271386b01',
               language: 'ko-KR', 
               region: 'KR', 
-               sort_by: 'popularity.desc',
-              primary_release_date: targetDate,
+              
+              year: targetDate,
+
             },
           }
           
         );
         const movies = response.data.results;
         setMovies(movies);
-        // return movies; 
+        // return movies;   
         console.log('ssssssssmovies', movies);
       } catch (error) {
         console.error(error);
@@ -98,6 +99,7 @@ function MovieList({ targetDate }) {
 
 
   return (
+
     <MovieListBlock>
       <div className="title">
         {targetDate.slice(0, 4)}년<span>{targetDate}</span>
@@ -127,7 +129,7 @@ function MovieListYearContainer() {
   const today_month = String(new Date().getMonth() + 1).padStart(2, '0');
   const today_date = String(new Date().getDate()).padStart(2, '0');
   const today = today_year + today_month + today_date;
-  const targetDates = ['2005-12-31', '2010-12-31', '2015-12-31', `${today -  1}`];
+  const targetDates = ['2005', '2010', '2015', today_year];
 
   return (
     <div>
@@ -138,4 +140,4 @@ function MovieListYearContainer() {
   );
 }
 
-export default MovieListYearContainer;
+export default MovieListYearContainer; 

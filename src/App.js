@@ -1,7 +1,7 @@
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import MovieListYear from "./category/MovieListYear";
-
+import MovieListGenre from "./category/MovieListGenre";
 import Detail from "./components/Detail";
 import Header from "./components/Header";
 
@@ -13,6 +13,8 @@ import { Route, Routes } from "react-router";
 import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
+import CategoryHome from "./category/CategoryHome";
+import MovieListContainer from "./category/MovieListContainer";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -35,7 +37,7 @@ function App() {
       {/* <Header />
       <MovieListYear />
       <MovieListCountry /> */}
-
+      {/* <CategoryHome /> */}
       <Routes>
         <Route path="/" element={<Header />}>
 
@@ -44,8 +46,10 @@ function App() {
 
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
-          <Route path="/movie-year" element={<MovieListYear />}/> 
+          <Route path="/movie-category" element={<MovieListContainer />}/>
+          {/* <Route path="/movie-year" element={<MovieListYear />}/> 
           <Route path="/movie-country" element={<MovieListCountry />}/> 
+          <Route path="/movie-genre" element={<MovieListGenre />}/>  */}
         </Route>
       </Routes>
 
