@@ -46,7 +46,6 @@ const MainSignin = styled.div`
 `;
 
 const PwShow = styled.div`
-
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -59,10 +58,6 @@ const PwShow = styled.div`
     width: 50px;
     margin-left: -65%;
     height: 15px;
-  }
-
-  .test{
-    position: absolute;
   }
 `;
 
@@ -97,7 +92,6 @@ const SnsSign = styled.div`
 `;
 
 function Signin(props) {
-  const navigate = useNavigate();
   const [signemail, setSignemail] = useState(''); //이메일
   const [emailMessage, setEmailMessage] = useState(''); // 이메일
   const [IsEmail, setIsEmail] = useState(false); //이메일 유효성 검사
@@ -107,7 +101,6 @@ function Signin(props) {
     visible: false
   }); 
   
-  // const [capsLockFlag, setCapsLockFlag] = useState(''); //한글 입력 방지
   const handleEmail = (e) => { //이메일
     const currentEamil = e.target.value;
     setSignemail(currentEamil);
@@ -133,27 +126,12 @@ function Signin(props) {
     })
   }
   
-  // -----
-  // const checkCapsLock = (e) => { //한글 입력 방지
-  //   const capsLock = e.getModifierState('CapsLock');
-  //   setCapsLockFlag(capsLock);
-  // }
-  // const dataRuleCheck = (ch) => {
-  //   const code = ch.charCodeAt(0);
-  //   if (48 <= code && code <= 57) return true;
-  //   if (65 <= code && code <= 90) return true;
-  //   if (97 <= code && code <= 122) return true;
-  //   return false;
-  // }
-
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
-    
-    window.location.href = "/log-in"
-    // alert('회원가입되었습니다.');
-    // if () {
-      
-    // }
+    if (IsEmail === true && password) {
+      window.location.href = "/log-in"
+      alert('회원가입되었습니다.');
+    } 
   }
 
   return (
@@ -164,11 +142,7 @@ function Signin(props) {
           <label for='email'></label>
           <input type='text' id='email' name='name' placeholder='moviegreen@example.com'
             value={signemail}
-            onChange={handleEmail} 
-            
-            // 한글 방지 입력
-            // onChange={(e) => getCapsLock(e)}
-            // onKeyDown={(e) => checkCapsLock(e)}
+            onChange={handleEmail}             
           ></input>
           <p className='emailMessage'>{emailMessage}</p>
           
@@ -181,7 +155,6 @@ function Signin(props) {
           {/* input 사용할 시 */}
           <PwShow>
             <input type='checkbox' onClick={handlePasswordType} />
-            <p className='test'>ㅇ</p>
             {passwordType.visible ? <span>숨기기</span> : <span>보이기</span>}            
           </PwShow>
 
