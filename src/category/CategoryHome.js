@@ -7,4 +7,5 @@ function CategoryHome(props) {
   );
 }
 
+
 export default CategoryHome;
