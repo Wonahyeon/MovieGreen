@@ -5,7 +5,6 @@ import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
-import MovieSearch from './MovieSearch';
 
 
 const DetailWrapper = styled.div`
@@ -72,7 +71,7 @@ function Detail(props) {
   const [pick, setPick] = useState(false);
   const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const selectedMovie = useSelector((state) => state.movie.selectedMovie) || {};
+  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const { movieId } = useParams();

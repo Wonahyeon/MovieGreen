@@ -61,8 +61,7 @@ function MovieSearch() {
       <ul>
         {searchResults.map((movie) => (
           <li key={movie.id} onClick={() => {handleMovieClick(movie);}}>
-            <img src={getImageUrl(movie.poster_path)
-} alt={movie.title} />
+            <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
             <h3>{movie.title}</h3>
           </li>
         ))}
