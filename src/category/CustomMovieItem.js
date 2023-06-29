@@ -17,4 +17,4 @@ function CustomMovieItem({ movie }) {
   );
 }
 
-export default CustomMovieItem;
+export default CustomMovieItem; 

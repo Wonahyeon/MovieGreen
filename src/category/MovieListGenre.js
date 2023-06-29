@@ -59,7 +59,7 @@ const MovieListBlock = styled.div`
   }
 `;
 
-function MovieListCountry({ targetCountry }) {
+const MovieList = ({ targetGenre, genreName }) => {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -73,23 +73,24 @@ function MovieListCountry({ targetCountry }) {
           {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
-              
               language: 'ko-KR',
-              without_genres: '18,10749,',
-              with_original_language: targetCountry === '한국' ? 'ko' : 'en',
+              region: 'KR',
+              
+              with_genres: targetGenre,
             },
           }
         );
-        const movies = response.data.results.filter(movie => movie.genre_ids.length > 0);
 
+        const movies = response.data.results;
         setMovies(movies);
+        console.log('movies', movies);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchMovies();
-  }, [targetCountry]);
+  }, [targetGenre]);
 
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
@@ -102,11 +103,12 @@ function MovieListCountry({ targetCountry }) {
     setShowSeeMore(true);
     setShowSeeLess(false);
   };
-  console.log('mmmmmmmmmovies', movies);
+
   return (
     <MovieListBlock>
       <div className="title">
-        {targetCountry} 영화
+        {genreName}
+        <span></span>
       </div>
       <div className="content">
         <div className="movies-grid">
@@ -133,15 +135,44 @@ function MovieListCountry({ targetCountry }) {
       )}
     </MovieListBlock>
   );
-}
+};
 
-function MovieListCountryContainer() {
+function MovieListYearContainer() {
+  const targetGenres = [
+    { id: '28', name: '액션' },
+    { id: '12', name: '어드벤쳐' },
+    { id: '16', name: '애니메이션' },
+    { id: '35', name: '코미디' },
+    { id: '80', name: '범죄' },
+    { id: '99', name: '다큐멘터리' },
+    { id: '18', name: '드라마' },
+    { id: '10751', name: '가족' },
+    { id: '14', name: '판타지' },
+    { id: '36', name: '역사' },
+    { id: '27', name: '공포' },
+    { id: '10402', name: '음악' },
+    { id: '9648', name: '미스테리' },
+    { id: '10749', name: '로맨스' },
+    { id: '878', name: 'SF(Science Fiction)' },
+    { id: '10770', name: 'TV 영화' },
+    { id: '53', name: '스릴러' },
+    { id: '10752', name: '전쟁' },
+    { id: '37', name: '서부' },
+  ];
+
   return (
     <div>
-      <MovieListCountry targetCountry="한국" />
-      <MovieListCountry targetCountry="외국" />
+      {targetGenres.map((genre) => (
+        <MovieList
+          key={genre.id}
+          targetGenre={genre.id}
+          genreName={genre.name}
+        />
+      ))}
     </div>
   );
 }
 
-    export default MovieListCountryContainer;
+export default MovieListYearContainer; 
+
+
