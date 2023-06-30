@@ -55,7 +55,6 @@ function MovieSearch() {
     return <div>Error: {error}</div>;
   }
   
-  console.log(searchResults);
   return (
     <MovieSearchWrapper>
       <ul>

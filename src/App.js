@@ -2,7 +2,7 @@ import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import MovieListYear from "./category/MovieListYear";
 import MovieListGenre from "./category/MovieListGenre";
-import Detail from "./components/Detail";
+import Detail from "./components/MovieDetail";
 import Header from "./components/Header";
 
 
