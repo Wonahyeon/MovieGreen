@@ -114,6 +114,7 @@ function Header(props) {
     e.preventDefault();
     dispatch(searchMovies(value));
     setValue('');
+    navigate('/s');
   };
 
 
@@ -142,15 +143,15 @@ function Header(props) {
             />
         </form>
         </Container>
-        { submenuView &&
+        {/* { submenuView &&
           <ul className='submenu'>
-            <li className='li' onClick={() => {navigate('/movie-year');}}>연도</li>
-            <li className='li' onClick={() => {navigate('/movie-genre');}}>장르</li>
+            <li className='li' onClick={() => {navigate('/movie-category/year');}}>연도</li>
+            <li className='li' onClick={() => {navigate('/movie-category/genre');}}>장르</li>
             <li className='li'>평점</li>
             <li className='li'>연령</li>
-            <li className='li' onClick={() => {navigate('/movie-country');}}>국가</li>
+            <li className='li' onClick={() => {navigate('/movie-category/country');}}>국가</li>
           </ul>
-        }
+        } */}
       </HeaderWrapper>
 
       <Outlet />

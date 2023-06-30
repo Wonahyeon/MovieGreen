@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import MovieListYearContainer from './MovieListYear';
 import MovieListGenreContainer from './MovieListGenre';
 import MovieListCountryContainer from './MovieListCountry';
 import styled from 'styled-components';
+import { useLocation , useNavigate } from 'react-router-dom';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -29,10 +30,32 @@ const ButtonContainer = styled.div`
 `;
 
 function MovieListContainer() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('year');
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (path.includes('genre')) {
+      setActiveTab('genre');
+    } else if (path.includes('country')) {
+      setActiveTab('country');
+    } else {
+      setActiveTab('year');
+    }
+  }, [location]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+
+    if (tab === 'year') {
+      navigate('/movie-category/year');
+    } else if (tab === 'genre') {
+      navigate('/movie-category/genre');
+    } else if (tab === 'country') {
+      navigate('/movie-category/country');
+    }
   };
 
   return (
@@ -66,3 +89,5 @@ function MovieListContainer() {
 }
 
 export default MovieListContainer;
+
+

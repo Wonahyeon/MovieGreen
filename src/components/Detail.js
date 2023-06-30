@@ -75,7 +75,7 @@ function Detail(props) {
   const [pick, setPick] = useState(false);
   const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const selectedMovie = useSelector((state) => state.movie.selectedMovie) || {};
+  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const { movieId } = useParams();
@@ -89,7 +89,7 @@ function Detail(props) {
   const handlePick = () => {
     setPick(!pick);
   };
-
+  
   const handleToggleCast = () => {
     setShowMoreCast(!showMoreCast);
   };
@@ -107,68 +107,77 @@ function Detail(props) {
   };
 
   const renderIntroText = () => {
-    if (selectedMovie.overview.length <= 100 || isExpanded) {
+    if (selectedMovie?.overview?.length <= 100 || isExpanded) {
       return selectedMovie.overview;
     }
     return selectedMovie.overview.slice(0, 100) + '...';
   };
   
+  if (!selectedMovie) {
+    return null
+  }
 
   return (
       <DetailWrapper>
-        <div className='up'>
-          <img src={getImageUrl(selectedMovie.poster_path)} alt={selectedMovie.title} />
-          <Content>
-            <h3 style={{fontSize: '1.5rem'}}>{selectedMovie.title}</h3>
-            <h3>
-              장르 :{' '}
-              <span>
-                {movieDetails && movieDetails.genres.map((genre) => genre.name).join(', ')}
-              </span>
-            </h3>
-            <h3>
-              국가 :{' '}
-              <span>
-                {movieDetails &&
-                  movieDetails.production_countries
-                    .map((country) => country.name)
-                    .join(', ')}
-              </span>
-            </h3>
-            <h3>감독 : <span>{movieCredits && movieCredits.crew[2].name}</span></h3>
-            <h3>출연:</h3>
-            {movieCredits && (
-              <CastWrapper>
-                <div className="cast-list">
-                  {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
-                    <div key={cast.id} className="cast-item">
-                      {cast.name}
-                    </div>
-                  ))}
-                </div>
-                {movieCredits.cast.length > 3 && (
-                  <div className="toggle-button" onClick={handleToggleCast}>
-                    {showMoreCast ? '간략히 보기' : '더 보기'}
+        {selectedMovie && (
+          <>
+          <div className='up'>
+            <img src={getImageUrl(selectedMovie.poster_path)} alt={selectedMovie.title} />
+            <Content>
+              <h3 style={{fontSize: '1.5rem'}}>{selectedMovie.title}</h3>
+              <h3>
+                장르 :{' '}
+                <span>
+                  {movieDetails && movieDetails.genres.map((genre) => genre.name).join(', ')}
+                </span>
+              </h3>
+              <h3>
+                국가 :{' '}
+                <span>
+                  {movieDetails &&
+                    movieDetails.production_countries
+                      .map((country) => country.name)
+                      .join(', ')}
+                </span>
+              </h3>
+              <h3>감독 : <span>{movieCredits && movieCredits.crew[2].name}</span></h3>
+              <h3>출연:</h3>
+              {movieCredits && (
+                <CastWrapper>
+                  <div className="cast-list">
+                    {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
+                      <div key={cast.id} className="cast-item">
+                        {cast.name}
+                      </div>
+                    ))}
                   </div>
-                )}
-              </CastWrapper>
-            )}
+                  {movieCredits.cast.length > 3 && (
+                    <div className="toggle-button" onClick={handleToggleCast}>
+                      {showMoreCast ? '간략히 보기' : '더 보기'}
+                    </div>
+                  )}
+                </CastWrapper>
+              )}
 
-          </Content>
-          <Pick>
-            {!pick && <MdFavoriteBorder onClick={handlePick}/>}
-            {pick && <MdFavorite onClick={handlePick}/>}
-            <p>찜하기</p>
-          </Pick>
-        </div>
-        <Intro>
-          소개 : <span>{renderIntroText()}</span>
-          {selectedMovie.overview.length > 100 && (
-            <span className="toggle-button" onClick={handleToggleIntro}>
-              {isExpanded ? '간략히 보기' : '자세히 보기'}
-            </span>
-          )}
-        </Intro>
+            </Content>
+            <Pick>
+              {!pick && <MdFavoriteBorder onClick={handlePick}/>}
+              {pick && <MdFavorite onClick={handlePick}/>}
+              <p>찜하기</p>
+            </Pick>
+          </div>
+          <Intro>
+            소개 : <span>{renderIntroText()}</span>
+            {selectedMovie.overview.length > 100 && (
+              <span className="toggle-button" onClick={handleToggleIntro}>
+                {isExpanded ? '간략히 보기' : '자세히 보기'}
+              </span>
+            )}
+          </Intro>
+          </>
+        )}
+
+
       </DetailWrapper>
   );
 }
