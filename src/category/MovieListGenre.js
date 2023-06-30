@@ -137,7 +137,7 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
   );
 };
 
-function MovieListYearContainer() {
+function MovieListGenreContainer() {
   const targetGenres = [
     { id: '28', name: '액션' },
     { id: '12', name: '어드벤쳐' },
@@ -173,6 +173,6 @@ function MovieListYearContainer() {
   );
 }
 
-export default MovieListYearContainer; 
+export default MovieListGenreContainer; 
 
 

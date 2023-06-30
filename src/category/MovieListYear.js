@@ -88,13 +88,13 @@ function MovieListYear({ targetDate }) {
     const fetchMovie = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/discover/movie`,
+          `https://api.themoviedb.org/3/discover/movie`,  
           {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
               language: 'ko-KR',
               region: 'KR',
-              without_genres: '10749',
+              without_genres: '10749, 18',
               year: targetDate,
             },
           }
