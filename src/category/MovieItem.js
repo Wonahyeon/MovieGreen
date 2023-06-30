@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MovieItemBlock = styled.div`
@@ -38,13 +39,15 @@ const MovieItemBlock = styled.div`
   }
 `;
 
+
 function MovieItem({ movie }) {
   const { rank, movieNm, openDt, poster_path } = movie;
   const posterUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  const navigate = useNavigate();
   console.log('movie', movie);
   return (
     <MovieItemBlock>
-      <img src={posterUrl} alt={movieNm} />
+      <img src={posterUrl} alt={movieNm} onClick={() => { navigate(`/movie-detail/${movie.id}`); }}/>
       <h2>{rank}</h2>
       <div>
         <h3>{movieNm}</h3>

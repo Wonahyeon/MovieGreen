@@ -59,7 +59,7 @@ const MovieListBlock = styled.div`
   }
 `;
 
-const MovieList = ({ targetGenre, genreName }) => {
+const MovieListGenre = ({ targetGenre, genreName }) => {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -163,7 +163,7 @@ function MovieListYearContainer() {
   return (
     <div>
       {targetGenres.map((genre) => (
-        <MovieList
+        <MovieListGenre
           key={genre.id}
           targetGenre={genre.id}
           genreName={genre.name}
