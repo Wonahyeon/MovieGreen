@@ -39,6 +39,7 @@ const MovieItemBlock = styled.div`
   }
 `;
 
+
 function MovieItem({ movie }) {
   const { rank, movieNm, openDt, poster_path } = movie;
   const posterUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
