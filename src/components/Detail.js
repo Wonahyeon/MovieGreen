@@ -85,7 +85,7 @@ function Detail(props) {
   const handlePick = () => {
     setPick(!pick);
   };
-
+  
   const handleToggleCast = () => {
     setShowMoreCast(!showMoreCast);
   };
@@ -103,12 +103,15 @@ function Detail(props) {
   };
 
   const renderIntroText = () => {
-    if (selectedMovie.overview.length <= 100 || isExpanded) {
+    if (selectedMovie?.overview?.length <= 100 || isExpanded) {
       return selectedMovie.overview;
     }
     return selectedMovie.overview.slice(0, 100) + '...';
   };
   
+  if (!selectedMovie) {
+    return null
+  }
 
   return (
       <>
@@ -174,6 +177,7 @@ function Detail(props) {
             <p>찜하기</p>
           </Pick>
         </div>
+
       </DetailWrapper>
       </>
   );
