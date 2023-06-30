@@ -101,13 +101,6 @@ function Detail(props) {
     }
     return `https://image.tmdb.org/t/p/w500${path}`;
   };
-
-  const renderIntroText = () => {
-    if (selectedMovie?.overview?.length <= 100 || isExpanded) {
-      return selectedMovie.overview;
-    }
-    return selectedMovie.overview.slice(0, 100) + '...';
-  };
   
   if (!selectedMovie) {
     return null

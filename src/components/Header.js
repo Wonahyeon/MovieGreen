@@ -117,13 +117,12 @@ function Header(props) {
 
   const handleChange = (e) => {
     setValue(e.target.value);
+    navigate(`/search`);
   }
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(searchMovies(value));
     setValue('');
-    navigate('/');
-
   };
 
 
