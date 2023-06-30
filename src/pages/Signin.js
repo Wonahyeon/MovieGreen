@@ -41,25 +41,16 @@ const MainSignin = styled.div`
     color: white;
   }
 
-  .emailMessage{
+  p{
     color: red;
   }
 `;
 
 const PwShow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: #d9d9d9;
-  margin: 5px 170px 5px 0;
-
-  input {
-    position: relative;
-    width: 50px;
-    margin-left: -65%;
-    height: 15px;
-  }
+  position: relative;
+  left: 130px;
+  bottom: 38px;
+  color: #212126;
 `;
 
 const Button = styled.button`
@@ -89,14 +80,17 @@ const SnsSign = styled.div`
   }
   a{
     text-decoration: none;
+    color: #fff;
   }
 `;
 
 function Signin(props) {
   const [signemail, setSignemail] = useState(''); //이메일
-  const [emailMessage, setEmailMessage] = useState(''); // 이메일
+  const [emailMessage, setEmailMessage] = useState(''); // 이메일 메시지
   const [IsEmail, setIsEmail] = useState(false); //이메일 유효성 검사
   const [password, setPassword] = useState(''); //비밀번호
+  const [passwordMessage, setPasswordMessage] = useState(''); //비밀번호 메시지
+  const [IsPassword, setIsPassword] = useState(false); //비밀번호 유효성 검사
   const [passwordType, setPasswordType] = useState({ //비밀번호 visible
     type: 'password',
     visible: false
@@ -116,8 +110,19 @@ function Signin(props) {
   };
 
   const handlePassword = (e) => { //비밀번호
-    setPassword(e.target.value)
+    const currentPassword = e.target.value;
+    setPassword(currentPassword);
+    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;
+    //최소 8자 + 최소 한개의 소문자 + 최소 한개의 대문자 + 최소 한개의 숫자
+    if (!passwordRegExp.test(currentPassword)) {
+      setPasswordMessage('대소문자/숫자 조합으로 입력해주세요.')
+      setIsPassword(false);
+    } else {
+      setPasswordMessage('');
+      setIsPassword(true);
+    }
   }
+
   const handlePasswordType = (e) => { //비밀번호 visible
     setPasswordType(() => {
       if (!passwordType.visible) {
@@ -129,7 +134,7 @@ function Signin(props) {
   
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
-    if (IsEmail === true && password) {
+    if (IsEmail === true && IsPassword == true) {
       window.location.href = "/log-in"
       alert('회원가입되었습니다.');
     } 
@@ -145,18 +150,17 @@ function Signin(props) {
             value={signemail}
             onChange={handleEmail}             
           ></input>
-          <p className='emailMessage'>{emailMessage}</p>
+          <p>{emailMessage}</p>
           
           <label for='pw'></label>
           <input type={passwordType.type} id='pw' placeholder='moviegreen 비밀번호 설정'
             value={password}
             onChange={handlePassword}
           ></input>
+          <p>{passwordMessage}</p>
 
-          {/* input 사용할 시 */}
           <PwShow>
-            <input type='checkbox' onClick={handlePasswordType} />
-            {passwordType.visible ? <span>숨기기</span> : <span>보이기</span>}            
+            {passwordType.visible ? <MdOutlineVisibility  onClick={handlePasswordType}/> : <MdOutlineVisibilityOff onClick={handlePasswordType}/>}            
           </PwShow>
 
           <Button type='button' onClick={handleButton}>MovieGreen 회원가입</Button>
@@ -164,9 +168,7 @@ function Signin(props) {
 
         <SnsSign>
           <ul>
-            <li><a href='https://accounts.kakao.com'>카카오
-            
-            </a></li>
+            <li><a href='https://accounts.kakao.com'>카카오</a></li>
             <li><a href='https://nid.naver.com'>네이버</a></li>
             <li><a href='https://www.facebook.com'>페이스북</a></li>
           </ul>

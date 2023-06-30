@@ -19,16 +19,20 @@ const StyledSwiper = styled(Swiper)`
 
 let opts;
 function Video(props) {
+  // 동영상 상태 반환 /-1: 시작X, 0: 종료, 1: 재생 중, 2: 일시정지, 3: 버퍼링, 5: 동영상 신호
+  const handlegetPlayerState =(e) => {
+    e.target.getPlayerState();
+  }
+
   opts = {
     width: '100%',
     height: '650',
     playerVars: {
       autoplay: true, //자동 재생
       loop: true,
-      rel: 0,
-      modestbranding: 1,
     },
   };
+
   
 
   return (
@@ -46,16 +50,16 @@ function Video(props) {
         onSlideChange={() => console.log('slide change')}
       >
         <SwiperSlide>
-          <Youtube videoId='7pB7DPBqqvk' opts={opts}/>
+          <Youtube videoId='7pB7DPBqqvk' opts={opts} ongetPlayerState={handlegetPlayerState}/>
         </SwiperSlide>
         <SwiperSlide>
-          <Youtube videoId='CSOb8gia_mg' opts={opts}/>
+          <Youtube videoId='CSOb8gia_mg' opts={opts} ongetPlayerState={handlegetPlayerState}/>
         </SwiperSlide>
         <SwiperSlide>
-          <Youtube videoId='4p7WZmM3Bk8' opts={opts}/>
+          <Youtube videoId='4p7WZmM3Bk8' opts={opts} ongetPlayerState={handlegetPlayerState}/>
         </SwiperSlide>
         <SwiperSlide>
-          <Youtube videoId='aa0WjdSYdCk' opts={opts}/>
+          <Youtube videoId='aa0WjdSYdCk' opts={opts} ongetPlayerState={handlegetPlayerState}/>
         </SwiperSlide>
         <SwiperSlide>
           <Youtube videoId='4jhz2NU-24Q' opts={opts}/>
