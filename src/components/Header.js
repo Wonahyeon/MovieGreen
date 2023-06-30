@@ -4,6 +4,7 @@ import { AiOutlineSearch as Find  } from "react-icons/ai";
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
+import Video from './Video';
 
 const HeaderNav = styled.div`
   display: flex;
@@ -16,15 +17,22 @@ const HeaderNav = styled.div`
   .signIn {
     padding: 10px;
     cursor: pointer;
+    &:hover{
+      color: white;
+      transition: 1s ease-in-out;
+    }
   }
   .logIn {
     padding: 10px;
     cursor: pointer;
+    &:hover{
+      color: white;
+      transition: 1s ease-in-out;
+    }
   }
 `;
 
 const HeaderWrapper = styled.div`
-  width: 100%;
   height: 100px;
   background: #212126;
   padding: 8px;
@@ -114,7 +122,8 @@ function Header(props) {
     e.preventDefault();
     dispatch(searchMovies(value));
     setValue('');
-    navigate('/s');
+    navigate('/');
+
   };
 
 
@@ -133,7 +142,7 @@ function Header(props) {
         
         </Navbar>
 
-        <a href='#' className='Logo'>Movie Green</a>
+        <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>
 
         <form onSubmit={handleSubmit}>
           <Input type='text'
@@ -153,6 +162,8 @@ function Header(props) {
           </ul>
         } */}
       </HeaderWrapper>
+
+      <Video />
 
       <Outlet />
     </>

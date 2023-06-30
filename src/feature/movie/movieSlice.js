@@ -10,7 +10,7 @@ export const searchMovies = createAsyncThunk('movie/searchMovies', async (query)
         api_key,
         query,
         region: 'KR',
-        language: 'ko-KR'
+        language: 'ko-KR',
       },
     });
     const movies = response.data.results;
@@ -21,6 +21,7 @@ export const searchMovies = createAsyncThunk('movie/searchMovies', async (query)
   }
 });
 
+// 장르
 export const fetchMovieDetails = createAsyncThunk('movie/fetchMovieDetails', async (movieId) => {
   try {
     const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
@@ -37,6 +38,7 @@ export const fetchMovieDetails = createAsyncThunk('movie/fetchMovieDetails', asy
   }
 });
 
+// 감독, 출연
 export const fetchMovieCredits = createAsyncThunk('movie/fetchMovieCredits', async (movieId) => {
   try {
     const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {

@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
 import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
+import Video from "./components/Video";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -40,10 +41,8 @@ function App() {
       {/* <CategoryHome /> */}
       <Routes>
         <Route path="/" element={<Header />}>
-
           <Route path="/s" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
-
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           
@@ -54,7 +53,7 @@ function App() {
           </Route> 
         </Route>
       </Routes>
-
+      
     </>
   );
 }
