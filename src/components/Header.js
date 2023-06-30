@@ -1,10 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineSearch as Find  } from "react-icons/ai";
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
-import Video from './Video';
 
 const HeaderNav = styled.div`
   display: flex;
