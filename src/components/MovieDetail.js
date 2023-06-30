@@ -67,7 +67,7 @@ const CastWrapper = styled.div`
   }
 `;
 
-function Detail(props) {
+function MovieDetail(props) {
   const [pick, setPick] = useState(false);
   const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -111,6 +111,10 @@ function Detail(props) {
     return <div>Loading...</div>; // 로딩 컴포넌트
   }
 
+  if (!movieDetails || !movieCredits) {
+    return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
+  }
+
   return (
       <>
       <DetailWrapper>
@@ -121,22 +125,20 @@ function Detail(props) {
             <h3>
               장르{' '}
               <span>
-                {movieDetails && movieDetails.genres.map((genre) => genre.name).join(', ')}
+                {movieDetails.genres.map((genre) => genre.name).join(', ')}
               </span>
             </h3>
             <h3>
               국가{' '}
               <span>
-                {movieDetails &&
-                  movieDetails.production_countries
+                {movieDetails.production_countries
                     .map((country) => country.name)
                     .join(', ')}
               </span>
             </h3>
-            <h3>감독 <span>{movieCredits && movieCredits.crew[2].name}</span></h3>
+            <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
             <h3>출연
               <span>
-                {movieCredits && (
                   <CastWrapper>
                     <div className="cast-list">
                       {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
@@ -151,7 +153,6 @@ function Detail(props) {
                       </div>
                     )}
                   </CastWrapper>
-                )}
               </span>
             </h3>
             <h3>소개
@@ -181,4 +182,4 @@ function Detail(props) {
   );
 }
 
-export default Detail;
+export default MovieDetail;
