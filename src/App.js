@@ -16,6 +16,7 @@ import MovieSearch from "./components/MovieSearch";
 import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
 import Video from "./components/Video";
+import Main from "./pages/Main";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -41,6 +42,7 @@ function App() {
       {/* <CategoryHome /> */}
       <Routes>
         <Route path="/" element={<Header />}>
+          <Route index element={<Main/>}/>
           <Route path="/" element={<MovieSearch/>}/>
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
           <Route path="/sign-in" element={<Signin />} />

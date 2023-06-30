@@ -162,7 +162,6 @@ function Header(props) {
         }
       </HeaderWrapper>
 
-      <Video />
 
       <Outlet />
     </>
