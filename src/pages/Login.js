@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { Outlet, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -143,6 +144,7 @@ function Login(props) {
       setIdValue('');
     } else {
       navigate('/');
+      
     }
   };
 
@@ -156,6 +158,39 @@ function Login(props) {
     })
   }
 
+  // const signupAPI = (idMail,passWord)
+  // const API = 'http://localhost:4000/members';
+
+  // axios.post(API, 
+  //   {
+
+  //   })
+
+
+
+  // const memberId = JSON.parse(localStorage.getItem('memberId'));
+  
+
+  // localstorage에 signin에서 setItem으로 아이디, 비번 저장
+  // login에서 getItem으로 아이디 비번 받아와서 비교 후 맞으면 홈페이지 
+  // setItem(key, value) - 키/값 쌍을 저장한다.
+  // getItem(key) - 키에 해당하는 값을 받아온다.
+  // removeItem(key) - 키와 해당 값을 삭제한다.
+  // clear() - 모두 다 삭제한다.
+  // length - 저장된 항목의 개수를 출력한다.
+
+
+  // useEffect(() => {
+  //   localStorage.getItem('idValue', JSON.stringify(idValue));
+  // }, [])
+  // useEffect(() => {
+  //   // 아이디값 추가
+  //   const memberId = JSON.parse(localStorage.getItem('signemail')) || [];
+  //   memberId.push(signemail);
+  //   memberId = new Set(memberId); // 중복 요소 제거
+  //   memberId = [...memberId];
+  //   localStorage.setItem('memberId', JSON.stringify(memberId));
+  // })
   return (
     <LoginWrapper>
       <MainLogin>
