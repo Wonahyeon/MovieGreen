@@ -1,0 +1,27 @@
+{
+  "members": [
+    {
+      "id": "1",
+      "name": "김지수",
+      "idMail": "kjs11",
+      "passWord": "Kjs123"
+    },
+    {
+      "id": "2",
+      "name": "유재석",
+      "idMail": "yjs11",
+      "passWord": "You123"
+    },
+    {
+      "id": "3",
+      "name": "이수만",
+      "idMail": "lsm11",
+      "passWord": "Lee123"
+    }
+  ],
+  "user": {
+    "name": "JS Kim",
+    "email": "jasoo@naver.com",
+    "role": "admin"
+  }
+}
