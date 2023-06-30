@@ -71,7 +71,7 @@ function Detail(props) {
   const [pick, setPick] = useState(false);
   const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
+  const [loading, setLoading] = useState(true);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const { movieId } = useParams();
@@ -79,7 +79,12 @@ function Detail(props) {
 
   useEffect(() => {
     dispatch(fetchMovieDetails(movieId));
-    dispatch(fetchMovieCredits(movieId));
+    dispatch(fetchMovieCredits(movieId))
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      })
   }, [dispatch, movieId]);
 
   const handlePick = () => {
@@ -102,17 +107,17 @@ function Detail(props) {
     return `https://image.tmdb.org/t/p/w500${path}`;
   };
   
-  if (!selectedMovie) {
-    return null
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 컴포넌트
   }
 
   return (
       <>
       <DetailWrapper>
-        <img src={getImageUrl(selectedMovie.backdrop_path)} alt={selectedMovie.title} />
+        <img src={getImageUrl(movieDetails.backdrop_path)} alt={movieDetails.title} />
         <div className='content'>
           <Content>
-            <h1>{selectedMovie.title}</h1>
+            <h1>{movieDetails.title}</h1>
             <h3>
               장르{' '}
               <span>
@@ -152,12 +157,12 @@ function Detail(props) {
             <h3>소개
               <div>
                 <span>{
-                  selectedMovie.overview.length <= 100 || isExpanded
-                  ? selectedMovie.overview :
-                  selectedMovie.overview.slice(0, 100) + '...'
+                  movieDetails.overview.length <= 100 || isExpanded
+                  ? movieDetails.overview :
+                  movieDetails.overview.slice(0, 100) + '...'
                   }</span>
               </div>
-              {selectedMovie.overview.length > 100 && (
+              {movieDetails.overview.length > 100 && (
                 <span className="toggle-button" onClick={handleToggleIntro}>
                   {isExpanded ? '간략히 보기' : '자세히 보기'}
                 </span>
