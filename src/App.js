@@ -43,8 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Main/>}/>
-          <Route path="/" element={<MovieSearch/>}/>
-          <Route path="/s" element={<MovieSearch/>} />
+          <Route path="/search" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<Detail/>} />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
