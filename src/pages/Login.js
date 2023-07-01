@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, json, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LoginWrapper = styled.div`
@@ -121,6 +121,28 @@ function Login(props) {
     setPwValue(e.target.value);
   }; 
 
+  const handleAddInfo = () => {
+
+    if (!handleValid()) {
+      setPwValue('');
+      setIdValue('');
+    } else {
+      // navigate('/');
+      register();
+    }
+  };
+
+  const handleShowPw = (e) => {
+    setShowPassward(() => {
+      if (!showPassward.visible) {
+        return { type: 'text', visible: true };
+      } else {
+        return { type: 'password', visible: false };
+      }
+    })
+  }
+
+
 // 영문자 또는 숫자 6~20자 
 // 대문자 하나 이상, 소문자 하나 및 숫자 하나
 
@@ -136,61 +158,42 @@ function Login(props) {
       return false;
     }
   };
+  
+  // json-server --watch membership-db.json --port 3009
 
-  const handleAddInfo = () => {
+  // 데이터 요청 후 response 받아오면 idValue === idEmail 일치 여부 확인
+  // 일치시 navigate실행 불일치시 경고창
 
-    if (!handleValid()) {
-      setPwValue('');
-      setIdValue('');
-    } else {
-      navigate('/');
-      
-    }
-  };
-
-  const handleShowPw = (e) => {
-    setShowPassward(() => {
-      if (!showPassward.visible) {
-        return { type: 'text', visible: true };
-      } else {
-        return { type: 'password', visible: false };
-      }
+  const register = () => {
+    axios.get('http://localhost:4000/members') // 데이터 요청
+    .then((response) => { // response 받아옴
+      console.log(response);
+      console.log(response.data);
+      console.log(JSON.stringify(response.data));
+      // const handleValid = () => {
+      //   if(idValue === response.data && pwValue === response.data) {
+      //   return true;
+      //   } else {
+      //     return false
+      //   }
+      // }      
+    })
+    .catch((error) => {
+      console.error('err');
     })
   }
-
-  // const signupAPI = (idMail,passWord)
-  // const API = 'http://localhost:4000/members';
-
-  // axios.post(API, 
-  //   {
-
-  //   })
-
-
-
-  // const memberId = JSON.parse(localStorage.getItem('memberId'));
+  // const handleValid = () => {
+  //   idValue === response.data ? setWarnMsShow(false) : setWarnMsShow(true);
+  //   pwValue ? setwarnPwMsShow(false) : setwarnPwMsShow(true);
+  //   if (idErr.test(idValue) && pwErr.test(pwValue)) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
   
 
-  // localstorage에 signin에서 setItem으로 아이디, 비번 저장
-  // login에서 getItem으로 아이디 비번 받아와서 비교 후 맞으면 홈페이지 
-  // setItem(key, value) - 키/값 쌍을 저장한다.
-  // getItem(key) - 키에 해당하는 값을 받아온다.
-  // removeItem(key) - 키와 해당 값을 삭제한다.
-  // clear() - 모두 다 삭제한다.
-  // length - 저장된 항목의 개수를 출력한다.
 
-
-  // useEffect(() => {
-  //   localStorage.getItem('idValue', JSON.stringify(idValue));
-  // }, [])
-  // useEffect(() => {
-  //   // 아이디값 추가
-  //   const memberId = JSON.parse(localStorage.getItem('signemail')) || [];
-  //   memberId.push(signemail);
-  //   memberId = new Set(memberId); // 중복 요소 제거
-  //   memberId = [...memberId];
-  //   localStorage.setItem('memberId', JSON.stringify(memberId));
-  // })
   return (
     <LoginWrapper>
       <MainLogin>
