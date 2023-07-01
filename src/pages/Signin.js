@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
+import axios from "axios";
 
 const SigninWrapper = styled.div`
   background: #212126;
@@ -45,7 +46,17 @@ const MainSignin = styled.div`
     color: red;
   }
 `;
-
+const Input = styled.input`
+  width: 300px;
+  height: 50px;
+  padding: 7px;
+  background: #D9D9D9;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  margin: 10px 0 5px;
+`;
 const PwShow = styled.div`
   position: relative;
   left: 130px;
@@ -96,6 +107,12 @@ function Signin(props) {
     visible: false
   }); 
   
+  // 이름 입력
+  const [userName, setUserName] = useState('') 
+  const handleName = (e) => {
+    setUserName(e.target.value);
+  }
+  
   const handleEmail = (e) => { //이메일
     const currentEamil = e.target.value;
     setSignemail(currentEamil);
@@ -135,9 +152,28 @@ function Signin(props) {
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
     if (IsEmail === true && IsPassword == true) {
-      window.location.href = "/log-in"
+      // window.location.href = "/log-in"
+      register()
       alert('회원가입되었습니다.');
     } 
+  }
+
+  // 입력 데이터 보냄
+  const register = () => {
+    axios
+    .post('http://localhost:4000/members', {
+      name: userName,
+      idMail: signemail,
+      passWord: password,
+    })
+    .then((response) => {
+      console.log('goood');
+      console.log('user profile', response.data.members);
+    })
+    .catch((error) => {
+      console.error('err');
+    })
+
   }
 
   return (
@@ -145,6 +181,13 @@ function Signin(props) {
       <SigninWrapper>
         <MainSignin >
           <h1 className='SignContent'>이메일과 비밀번호만으로 MovieGreen 즐기기</h1>
+          <label>
+            <Input type='text'
+              placeholder='이름을 입력해주세요'
+              value={userName}
+              onChange={handleName}
+              />
+          </label>
           <label for='email'></label>
           <input type='text' id='email' name='name' placeholder='moviegreen@example.com'
             value={signemail}

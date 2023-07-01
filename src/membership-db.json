@@ -17,6 +17,22 @@
       "name": "이수만",
       "idMail": "lsm11",
       "passWord": "Lee123"
+    },
+    {
+      "idMail": "kjs233",
+      "passWord": "KJmsk233",
+      "id": "1oZo5JG"
+    },
+    {
+      "idMail": "park111",
+      "passWord": "Park123",
+      "id": "jlgMFlo"
+    },
+    {
+      "name": "정보영",
+      "idMail": "jby111@naver.com",
+      "passWord": "Jby123",
+      "id": "qvqnOPX"
     }
   ],
   "user": {
