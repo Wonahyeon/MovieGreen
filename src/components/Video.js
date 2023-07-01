@@ -10,6 +10,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { async } from 'q';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMovieDetails, selectMovie } from '../feature/movie/movieSlice';
 
 const StyledVideoWrapper = styled.div`
   width: 100%;
@@ -21,8 +24,13 @@ const StyledSwiper = styled(Swiper)`
 
 let opts;
 function Video(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const movieDetails = useSelector((state) => state.movie.movieDetails);
+  const movieCredits = useSelector((state) => state.movie.movieCredits);
+
   // 동영상 상태 반환 /-1: 시작X, 0: 종료, 1: 재생 중, 2: 일시정지, 3: 버퍼링, 5: 동영상 신호
-  const handlegetPlayerState =(e) => {
+  const handleGetPlayerState =(e) => {
     e.target.getPlayerState();
   }
 
@@ -32,48 +40,55 @@ function Video(props) {
     playerVars: {
       autoplay: true, //자동 재생
       loop: true,
+      origin: 'http://localhost:3000'
     },
   };
 
   // 최근 상영작 5편
-    const [trailerIds, setTrailerIds] = useState([]);
+  const [trailerIds, setTrailerIds] = useState([]);
 
-    useEffect(() => {
-      const api_key = '43af09871fd391abc84a35b271386b01';
-      const fetchLatestMovies = async () => {
-        try {
-          const response = await axios.get('https://api.themoviedb.org/3/movie/now_playing',{
+  useEffect(() => {
+    const api_key = '43af09871fd391abc84a35b271386b01';
+    const fetchLatestMovies = async () => {
+      try {
+        const response = await axios.get('https://api.themoviedb.org/3/movie/now_playing',{
+          params: {
+            api_key,
+            language: 'ko-KR',
+            page: 1,
+            region: 'KR'
+          }
+        });
+        const movies = response.data.results;
+        const latestMovies = movies.slice(0,5);
+        const trailerIds = await Promise.all(latestMovies.map(async movie => {
+          const videosResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/videos`, {
             params: {
               api_key,
-              language: 'ko-KR',
-              page: 1,
-              region: 'KR'
+              language: 'ko-KR'
             }
           });
-          const movies = response.data.results;
-          const latestMovies = movies.slice(0,5);
-          const trailerIds = await Promise.all(latestMovies.map(async movie => {
-            const videosResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/videos`, {
-              params: {
-                api_key,
-                language: 'ko-KR'
-              }
-            });
-            const videos = videosResponse.data.results;
-            const trailer = videos.find(viedo => viedo.type === 'Trailer');
-            if (trailer) {
-              return trailer.key;
-             }
-          }));
-          setTrailerIds(trailerIds);
-        }catch (error) {
-        console.error(error);
-        } 
-      };
-      fetchLatestMovies();
-    },[]);
-  
-  
+          const videos = videosResponse.data.results;
+          const trailer = videos.find(viedo => viedo.type === 'Trailer');
+          if (trailer) {
+            return {
+              videoId: trailer.key,
+              movieId: movie.id
+            };
+          }
+        }));
+        setTrailerIds(trailerIds);
+      }catch (error) {
+      console.error(error);
+      } 
+    };
+    fetchLatestMovies();
+  },[]);
+
+  const hanldeTrailerClick = (movieId) => {
+    dispatch(selectMovie(movieId));
+    navigate(`/movie-detail/${movieId}`);
+  };
 
   return (
     <StyledVideoWrapper>
@@ -104,8 +119,8 @@ function Video(props) {
         <SwiperSlide>
           <Youtube videoId='4jhz2NU-24Q' opts={opts}/>
         </SwiperSlide> */}
-        {trailerIds.map(videoId => (
-          <SwiperSlide key={videoId}>
+        {trailerIds.map(({videoId, movieId}) => (
+          <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
             <Youtube videoId={videoId} opts={opts}/>
           </SwiperSlide>
         ))}
