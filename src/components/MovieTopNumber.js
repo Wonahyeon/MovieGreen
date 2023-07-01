@@ -1,8 +1,20 @@
 // 메인 MovieTop
 
+// import styled from "styled-components";
 
-//스타일 
-// MovieListYear
-const initialState = {
 
-};
+// const MovieBlock = styled.div`
+
+// `;
+
+// function MovieTopNumber(props) {
+   
+
+//    return (
+//       <>
+//       </>
+      
+//    )
+// } 
+
+// export default MovieTopNumber;
