@@ -29,11 +29,6 @@ function Video(props) {
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
 
-  // 동영상 상태 반환 /-1: 시작X, 0: 종료, 1: 재생 중, 2: 일시정지, 3: 버퍼링, 5: 동영상 신호
-  const handleGetPlayerState =(e) => {
-    e.target.getPlayerState();
-  }
-
   opts = {
     width: '100%',
     height: '650',
@@ -96,7 +91,7 @@ function Video(props) {
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         loop={true}
         autoplay={{
-          delay: 7000,
+          delay: 5000,
         }}
         slidesPerView={1} 
         pagination={{ clickable: true }}
@@ -104,27 +99,11 @@ function Video(props) {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
       >
-        {/* <SwiperSlide>
-          <Youtube videoId='7pB7DPBqqvk' opts={opts} ongetPlayerState={handlegetPlayerState}/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Youtube videoId='CSOb8gia_mg' opts={opts} ongetPlayerState={handlegetPlayerState}/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Youtube videoId='4p7WZmM3Bk8' opts={opts} ongetPlayerState={handlegetPlayerState}/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Youtube videoId='aa0WjdSYdCk' opts={opts} ongetPlayerState={handlegetPlayerState}/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Youtube videoId='4jhz2NU-24Q' opts={opts}/>
-        </SwiperSlide> */}
         {trailerIds.map(({videoId, movieId}) => (
           <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
             <Youtube videoId={videoId} opts={opts}/>
           </SwiperSlide>
         ))}
-
       </StyledSwiper>
     </StyledVideoWrapper>
     );
