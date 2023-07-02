@@ -12,7 +12,12 @@ const MovieItemBlock = styled.div`
   padding: 1rem;
   width: 240px;
   height: 360px;
+  cursor: pointer;
+  &:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s ease;
 
+    }
   h2 {
     display: flex;
     align-items: center;

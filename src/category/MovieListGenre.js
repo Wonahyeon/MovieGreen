@@ -4,8 +4,8 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #aabb93;
-  color: #ffffff;
+  background: #fff;
+  color: #000;
   width: fit-content;
   margin: 0 auto;
   .title {
@@ -44,9 +44,17 @@ const MovieListBlock = styled.div`
   .more {
   font-size: 30px;
   margin-top: 260%;
+  margin-left: 20%;
   }
   .less {
     font-size: 30px;
+  }
+  .more,
+  .less {
+    &:hover {
+      background: #000;
+        color: #fff
+    }
   }
   .movies-grid {
     display: grid;
@@ -112,8 +120,11 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
       </div>
       <div className="content">
         <div className="movies-grid">
-          {movies &&
-            movies.slice(0, visibleMovies).map((movie) => (
+        {movies &&
+          movies
+            .filter((movie) => movie.vote_count > 0) 
+            .slice(0, visibleMovies)
+            .map((movie) => (
               <MovieItem key={movie.id} movie={movie} />
             ))}
         </div>
@@ -121,7 +132,7 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
         {showSeeMore && (
           <div className="see-more">
             <button onClick={handleSeeMore} className="more">
-              ➤
+            ↓
             </button>
           </div>
         )}

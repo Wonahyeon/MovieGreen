@@ -4,8 +4,8 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #aabb93;
-  color: #ffffff;
+  background: #fff;
+  color: #000;
   width: fit-content;
   margin: 0 auto;
   .title {
@@ -44,9 +44,17 @@ const MovieListBlock = styled.div`
   .more {
   font-size: 30px;
   margin-top: 260%;
+  margin-left: 20%;
   }
   .less {
     font-size: 30px;
+  }
+  .more,
+  .less {
+    &:hover {
+      background: #000;
+        color: #fff
+    }
   }
   .movies-grid {
     display: grid;
@@ -59,12 +67,61 @@ const MovieListBlock = styled.div`
   }
 `;
 
-function MovieListCountry({ targetCountry }) {
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  font-size: 50px;
+  input {
+    font-size: 50px;
+    width: 130px;
+    text-align: center;
+  }
+
+  button , .selectGenre{
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    background: none;
+    color: #000;
+    border: 0.1rem solid #000;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    outline: none;
+
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
+  }
+`;
+const targetGenres = [
+  { id: '28', name: '액션' },
+  { id: '12', name: '어드벤쳐' },
+  { id: '16', name: '애니메이션' },
+  { id: '35', name: '코미디' },
+  { id: '80', name: '범죄' },
+  { id: '99', name: '다큐멘터리' },
+  { id: '10751', name: '가족' },
+  { id: '14', name: '판타지' },
+  { id: '36', name: '역사' },
+  { id: '27', name: '공포' },
+  { id: '10402', name: '음악' },
+  { id: '9648', name: '미스테리' },
+  { id: '878', name: 'SF(Science Fiction)' },
+  { id: '10770', name: 'TV 영화' },
+  { id: '53', name: '스릴러' },
+  { id: '10752', name: '전쟁' },
+  { id: '37', name: '서부' },
+];
+
+function MovieListCountry({ targetCountry ,selectedGenre }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
-
+  console.log('moviesszz', movies);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -76,6 +133,7 @@ function MovieListCountry({ targetCountry }) {
               
               language: 'ko-KR',
               without_genres: '18,10749,',
+              with_genres: selectedGenre,
               with_original_language: targetCountry === '한국' ? 'ko' : 'en',
             },
           }
@@ -89,7 +147,7 @@ function MovieListCountry({ targetCountry }) {
     };
 
     fetchMovies();
-  }, [targetCountry]);
+  }, [targetCountry, selectedGenre]);
 
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
@@ -110,8 +168,11 @@ function MovieListCountry({ targetCountry }) {
       </div>
       <div className="content">
         <div className="movies-grid">
-          {movies &&
-            movies.slice(0, visibleMovies).map((movie) => (
+        {movies &&
+          movies
+            .filter((movie) => movie.vote_count > 0) 
+            .slice(0, visibleMovies)
+            .map((movie) => (
               <MovieItem key={movie.id} movie={movie} />
             ))}
         </div>
@@ -119,7 +180,7 @@ function MovieListCountry({ targetCountry }) {
         {showSeeMore && (
           <div className="see-more">
             <button onClick={handleSeeMore} className="more">
-              ➤
+            ↓
             </button>
           </div>
         )}
@@ -137,11 +198,27 @@ function MovieListCountry({ targetCountry }) {
 
 
 function MovieListCountryContainer() {
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const handleGenreChange = (event) => {
+    setSelectedGenre(event.target.value);
+  };
   return (
+    <>
+    <ButtonContainer>
+    <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
+          <option value="">모든 장르</option>
+          {targetGenres.map((genre) => (
+            <option key={genre.id} value={genre.id}>
+              {genre.name}
+            </option>
+          ))}
+        </select>
+    </ButtonContainer>
     <div>
-      <MovieListCountry targetCountry="한국" />
-      <MovieListCountry targetCountry="외국" />
+      <MovieListCountry targetCountry="한국" selectedGenre={selectedGenre} />
+      <MovieListCountry targetCountry="외국" selectedGenre={selectedGenre} />
     </div>
+    </>
   );
 }
 

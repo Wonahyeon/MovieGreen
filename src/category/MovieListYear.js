@@ -4,8 +4,8 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #aabb93;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000;
   width: fit-content;
   margin: 0 auto;
   .title {
@@ -43,10 +43,18 @@ const MovieListBlock = styled.div`
   }
   .more {
     font-size: 30px;
+    margin-left: 20%;
     margin-top: 260%;
   }
   .less {
     font-size: 30px;
+  }
+  .more,
+  .less {
+    &:hover {
+      background: #000;
+        color: #fff
+    }
   }
 `;
 
@@ -151,14 +159,17 @@ function MovieListYear({ targetDate, selectedGenre }) {
         {targetDate.slice(0, 4)}년<span>{targetDate}</span>
       </div>
       <div className="content">
-        {movies &&
-          movies.slice(0, visibleMovies).map((movie) => (
-            <MovieItem key={movie.id} movie={movie} />
-          ))}
+      {movies &&
+          movies
+            .filter((movie) => movie.vote_count > 0) 
+            .slice(0, visibleMovies)
+            .map((movie) => (
+              <MovieItem key={movie.id} movie={movie} />
+            ))}
         {showSeeMore && (
           <div className="see-more">
             <button onClick={handleSeeMore} className="more">
-              ➤
+            ↓
             </button>
           </div>
         )}
