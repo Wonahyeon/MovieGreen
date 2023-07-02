@@ -1,0 +1,49 @@
+{
+  "members": [
+    {
+      "id": "1",
+      "name": "김지수",
+      "idMail": "kjs11",
+      "passWord": "Kjs123"
+    },
+    {
+      "id": "2",
+      "name": "유재석",
+      "idMail": "yjs11",
+      "passWord": "You123"
+    },
+    {
+      "id": "3",
+      "name": "이수만",
+      "idMail": "lsm11",
+      "passWord": "Lee123"
+    },
+    {
+      "idMail": "kjs233",
+      "passWord": "KJmsk233",
+      "id": "1oZo5JG"
+    },
+    {
+      "idMail": "park111",
+      "passWord": "Park123",
+      "id": "jlgMFlo"
+    },
+    {
+      "name": "정보영",
+      "idMail": "jby111@naver.com",
+      "passWord": "Jby123",
+      "id": "qvqnOPX"
+    },
+    {
+      "name": "이지은",
+      "idMail": "lje111@naver.com",
+      "passWord": "Lee123",
+      "id": "WM4J7hY"
+    }
+  ],
+  "user": {
+    "name": "JS Kim",
+    "email": "jasoo@naver.com",
+    "role": "admin"
+  }
+}
