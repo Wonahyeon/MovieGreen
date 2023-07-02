@@ -100,7 +100,6 @@ const GoToSign = styled.a`
 function Login(props) {
 
   const navigate = useNavigate();
-
   const [showPassward, setShowPassward] = useState({
     type: 'password',
     visible: false
@@ -108,9 +107,7 @@ function Login(props) {
   
   const [idValue, setIdValue] = useState(''); // ID
   const [pwValue, setPwValue] = useState(''); // PW
-
   const passwordRef = useRef(null);
-
   const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
   const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
 
@@ -121,15 +118,6 @@ function Login(props) {
     setPwValue(e.target.value);
   }; 
 
-  const handleAddInfo = () => {
-
-    if (!handleValid()) {
-      setPwValue('');
-      setIdValue('');
-    } else {
-      // navigate('/');
-    }
-  };
 
   const handleShowPw = (e) => {
     setShowPassward(() => {
@@ -141,42 +129,27 @@ function Login(props) {
     })
   }
 
-
-// 영문자 또는 숫자 6~20자 
-// 대문자 하나 이상, 소문자 하나 및 숫자 하나
-
-  const idErr = /^[a-z]+[a-z0-9]{5,19}$/;  
-  const pwErr =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;  
-
-  const handleValid = () => {
-    idErr.test(idValue) ? setWarnMsShow(false) : setWarnMsShow(true);
-    pwErr.test(pwValue) ? setwarnPwMsShow(false) : setwarnPwMsShow(true);
-    if (idErr.test(idValue) && pwErr.test(pwValue)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  
-  // json-server --watch membership-db.json --port 3009
-
-  // 데이터 요청 후 response 받아오면 idValue === idEmail 일치 여부 확인
-  // 일치시 navigate실행 불일치시 경고창
-
   const hanldeRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
-      const existingMember = members.find(member => member.idMail === idValue);
-      if (existingMember) {
+      const memberId = members.find(member => member.idMail === idValue);
+      const memberPw = members.find(member => member.passWord === pwValue);
+      if (memberId && memberPw) {
         console.log('로그인 완료');
 
         // 로그인 완료 시 나타낼 컴포넌트 추가
         // 헤더 회원 가입 -> 사용자 이름
         // 헤더 로그인  -> 로그아웃
         navigate('/');
-      } else {
+      } else if (!memberId) {
         setWarnMsShow(true);
+        setPwValue('');
+        setIdValue('');
+      } else if (!memberPw) {
+        setwarnPwMsShow(true);
+        setPwValue('');
+        setIdValue('');
       }
       
     })
@@ -211,7 +184,7 @@ function Login(props) {
             ref={passwordRef}
             onKeyUp={ (e) => {
               if(e.key === 'Enter') {
-                handleAddInfo();
+                hanldeRegister();
               }}}
             />
         <PwShow>

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
+import HeaderNav from './HeaderNav';
 
-const HeaderNav = styled.div`
+const Nav = styled.div`
   display: flex;
   justify-content: end;
   top: 0;
@@ -12,22 +13,6 @@ const HeaderNav = styled.div`
   color: #a8b0bf;
   right: 0;
   padding: 5px 30px;
-  .signIn {
-    padding: 10px;
-    cursor: pointer;
-    &:hover{
-      color: white;
-      transition: 1s ease-in-out;
-    }
-  }
-  .logIn {
-    padding: 10px;
-    cursor: pointer;
-    &:hover{
-      color: white;
-      transition: 1s ease-in-out;
-    }
-  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -126,10 +111,9 @@ function Header(props) {
 
   return (
     <>
-        <HeaderNav>
-          <a className='signIn' onClick={() => { navigate('/sign-in'); }} >회원가입</a>
-          <a className='logIn' onClick={() => { navigate("/log-in"); }} >로그인</a>
-        </HeaderNav>
+        <Nav>
+          <HeaderNav />
+        </Nav>
 
       <HeaderWrapper>
         <Container>
