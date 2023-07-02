@@ -44,7 +44,7 @@ const MovieListBlock = styled.div`
   .more {
   font-size: 30px;
   margin-top: 260%;
-  margin-left: 20%;
+  margin-left: 30%;
   }
   .less {
     font-size: 30px;
