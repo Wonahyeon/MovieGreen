@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
-import { Outlet, json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LoginWrapper = styled.div`
@@ -128,7 +128,6 @@ function Login(props) {
       setIdValue('');
     } else {
       // navigate('/');
-      register();
     }
   };
 
@@ -164,35 +163,27 @@ function Login(props) {
   // 데이터 요청 후 response 받아오면 idValue === idEmail 일치 여부 확인
   // 일치시 navigate실행 불일치시 경고창
 
-  const register = () => {
+  const hanldeRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
-      console.log(response);
-      console.log(response.data);
-      console.log(JSON.stringify(response.data));
-      // const handleValid = () => {
-      //   if(idValue === response.data && pwValue === response.data) {
-      //   return true;
-      //   } else {
-      //     return false
-      //   }
-      // }      
+      const members = response.data;
+      const existingMember = members.find(member => member.idMail === idValue);
+      if (existingMember) {
+        console.log('로그인 완료');
+
+        // 로그인 완료 시 나타낼 컴포넌트 추가
+        // 헤더 회원 가입 -> 사용자 이름
+        // 헤더 로그인  -> 로그아웃
+        navigate('/');
+      } else {
+        setWarnMsShow(true);
+      }
+      
     })
     .catch((error) => {
-      console.error('err');
+      console.error(error);
     })
-  }
-  // const handleValid = () => {
-  //   idValue === response.data ? setWarnMsShow(false) : setWarnMsShow(true);
-  //   pwValue ? setwarnPwMsShow(false) : setwarnPwMsShow(true);
-  //   if (idErr.test(idValue) && pwErr.test(pwValue)) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-  
-
+  };
 
   return (
     <LoginWrapper>
@@ -235,7 +226,7 @@ function Login(props) {
         </Warn>}
 
 
-        <Btn type='button' onClick={() => handleAddInfo()} >로그인</Btn>
+        <Btn type='button' onClick={hanldeRegister} >로그인</Btn>
 
         <InFo>
           <p className='SignIn'>아직 계정이 없으신가요?</p>
