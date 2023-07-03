@@ -9,13 +9,13 @@ import persistReducer from "redux-persist/es/persistReducer";
   const persistConfig = {
     key: 'root',
     storage: storage, // 저장 공간
-    whitelist: ['movie', 'review','userNickName'], // 유지하고 싶은 값
+    whitelist: ['movie', 'review','userData'], // 유지하고 싶은 값
   };
   
   const reducer = combineReducers({
     movie: movieReducer,
     review: reviewReducer,
-    userNickName: userSlice,
+    userData: userSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

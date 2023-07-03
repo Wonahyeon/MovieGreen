@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { selectUserName } from '../feature/user/userSlice';
-import { useCallback } from "react";
-
+import { useState } from "react";
+import { useSelector } from 'react-redux';
 
 
 const NavWrapper = styled.div`

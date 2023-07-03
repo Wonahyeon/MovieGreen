@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState } from 'react';
+import React, {useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import HeaderNav from '../components/HeaderNav';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUserInfo, selectUser, selectsetuserNickName } from '../feature/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { selectUser } from '../feature/user/userSlice';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -141,24 +140,19 @@ function Login(props) {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
-      const memberId = members.find(member => member.idMail === idValue);
-      const memberPw = members.find(member => member.passWord === pwValue);
-      if (memberId && memberPw) {
-        console.log(memberId);
-        console.log('로그인 완료');
-        // 로그인 완료 시 나타낼 컴포넌트 추가
-        // 헤더 회원 가입 -> 사용자 이름
-        // 헤더 로그인  -> 로그아웃
-
-        navigate('/');
-      } else if (!memberId) {
+      const existingMember = members.find(member => member.idMail === idValue);
+      console.log(existingMember);
+      if (existingMember) {
+        if (existingMember.passWord === pwValue) {
+          dispatch(selectUser(existingMember.name));
+          navigate('/');
+        } else {
+          setwarnPwMsShow(true);
+        }
+      } else {
         setWarnMsShow(true);
-        setPwValue('');
         setIdValue('');
-      } else if (!existingMember) {
-        setwarnPwMsShow(true);
         setPwValue('');
-        setIdValue('');
       }
     })
     .catch((error) => {
@@ -203,7 +197,7 @@ function Login(props) {
 
         {warnPwMsShow && <Warn>
           <MdInfoOutline />
-          <p className='warnPwMessage'>대소문자/특수문자를 모두 포함해주세요.</p>
+          <p className='warnPwMessage'>비밀번호가 틀립니다. 다시 입력해주세요.</p>
         </Warn>}
 
 

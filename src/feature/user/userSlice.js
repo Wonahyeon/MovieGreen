@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const userSlice = createSlice({
-  name: 'userNickName',
+  name: 'userData',
   initialState,
   reducers: {
     selectUser: (state, action) => {
@@ -17,6 +17,6 @@ const userSlice = createSlice({
 
 export const { selectUser } = userSlice.actions;
 
-export const selectUserName = (state) => state.userNickName.userName;
+export const selectUserName = (state) => state.userData.userName;
 
 export default userSlice.reducer
