@@ -52,6 +52,23 @@ const MovieListBlock = styled.div`
         }
       }
     }
+    .deleteButton {
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      background: none;
+      color: #000;
+      border: 0.1rem solid #000;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
+
+      &:hover {
+        background: #000;
+        color: #fff;
+      }
+    }
   `;
 
 const ButtonContainer = styled.div`
@@ -121,12 +138,11 @@ const targetGenres = [
   { id: '37', name: '서부' },
 ];
 
-function MovieListCustom({ targetDate, selectedGenre, targetCountry,  handleGenreChange }) {
+function MovieListCustom({ targetDate, selectedGenre, targetCountry, handleGenreChange, handleDelete }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
-
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -166,25 +182,27 @@ function MovieListCustom({ targetDate, selectedGenre, targetCountry,  handleGenr
     setShowSeeLess(false);
   };
 
-
-  console.log('movies', movies);
-
   return (
     <MovieListBlock>
-      <div className="title">{targetDate.slice(0, 4)}년</div>
-      <SelectGenre
-        value={selectedGenre[targetDate]}
-        onChange={(event) => handleGenreChange(event, targetDate)}
-        className="selectGenre"
-      >
-        <option value="">모든 장르</option>
-        {targetGenres.map((genre) => (
-          <option key={genre.id} value={genre.id}>
-            {genre.name}
-          </option>
-        ))}
-      </SelectGenre>
+      <div className="title">
+        {targetDate.slice(0, 4)}년
 
+        <button onClick={() => handleDelete(targetDate)} className="deleteButton">
+          삭제
+        </button>
+      </div>
+      <SelectGenre
+  value={selectedGenre}
+  onChange={(event) => handleGenreChange(event, targetDate)}
+  className="selectGenre"
+>
+  <option value="">모든 장르</option>
+  {targetGenres.map((genre) => (
+    <option key={genre.id} value={genre.id}>
+      {genre.name}
+    </option>
+  ))}
+</SelectGenre>
       <div className="content">
         {movies &&
           movies
@@ -256,6 +274,29 @@ function MovieListCustomContainer() {
     setTargetCountry(event.target.value);
   };
 
+  const handleDelete = (targetDate) => {
+    const confirmDelete = window.confirm(`"${targetDate.slice(0, 4)}년"을(를) 정말로 삭제하시겠습니까?`);
+    if (confirmDelete) {
+      const newTargetDates = targetDates.filter((date) => date !== targetDate);
+      setTargetDates(newTargetDates);
+      setSelectedGenres((prevGenres) => {
+        const newGenres = { ...prevGenres };
+        delete newGenres[targetDate];
+        return newGenres;
+      });
+      localStorage.setItem('targetDates', JSON.stringify(newTargetDates));
+      localStorage.removeItem('selectedGenres');
+    }
+  };
+  const handleDeleteAll = () => {
+    const confirmDelete = window.confirm('추가한 연도를 정말로 모두 삭제하시겠습니까?');
+    if (confirmDelete) {
+      setTargetDates([]);
+      setSelectedGenres({});
+      localStorage.removeItem('targetDates');
+      localStorage.removeItem('selectedGenres');
+    }
+  };
   return (
     <>
       <ButtonContainer>
@@ -275,12 +316,12 @@ function MovieListCustomContainer() {
           추가
         </button>
         <button
-          onClick={deleteItem}
-          className="deleteItem"
-          disabled={targetDates.length === 0}
-        >
-          모두 삭제
-        </button>
+        onClick={handleDeleteAll}
+        className="deleteItem"
+        disabled={targetDates.length === 0}
+      >
+        모두 삭제
+      </button>
         <select
           value={targetCountry}
           onChange={handleCountryChange}
@@ -292,23 +333,20 @@ function MovieListCustomContainer() {
       </ButtonContainer>
 
       <div>
-      {targetDates.map((date) => (
-        <div key={date}>
-          <MovieListCustom
-            targetDate={date}
-            selectedGenre={selectedGenres[date] || ''}
-            targetCountry={targetCountry}
-            handleGenreChange={(event) => handleGenreChange(event, date)} 
-          />
-        </div>
-      ))}
-    </div>
+        {targetDates.map((date) => (
+          <div key={date}>
+            <MovieListCustom
+  targetDate={date}
+  selectedGenre={selectedGenres[date] || ''}
+  targetCountry={targetCountry}
+  handleGenreChange={(event) => handleGenreChange(event, date)} 
+  handleDelete={handleDelete}
+/>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
 
 export default MovieListCustomContainer;
-
-
-
-

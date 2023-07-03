@@ -29,14 +29,14 @@ const MovieListBlock = styled.div`
     width: 1280px;
     margin: 0 auto;
   }
-  .see-more {
+  .see-All , .see-NotAll {
     text-align: center;
     margin-top: 1rem;
     display: flex;
     justify-content: center;
 
-    .more,
-    .less {
+    .all,
+    .notALL {
       font-size: 30px;
       margin: 0 1rem;
       padding: 0.5rem 1rem;
@@ -51,15 +51,6 @@ const MovieListBlock = styled.div`
         color: #fff;
       }
     }
-  }
-  .movies-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    grid-gap: 20px;
-  }
-
-  .movies-grid .movie-poster {
-    width: 100%;
   }
 `;
 
@@ -112,7 +103,7 @@ const targetGenres = [
   { id: '37', name: '서부' },
 ];
 
-function MovieListCountry({ targetCountry, selectedGenre }) {
+function MovieListCountry({ targetCountry ,selectedGenre }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -126,7 +117,7 @@ function MovieListCountry({ targetCountry, selectedGenre }) {
           {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
-
+              
               language: 'ko-KR',
               without_genres: '18,10749,',
               with_genres: selectedGenre,
@@ -163,22 +154,27 @@ function MovieListCountry({ targetCountry, selectedGenre }) {
         {targetCountry} 영화
       </div>
       <div className="content">
+
         {movies &&
           movies
-            .filter((movie) => movie.vote_count > 0 && movie.backdrop_path !== null)
+            .filter((movie) => movie.vote_count > 0) 
             .slice(0, visibleMovies)
-            .map((movie) => <MovieItem key={movie.id} movie={movie} />)}
-      </div>
-      {showSeeMore && (
-        <div className="see-more">
-          <button onClick={handleSeeMore} className="more">
-            ↓
-          </button>
+            .map((movie) => (
+              <MovieItem key={movie.id} movie={movie} />
+            ))}
         </div>
-      )}
+
+        {showSeeMore && (
+          <div className="see-All">
+            <button onClick={handleSeeMore} className="all">
+            ↓
+            </button>
+          </div>
+        )}
+        
       {showSeeLess && (
-        <div className="see-more">
-          <button onClick={handleSeeLess} className="less">
+        <div className="see-NotAll">
+          <button onClick={handleSeeLess} className="notAll">
             ✕
           </button>
         </div>
@@ -195,22 +191,22 @@ function MovieListCountryContainer() {
   };
   return (
     <>
-      <ButtonContainer>
-        {/* <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
+    <ButtonContainer>
+    <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
           <option value="">모든 장르</option>
           {targetGenres.map((genre) => (
             <option key={genre.id} value={genre.id}>
               {genre.name}
             </option>
           ))}
-        </select> */}
-      </ButtonContainer>
-      <div>
-        <MovieListCountry targetCountry="한국" selectedGenre={selectedGenre} />
-        <MovieListCountry targetCountry="외국" selectedGenre={selectedGenre} />
-      </div>
+        </select>
+    </ButtonContainer>
+    <div>
+      <MovieListCountry targetCountry="한국" selectedGenre={selectedGenre} />
+      <MovieListCountry targetCountry="외국" selectedGenre={selectedGenre} />
+    </div>
     </>
   );
 }
 
-export default MovieListCountryContainer;
+    export default MovieListCountryContainer;

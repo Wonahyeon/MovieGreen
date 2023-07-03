@@ -52,15 +52,7 @@ const MovieListBlock = styled.div`
       }
     }
   }
-  .movies-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    grid-gap: 20px;
-  }
 
-  .movies-grid .movie-poster {
-    width: 100%;
-  }
 `;
 
 const MovieListGenre = ({ targetGenre, genreName }) => {
