@@ -1,28 +1,50 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import {Navigation, Pagination, Autoplay } from "swiper";
 import styled from "styled-components";
+import MovieTopItem from "./MovieTopItem";
 
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/scrollbar';
 
 const MovieBlock = styled.div`
-   background: #aabb93;
-   color: #ffffff;
+   background: #ffffff;
+   color: #000;
    width: 100%;
-   height: 500px;
    margin: 0 auto;
 
-
+   .title{
+      font-size: 2rem;
+      font-weight: 700;
+      padding: 1rem;
+      border-bottom: 0.2rem solid;
+      span{
+         margin-left: 0.5rem;
+      }
+   }
    .content {
       display: flex;
       justify-content: space-evenly;
       align-items: flex-start;
       box-sizing: border-box;
+      margin: 1rem;
       margin: 0 auto;
-
+   }
+   .icon{
+      cursor: pointer;
+      font-size: 2rem;
+      margin-top: 7%;
    }
 `;
 
 function MovieTopNumber(props) {
    const [movies, setMovies] = useState(null);
+   console.log('movies', movies);
+   const [visibleMovies, setVisibleMovies] = useState(10);
 
    useEffect(() => {
       const MovieNumber = async () => {
@@ -36,21 +58,37 @@ function MovieTopNumber(props) {
                },
             }
          );
-            
+            setMovies(response.data.results);
          } catch (e) {
             console.error(e);
          }
       };
       MovieNumber();
    }, []);
-   
+
 
    return (
       <MovieBlock>
-         <div className="content">
-
-
-         </div>
+         <div className="title"><span>일별 Top10</span></div>
+         <Swiper
+            modules={[Navigation, Autoplay]}
+            loop={true}
+            navigation
+            slidesPerView={5} 
+            spaceBetween={50}
+            autoplay = {{delay: 5000}} 
+         >
+            <div className="content">
+               {movies && movies
+                  // .filter((movie) => movie.vote_count > 0) 
+                  .slice(0, visibleMovies)
+                  .map((movie) => (
+                     <SwiperSlide>
+                        <MovieTopItem key={movie.id} movie={movie} />
+                     </SwiperSlide>
+               ))}
+            </div>
+         </Swiper>
       </MovieBlock>
       
    )
