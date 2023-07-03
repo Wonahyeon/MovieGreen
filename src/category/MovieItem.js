@@ -12,10 +12,11 @@ const MovieItemBlock = styled.div`
   padding: 1rem;
   width: 240px;
   height: 360px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease;
   &:hover {
-      transform: scale(1.2);
-      transition: transform 0.3s ease;
+    transform: scale(1.2);
 
     }
   h2 {
@@ -41,6 +42,7 @@ const MovieItemBlock = styled.div`
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
+    border-radius: 20px;
   }
 `;
 
@@ -52,7 +54,7 @@ function MovieItem({ movie }) {
   console.log('movie', movie);
   return (
     <MovieItemBlock>
-      <img src={posterUrl} alt={movieNm} onClick={() => { navigate(`/movie-detail/${movie.id}`); }}/>
+      <img src={posterUrl} alt={movieNm} onClick={() => { navigate(`/movie-detail/${movie.id}`); }} />
       <h2>{rank}</h2>
       <div>
         <h3>{movieNm}</h3>

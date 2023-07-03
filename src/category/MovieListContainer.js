@@ -1,9 +1,10 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieListYearContainer from './MovieListYear';
 import MovieListGenreContainer from './MovieListGenre';
 import MovieListCountryContainer from './MovieListCountry';
 import styled from 'styled-components';
-import { useLocation , useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import MovieListCustomContainer from './MovieListCustom';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -41,8 +42,10 @@ function MovieListContainer() {
       setActiveTab('genre');
     } else if (path.includes('country')) {
       setActiveTab('country');
-    } else {
+    } else if (path.includes('year')) {
       setActiveTab('year');
+    } else {
+      setActiveTab('custom')
     }
   }, [location]);
 
@@ -55,12 +58,21 @@ function MovieListContainer() {
       navigate('/movie-category/genre');
     } else if (tab === 'country') {
       navigate('/movie-category/country');
+    } else if (tab === 'custom') {
+      navigate('/movie-category/custom')
     }
   };
 
   return (
     <div>
       <ButtonContainer>
+
+        <button
+          className={activeTab === 'custom' ? 'active' : ''}
+          onClick={() => handleTabChange('custom')}
+        >
+          커스텀
+        </button>
         <button
           className={activeTab === 'year' ? 'active' : ''}
           onClick={() => handleTabChange('year')}
@@ -84,6 +96,7 @@ function MovieListContainer() {
       {activeTab === 'year' && <MovieListYearContainer />}
       {activeTab === 'genre' && <MovieListGenreContainer />}
       {activeTab === 'country' && <MovieListCountryContainer />}
+      {activeTab === 'custom' && <MovieListCustomContainer />}
     </div>
   );
 }

@@ -141,11 +141,17 @@ function Login(props) {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
-      const existingMember = members.find(member => member.idMail === idValue);
-      if (existingMember) {
-        console.log(existingMember.name);
-        dispatch(selectUser(existingMember.name));
-      } else if (!existingMember) {
+      const memberId = members.find(member => member.idMail === idValue);
+      const memberPw = members.find(member => member.passWord === pwValue);
+      if (memberId && memberPw) {
+        console.log(memberId);
+        console.log('로그인 완료');
+        // 로그인 완료 시 나타낼 컴포넌트 추가
+        // 헤더 회원 가입 -> 사용자 이름
+        // 헤더 로그인  -> 로그아웃
+
+        navigate('/');
+      } else if (!memberId) {
         setWarnMsShow(true);
         setPwValue('');
         setIdValue('');

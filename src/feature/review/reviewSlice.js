@@ -18,4 +18,5 @@ export const {addReview} = reviewSlice.actions;
 
 export const addReviewList = (state) => state.review.reviewList;
 
+
 export default reviewSlice.reducer;

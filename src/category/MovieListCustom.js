@@ -4,85 +4,103 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #ffffff;
-  color: #000;
-  width: fit-content;
-  margin: 0 auto;
-  .title {
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 1rem;
-    border-bottom: 0.2rem solid;
-    span {
-      margin-left: 0.5rem;
-      font-size: 1rem;
-    }
-  }
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: 1rem;
-    margin: 1rem;
-    width: 1280px;
+    background: #ffffff;
+    color: #000;
+    width: fit-content;
     margin: 0 auto;
-  }
-  .see-more {
-    text-align: center;
-    margin-top: 1rem;
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 1rem;
+      border-bottom: 0.2rem solid;
+      span {
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      box-sizing: border-box;
+      padding: 1rem;
+      margin: 1rem;
+      width: 1280px;
+      margin: 0 auto;
+    }
+    .see-more {
+      text-align: center;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+
+      .more,
+      .less {
+        font-size: 30px;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        background: none;
+        color: #000;
+        border: 0.1rem solid #000;
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          background: #000;
+          color: #fff;
+        }
+      }
+    }
+  `;
+
+const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 50px;
+    input {
+      font-size: 50px;
+      width: 130px;
+      text-align: center;
+    }
 
-    .more,
-    .less {
-      font-size: 30px;
-      margin: 0 1rem;
+    button,
+    .selectCountry {
+      margin: 0 0.5rem;
       padding: 0.5rem 1rem;
       background: none;
       color: #000;
       border: 0.1rem solid #000;
       border-radius: 0.5rem;
       cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
 
       &:hover {
         background: #000;
         color: #fff;
       }
     }
-  }
-`;
+  `;
+const SelectGenre = styled.select`
+  margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      background: none;
+      color: #000;
+      border: 0.1rem solid #000;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  font-size: 50px;
-  input {
-    font-size: 50px;
-    width: 130px;
-    text-align: center;
-  }
-
-  button , .selectGenre , .selectCountry{
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    background: none;
-    color: #000;
-    border: 0.1rem solid #000;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    outline: none;
-
-    &:hover {
-      background: #000;
-      color: #fff;
-    }
-  }
-`;
+      &:hover {
+        background: #000;
+        color: #fff;
+      } 
+`
 const targetGenres = [
   { id: '28', name: '액션' },
   { id: '12', name: '어드벤쳐' },
@@ -103,12 +121,12 @@ const targetGenres = [
   { id: '37', name: '서부' },
 ];
 
-
-function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
+function MovieListCustom({ targetDate, selectedGenre, targetCountry,  handleGenreChange }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
+
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -119,10 +137,10 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
               language: 'ko-KR',
-              // without_genres: '10749,18',
+              without_genres: '10749,18',
               year: targetDate,
-              // with_genres: selectedGenre,
-              // with_original_language: targetCountry === '한국' ? 'ko' : 'en',
+              with_genres: selectedGenre,
+              with_original_language: targetCountry === '한국' ? 'ko' : 'en',
             },
           }
         );
@@ -136,7 +154,6 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
     fetchMovie();
   }, [targetDate, selectedGenre, targetCountry]);
 
-
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
     setShowSeeMore(false);
@@ -149,11 +166,25 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
     setShowSeeLess(false);
   };
 
+
+  console.log('movies', movies);
+
   return (
     <MovieListBlock>
-      <div className="title">
-        {targetDate.slice(0, 4)}년<span>{targetDate}</span>
-      </div>
+      <div className="title">{targetDate.slice(0, 4)}년</div>
+      <SelectGenre
+        value={selectedGenre[targetDate]}
+        onChange={(event) => handleGenreChange(event, targetDate)}
+        className="selectGenre"
+      >
+        <option value="">모든 장르</option>
+        {targetGenres.map((genre) => (
+          <option key={genre.id} value={genre.id}>
+            {genre.name}
+          </option>
+        ))}
+      </SelectGenre>
+
       <div className="content">
         {movies &&
           movies
@@ -179,11 +210,14 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
   );
 }
 
-function MovieListYearContainer() {
-  const today_year = String(new Date().getFullYear());
+function MovieListCustomContainer() {
   const [inputValue, setInputValue] = useState('');
-  const [targetDates, setTargetDates] = useState(['2005', '2010', '2015', today_year]);
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [targetDates, setTargetDates] = useState(
+    JSON.parse(localStorage.getItem('targetDates')) || []
+  );
+  const [selectedGenres, setSelectedGenres] = useState(
+    JSON.parse(localStorage.getItem('selectedGenres')) || {}
+  );
   const [targetCountry, setTargetCountry] = useState('한국');
 
   const handleInputChange = (event) => {
@@ -192,7 +226,10 @@ function MovieListYearContainer() {
 
   const addItem = () => {
     if (inputValue.trim() !== '') {
-      setTargetDates([inputValue, ...targetDates]);
+      const newTargetDates = [inputValue, ...targetDates];
+      setTargetDates(newTargetDates);
+      localStorage.setItem('targetDates', JSON.stringify(newTargetDates));
+
       setInputValue('');
     }
   };
@@ -200,25 +237,33 @@ function MovieListYearContainer() {
   const deleteItem = () => {
     const confirmDelete = window.confirm('추가한 연도를 정말로 모두 삭제하시겠습니까?');
     if (confirmDelete) {
-      const targetDatess = ['2005', '2010', '2015', today_year];
-      setTargetDates([...targetDatess]);
+      setTargetDates([]);
+      setSelectedGenres({});
+      localStorage.removeItem('targetDates');
+      localStorage.removeItem('selectedGenres');
     }
   };
 
-  const handleGenreChange = (event) => {
-    setSelectedGenre(event.target.value);
+  const handleGenreChange = (event, targetDate) => {
+    const { value } = event.target;
+    setSelectedGenres((prevGenres) => ({
+      ...prevGenres,
+      [targetDate]: value,
+    }));
   };
 
   const handleCountryChange = (event) => {
     setTargetCountry(event.target.value);
   };
+
   return (
     <>
-      {/* <ButtonContainer>
+      <ButtonContainer>
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
+          placeholder="Enter"
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               addItem();
@@ -229,31 +274,41 @@ function MovieListYearContainer() {
         <button onClick={addItem} className="addItem">
           추가
         </button>
-        <button onClick={deleteItem} className="deleteItem"  disabled={targetDates.length === 4}>
+        <button
+          onClick={deleteItem}
+          className="deleteItem"
+          disabled={targetDates.length === 0}
+        >
           모두 삭제
         </button>
-        <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
-          <option value="">모든 장르</option>
-          {targetGenres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
-        <select value={targetCountry} onChange={handleCountryChange} className='selectCountry'>
+        <select
+          value={targetCountry}
+          onChange={handleCountryChange}
+          className="selectCountry"
+        >
           <option value="한국">한국</option>
           <option value="외국">외국</option>
         </select>
-        
-      </ButtonContainer> */}
+      </ButtonContainer>
 
       <div>
-        {targetDates.map((date) => (
-          <MovieListYear key={date} targetDate={date} selectedGenre={selectedGenre} targetCountry={targetCountry} />
-        ))}
-      </div>
+      {targetDates.map((date) => (
+        <div key={date}>
+          <MovieListCustom
+            targetDate={date}
+            selectedGenre={selectedGenres[date] || ''}
+            targetCountry={targetCountry}
+            handleGenreChange={(event) => handleGenreChange(event, date)} 
+          />
+        </div>
+      ))}
+    </div>
     </>
   );
 }
 
-export default MovieListYearContainer; 
+export default MovieListCustomContainer;
+
+
+
+
