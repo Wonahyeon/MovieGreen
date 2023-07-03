@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "react-star-ratings": "^2.3.0",
     "react-youtube": "^10.1.0",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.11",
     "styled-reset": "^4.4.7",
     "swiper": "^9.4.1",

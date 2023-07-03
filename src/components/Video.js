@@ -3,16 +3,25 @@ import styled from 'styled-components';
 import Youtube from "react-youtube";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 import { async } from 'q';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovieDetails, selectMovie } from '../feature/movie/movieSlice';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
+// VideoCover-부모, StyledVideoWrapper-자식으로 주고 top, left 0으로 주기
+// 버튼 만들어서 누르면 슬라이드 정지
+const VideoCover = styled.div`
+
+`;
+
+
 
 const StyledVideoWrapper = styled.div`
   width: 100%;
@@ -86,26 +95,30 @@ function Video(props) {
   };
 
   return (
-    <StyledVideoWrapper>
-      <StyledSwiper
-        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-        loop={true}
-        autoplay={{
-          delay: 5000,
-        }}
-        slidesPerView={1} 
-        pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
-      >
-        {trailerIds.map(({videoId, movieId}) => (
-          <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
-            <Youtube videoId={videoId} opts={opts}/>
-          </SwiperSlide>
-        ))}
-      </StyledSwiper>
-    </StyledVideoWrapper>
+    <>
+      {/* <VideoCover></VideoCover> */}
+      <StyledVideoWrapper>
+        <StyledSwiper
+          modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+          loop={true}
+          autoplay={{
+            delay: 5000,
+          }}
+          slidesPerView={1} 
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log('slide change')}
+        >
+          {trailerIds.map(({videoId, movieId}) => (
+            <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
+              <Youtube videoId={videoId} opts={opts}/>
+            </SwiperSlide>
+          ))}
+        </StyledSwiper>
+      </StyledVideoWrapper>
+
+    </>
     );
 }
 
