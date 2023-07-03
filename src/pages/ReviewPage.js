@@ -29,13 +29,12 @@ function ReviewPage(props) {
   const [reviewContent, setReviewContent] = useState('');
   const [rating, setRating] = useState(0);
   const ratingColor = '#C8E4A7'; // 별점 색깔
+  const movieDetails = useSelector((state) => state.movie.movieDetails);
   const reviewList = useSelector(addReviewList);
-  
-
   const { movieId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
@@ -54,12 +53,10 @@ function ReviewPage(props) {
     navigate(`/movie-review/${movieId}`);
   };
 
-  console.log(reviewList.find(review => review.id === movieId));
-
   return (
     <ReviewWrapper>
       <div className='review-write'>
-        <h2></h2>
+        <h2>{movieDetails.title}</h2>
         <StarRatings
           rating={rating}
           starRatedColor={ratingColor}
