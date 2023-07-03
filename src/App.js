@@ -19,6 +19,7 @@ import Video from "./components/Video";
 import Main from "./pages/Main";
 import DetailPage from "./pages/DetailPage";
 import ReviewPage from "./pages/ReviewPage";
+import MovieListCustom from "./category/MovieListCustom";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -54,6 +55,8 @@ function App() {
           <Route path="/movie-category/year" element={<MovieListYear />}/> 
           <Route path="/movie-category/country" element={<MovieListCountry />}/> 
           <Route path="/movie-category/genre" element={<MovieListGenre />}/>
+          <Route path="/movie-category/custom" element={<MovieListCustom />}/>
+          
           </Route> 
         </Route>
       </Routes>

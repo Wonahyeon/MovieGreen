@@ -32,28 +32,24 @@ const MovieListBlock = styled.div`
   .see-more {
     text-align: center;
     margin-top: 1rem;
-    button {
+    display: flex;
+    justify-content: center;
+
+    .more,
+    .less {
+      font-size: 30px;
+      margin: 0 1rem;
       padding: 0.5rem 1rem;
       background: none;
       color: #000;
       border: 0.1rem solid #000;
       border-radius: 0.5rem;
       cursor: pointer;
-    }
-  }
-  .more {
-  font-size: 30px;
-  margin-top: 260%;
-  margin-left: 30%;
-  }
-  .less {
-    font-size: 30px;
-  }
-  .more,
-  .less {
-    &:hover {
-      background: #000;
-        color: #fff
+
+      &:hover {
+        background: #000;
+        color: #fff;
+      }
     }
   }
   .movies-grid {
@@ -83,7 +79,7 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
               api_key: '43af09871fd391abc84a35b271386b01',
               language: 'ko-KR',
               region: 'KR',
-              
+
               with_genres: targetGenre,
             },
           }
@@ -119,24 +115,19 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
         <span></span>
       </div>
       <div className="content">
-        <div className="movies-grid">
         {movies &&
           movies
-            .filter((movie) => movie.vote_count > 0) 
+            .filter((movie) => movie.vote_count > 0 && movie.backdrop_path !== null)
             .slice(0, visibleMovies)
-            .map((movie) => (
-              <MovieItem key={movie.id} movie={movie} />
-            ))}
-        </div>
-
-        {showSeeMore && (
-          <div className="see-more">
-            <button onClick={handleSeeMore} className="more">
-            ↓
-            </button>
-          </div>
-        )}
+            .map((movie) => <MovieItem key={movie.id} movie={movie} />)}
       </div>
+      {showSeeMore && (
+        <div className="see-more">
+          <button onClick={handleSeeMore} className="more">
+            ↓
+          </button>
+        </div>
+      )}
       {showSeeLess && (
         <div className="see-more">
           <button onClick={handleSeeLess} className="less">
@@ -182,6 +173,6 @@ function MovieListGenreContainer() {
   );
 }
 
-export default MovieListGenreContainer; 
+export default MovieListGenreContainer;
 
 
