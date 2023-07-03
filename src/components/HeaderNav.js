@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectUserName } from '../feature/user/userSlice';
+import { useCallback } from "react";
+
 
 
 const NavWrapper = styled.div`
@@ -19,7 +22,7 @@ const NavWrapper = styled.div`
     &:hover{
       color: white;
       transition: 1s ease-in-out;
-    }
+    } 
   }
   .logOut {
     padding: 10px;
@@ -39,28 +42,30 @@ const NavWrapper = styled.div`
   }
 `;
 
-
 function HeaderNav(props) {
-
+  const userName = useSelector(selectUserName);
   const navigate = useNavigate();
+  const [isShow, setIsShow] = useState(true);
 
-  const handleRegister = () => {
-    axios.get('http://localhost:4000/members')
-    .then((response) => {
-      const members = response.data;
-      const users = members.find(member => member.name)
-      console.log(users);
-    })
-    .catch((error) => {
-        console.error(error);
-    })
+  const handleToggle = () => {
+    if (userName === null) {
+      setIsShow(isShow)
+    } else {
+      setIsShow(!isShow)
+    }
   }
+
+  // login 성공시 회원가입/로그인 display none
+
+
 
   return (
     <>
       <NavWrapper>
-        <a className="userName" onClick={handleRegister}>{handleRegister.name}님</a>
+
+        <a className="userName" onClick={undefined}>{userName}님</a>
         <a className="logOut" onClick={undefined}>로그아웃</a>
+        
         <a className='signIn' onClick={() => { navigate('/sign-in'); }} >회원가입</a>
         <a className='logIn' onClick={() => { navigate("/log-in"); }} >로그인</a>
       </NavWrapper>
