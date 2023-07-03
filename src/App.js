@@ -17,6 +17,8 @@ import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
 import Video from "./components/Video";
 import Main from "./pages/Main";
+import DetailPage from "./pages/DetailPage";
+import ReviewPage from "./pages/ReviewPage";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -44,10 +46,10 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<Main/>}/>
           <Route path="/search" element={<MovieSearch/>} />
-          <Route path="/movie-detail/:movieId" element={<Detail/>} />
+          <Route path="/movie-detail/:movieId" element={<DetailPage/>} />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
-          
+          <Route path="/movie-review" element={<ReviewPage/>}/>
           <Route path="/movie-category" element={<MovieListContainer />}>
           <Route path="/movie-category/year" element={<MovieListYear />}/> 
           <Route path="/movie-category/country" element={<MovieListCountry />}/> 
