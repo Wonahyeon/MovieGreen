@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addReview, addReviewList } from '../feature/review/reviewSlice';
 import StarRatings from 'react-star-ratings';
 import { useNavigate, useParams } from 'react-router-dom';
+import { selectUserName } from '../feature/user/userSlice';
 
 const ReviewWrapper = styled.div`
   .review-write {
@@ -22,6 +23,13 @@ const ReviewWrapper = styled.div`
   textarea{
     resize: none;
   }
+
+  .review-item {
+    display: flex;
+    h3 {
+      font-weight: bold;
+    }
+  }
 `;
 
 
@@ -30,6 +38,7 @@ function ReviewPage(props) {
   const [rating, setRating] = useState(0);
   const ratingColor = '#C8E4A7'; // 별점 색깔
   const movieDetails = useSelector((state) => state.movie.movieDetails);
+  const userName = useSelector(selectUserName);
   const reviewList = useSelector(addReviewList);
   const { movieId } = useParams();
   const dispatch = useDispatch();
@@ -44,6 +53,7 @@ function ReviewPage(props) {
     // 리뷰 데이터 생성
     const reviewData = {
       id: movieId,
+      userName,
       rating,
       content: reviewContent,
     };
@@ -73,7 +83,8 @@ function ReviewPage(props) {
       <div className='review-list'>
       {reviewList.filter(review => review.id === movieId).map((review, index) => (
           <div className='review-item' key={index}>
-            {review.content}
+            <h3>{review.userName}</h3>
+            <h4>{review.content}</h4>
             <StarRatings
               rating={review.rating}
               starRatedColor={ratingColor}
