@@ -1,8 +1,11 @@
-import React, {useRef, useState } from 'react';
+import React, {useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import HeaderNav from '../components/HeaderNav';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUserInfo, selectUser, selectsetuserNickName } from '../feature/user/userSlice';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -99,7 +102,10 @@ const GoToSign = styled.a`
 
 function Login(props) {
 
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showPassward, setShowPassward] = useState({
     type: 'password',
     visible: false
@@ -107,9 +113,10 @@ function Login(props) {
   
   const [idValue, setIdValue] = useState(''); // ID
   const [pwValue, setPwValue] = useState(''); // PW
-  const passwordRef = useRef(null);
+
   const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
   const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
+
 
   const handleChangeId = (e) => {
     setIdValue(e.target.value);
@@ -129,7 +136,8 @@ function Login(props) {
     })
   }
 
-  const hanldeRegister = () => {
+
+    const handleRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
@@ -147,17 +155,16 @@ function Login(props) {
         setWarnMsShow(true);
         setPwValue('');
         setIdValue('');
-      } else if (!memberPw) {
+      } else if (!existingMember) {
         setwarnPwMsShow(true);
         setPwValue('');
         setIdValue('');
       }
-      
     })
     .catch((error) => {
       console.error(error);
     })
-  };
+  }
 
   return (
     <LoginWrapper>
@@ -185,7 +192,7 @@ function Login(props) {
             ref={passwordRef}
             onKeyUp={ (e) => {
               if(e.key === 'Enter') {
-                hanldeRegister();
+                handleRegister();
               }}}
             />
         <PwShow>
@@ -200,7 +207,7 @@ function Login(props) {
         </Warn>}
 
 
-        <Btn type='button' onClick={hanldeRegister} >로그인</Btn>
+        <Btn type='button' onClick={handleRegister} >로그인</Btn>
 
         <InFo>
           <p className='SignIn'>아직 계정이 없으신가요?</p>
@@ -208,9 +215,9 @@ function Login(props) {
         </InFo>
 
       </MainLogin>
-      
     </LoginWrapper>
     
+
   );
 }
 
