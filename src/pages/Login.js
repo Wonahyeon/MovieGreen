@@ -136,10 +136,12 @@ function Login(props) {
       const memberId = members.find(member => member.idMail === idValue);
       const memberPw = members.find(member => member.passWord === pwValue);
       if (memberId && memberPw) {
+        console.log(memberId);
         console.log('로그인 완료');
         // 로그인 완료 시 나타낼 컴포넌트 추가
         // 헤더 회원 가입 -> 사용자 이름
         // 헤더 로그인  -> 로그아웃
+
         navigate('/');
       } else if (!memberId) {
         setWarnMsShow(true);

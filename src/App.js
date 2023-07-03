@@ -49,7 +49,7 @@ function App() {
           <Route path="/movie-detail/:movieId" element={<DetailPage/>} />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
-          <Route path="/movie-review" element={<ReviewPage/>}/>
+          <Route path="/movie-review/:movieId" element={<ReviewPage/>}/>
           <Route path="/movie-category" element={<MovieListContainer />}>
           <Route path="/movie-category/year" element={<MovieListYear />}/> 
           <Route path="/movie-category/country" element={<MovieListCountry />}/> 
