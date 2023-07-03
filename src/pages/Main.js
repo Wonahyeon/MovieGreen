@@ -6,8 +6,7 @@ function Main(props) {
   return (
     <div>
       <Video />
-      {/* <MovieTopNumber /> */}
-      
+      <MovieTopNumber />
     </div>
   );
 }
