@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import StarRatings from 'react-star-ratings';
 import styled from 'styled-components';
-import { addReviewList, selectedReviewList } from '../feature/review/reviewSlice';
+import { addReviewList } from '../feature/review/reviewSlice';
 
 const ReviewWrapper = styled.div`
   .title {
@@ -16,7 +16,6 @@ const ReviewWrapper = styled.div`
 
 function MovieReview(props) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { movieId } = useParams();
   const reviewList = useSelector(addReviewList);
   const ratingColor = '#C8E4A7';
