@@ -5,6 +5,7 @@ import MovieListCountryContainer from './MovieListCountry';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MovieListCustomContainer from './MovieListCustom';
+import RandomMovie from './RandomMovie';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -91,6 +92,7 @@ function MovieListContainer() {
         >
           국가별
         </button>
+        <RandomMovie />
       </ButtonContainer>
 
       {activeTab === 'year' && <MovieListYearContainer />}

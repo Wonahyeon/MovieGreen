@@ -190,7 +190,7 @@ function MovieListCustom({ targetDate, selectedGenre, targetCountry, handleGenre
         <button onClick={() => handleDelete(targetDate)} className="deleteButton">
           삭제
         </button>
-      </div>
+      </div>  
       <SelectGenre
   value={selectedGenre}
   onChange={(event) => handleGenreChange(event, targetDate)}
@@ -304,7 +304,6 @@ function MovieListCustomContainer() {
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          placeholder="Enter"
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               addItem();
