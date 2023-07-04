@@ -4,7 +4,7 @@ import { MdInfoOutline, MdOutlineVisibilityOff, MdOutlineVisibility } from "reac
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { selectUser } from '../feature/user/userSlice';
+import { selectLogin, selectUser } from '../feature/user/userSlice';
 
 const LoginWrapper = styled.div`
   background: #212126;
@@ -105,25 +105,21 @@ function Login(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [idValue, setIdValue] = useState(''); // ID
+  const [pwValue, setPwValue] = useState(''); // PW
+  const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
+  const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
   const [showPassward, setShowPassward] = useState({
     type: 'password',
     visible: false
   }); // 비밀번호 보이기
   
-  const [idValue, setIdValue] = useState(''); // ID
-  const [pwValue, setPwValue] = useState(''); // PW
-
-  const [warnMsShow, setWarnMsShow] = useState(false); // Id 메세지 
-  const [warnPwMsShow, setwarnPwMsShow] = useState(false); // Pw 메세지
-
-
   const handleChangeId = (e) => {
     setIdValue(e.target.value);
   };
   const handleChangePw = (e) => {
     setPwValue(e.target.value);
   }; 
-
 
   const handleShowPw = (e) => {
     setShowPassward(() => {
@@ -134,25 +130,25 @@ function Login(props) {
       }
     })
   }
-
+// json-server --watch ./src/membership-db.json --port 4000
 
     const handleRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
       const existingMember = members.find(member => member.idMail === idValue);
-      console.log(existingMember);
-      if (existingMember) {
-        if (existingMember.passWord === pwValue) {
-          dispatch(selectUser(existingMember.name));
-          navigate('/');
-        } else {
-          setwarnPwMsShow(true);
-        }
-      } else {
-        setWarnMsShow(true);
+      // console.log(existingMember);
+      if (existingMember.passWord === pwValue && existingMember.idMail === idValue) {
+        console.log('로그인 완료');
+        dispatch(selectUser(existingMember.name));
+        dispatch(selectLogin(true));
+        navigate('/');  
+      } else if (existingMember.passWord !== pwValue) {
+        setwarnPwMsShow(true);
         setIdValue('');
         setPwValue('');
+      } else if (existingMember.idMail !== idValue) {
+        setWarnMsShow(true);
       }
     })
     .catch((error) => {
@@ -199,7 +195,6 @@ function Login(props) {
           <MdInfoOutline />
           <p className='warnPwMessage'>비밀번호가 틀립니다. 다시 입력해주세요.</p>
         </Warn>}
-
 
         <Btn type='button' onClick={handleRegister} >로그인</Btn>
 
