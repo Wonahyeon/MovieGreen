@@ -57,7 +57,7 @@ export const fetchMovieCredits = createAsyncThunk('movie/fetchMovieCredits', asy
 
 const initialState = {
   searchResults : [],
-  selectedMovie: null,
+  selectedMovie: [],
   movieDetails: null,
   movieCredits: null,
   status: 'idle',
@@ -69,7 +69,7 @@ const movieSlice = createSlice({
   initialState,
   reducers: {
     selectMovie: (state, action) => {
-      state.selectedMovie = action.payload;
+      state.selectedMovie.push(action.payload);
     },
   },
   extraReducers: (builder) => {
