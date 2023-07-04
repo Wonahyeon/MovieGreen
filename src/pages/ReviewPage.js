@@ -36,6 +36,7 @@ const ReviewWrapper = styled.div`
 function ReviewPage(props) {
   const [reviewContent, setReviewContent] = useState('');
   const [rating, setRating] = useState(0);
+  const [warningMessage, setWarningMessage] = useState(false);
   const ratingColor = '#C8E4A7'; // 별점 색깔
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const userName = useSelector(selectUserName);
@@ -57,10 +58,14 @@ function ReviewPage(props) {
       rating,
       content: reviewContent,
     };
-    dispatch(addReview(reviewData));
-    setRating(0);
-    setReviewContent('');
-    navigate(`/movie-review/${movieId}`);
+    if (userName) {
+      dispatch(addReview(reviewData));
+      setRating(0);
+      setReviewContent('');
+      navigate(`/movie-review/${movieId}`);
+    } else {
+      setWarningMessage(true);
+    }
   };
 
   return (
@@ -80,6 +85,9 @@ function ReviewPage(props) {
         <textarea value={reviewContent} onChange={(e) => setReviewContent(e.target.value)}/>
         <button type='submit' onClick={handleAddReview}>확인</button>
       </div>
+      {warningMessage &&
+        <div>로그인이 필요합니다.</div>
+      }
       <div className='review-list'>
       {reviewList.filter(review => review.id === movieId).map((review, index) => (
           <div className='review-item' key={index}>
