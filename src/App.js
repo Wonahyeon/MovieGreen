@@ -20,6 +20,7 @@ import Main from "./pages/Main";
 import DetailPage from "./pages/DetailPage";
 import ReviewPage from "./pages/ReviewPage";
 import MovieListCustom from "./category/MovieListCustom";
+import Community from "./pages/Commnuity";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -48,6 +49,7 @@ function App() {
           <Route index element={<Main/>}/>
           <Route path="/search" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<DetailPage/>} />
+          <Route path="/movie-community" element={<Community />}/>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-review/:movieId" element={<ReviewPage/>}/>
