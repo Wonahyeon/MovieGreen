@@ -4,16 +4,18 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
-
+import { fetchMovieCredits, fetchMovieDetails, selectMovie } from '../feature/movie/movieSlice';
+import { deletePickMovie, pickMovie, selectUser } from "../feature/user/userSlice";
 
 const DetailWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   margin: 2rem auto;
   width: 60rem;
   img {
     border-radius: 0.5rem;
+    width: 15rem;
+    height: 22.5rem;
   }
   .content {
     display: flex;
@@ -74,6 +76,7 @@ function MovieDetail(props) {
   const [loading, setLoading] = useState(true);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
+  const userName = useSelector(selectUser);
   const { movieId } = useParams();
   const dispatch = useDispatch();
 
@@ -87,8 +90,14 @@ function MovieDetail(props) {
       })
   }, [dispatch, movieId]);
 
+  // 하트 클릭 시
   const handlePick = () => {
     setPick(!pick);
+    if (!pick) { //  pick true
+      dispatch(pickMovie(movieDetails));
+    } else { // pick false
+      dispatch(deletePickMovie(movieId));
+    }
   };
   
   const handleToggleCast = () => {
@@ -118,7 +127,7 @@ function MovieDetail(props) {
   return (
       <>
       <DetailWrapper>
-        <img src={getImageUrl(movieDetails.backdrop_path)} alt={movieDetails.title} />
+        <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
         <div className='content'>
           <Content>
             <h1>{movieDetails.title}</h1>
@@ -171,9 +180,10 @@ function MovieDetail(props) {
             </h3>
           </Content>
           <Pick>
-            {!pick && <MdFavoriteBorder onClick={handlePick}/>}
-            {pick && <MdFavorite onClick={handlePick}/>}
-            <p>찜하기</p>
+            {pick?
+              <MdFavorite onClick={handlePick}/> :
+              <MdFavoriteBorder onClick={handlePick}/>
+            }
           </Pick>
         </div>
 
