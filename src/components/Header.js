@@ -66,7 +66,7 @@ const Navbar = styled.div`
     text-decoration: none;
     padding: 10px;
   }
-  .categori{
+  .categori, .community{
     padding: 8px;
     cursor: pointer;
 
@@ -167,6 +167,7 @@ console.log(userLogin);
         <Navbar>
         <a href='#' className='home' onClick={() => { navigate('/'); }} >홈</a>
         <a className='categori' onClick={() => {navigate('/movie-category');}}>카테고리</a>
+        <a className='community' onClick={() => {navigate('/movie-community');}}>게시판</a>
         
         </Navbar>
 
