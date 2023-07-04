@@ -152,7 +152,7 @@ function Signin(props) {
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
     if (IsEmail === true && IsPassword == true) {
-      // window.location.href = "/log-in"
+      window.location.href = "/log-in"
       register()
       alert('회원가입되었습니다.');
     } 
