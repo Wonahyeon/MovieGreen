@@ -7,7 +7,7 @@ import axios from "axios";
 const SigninWrapper = styled.div`
   background: #212126;
   max-width: 450px;
-  height: 550px;
+  height: 750px;
   margin: auto;
   margin-top: 70px;
 `;
@@ -94,6 +94,29 @@ const SnsSign = styled.div`
     color: #fff;
   }
 `;
+const GenderSelect = styled.select`
+  width: 300px;
+  height: 50px;
+  padding: 7px;
+  margin-top: 15px;
+  background: #D9D9D9;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+`;
+
+const Warn = styled.div`
+  display: flex;
+  color: orange;
+  font-size: 12px;
+  margin: 5px 0 10px;
+
+`;
+
+
+
+// 나이 성별
+
 
 function Signin(props) {
   const [signemail, setSignemail] = useState(''); //이메일
@@ -106,12 +129,22 @@ function Signin(props) {
     type: 'password',
     visible: false
   }); 
+  const navigate = useNavigate();
+  const [gender, setGender] = useState('남자');
+  const [age, setAge] = useState('');
   
   // 이름 입력
   const [userName, setUserName] = useState('') 
   const handleName = (e) => {
     setUserName(e.target.value);
-  }
+  };
+
+  const handleChangeGender = (e) => {
+    setGender(e.target.value);
+  };
+  const handleChangeAge = (e) => {
+    setAge(e.target.value);
+  };
   
   const handleEmail = (e) => { //이메일
     const currentEamil = e.target.value;
@@ -138,7 +171,7 @@ function Signin(props) {
       setPasswordMessage('');
       setIsPassword(true);
     }
-  }
+  };
 
   const handlePasswordType = (e) => { //비밀번호 visible
     setPasswordType(() => {
@@ -152,7 +185,7 @@ function Signin(props) {
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
     if (IsEmail === true && IsPassword == true) {
-      // window.location.href = "/log-in"
+      navigate('/log-in');
       register()
       alert('회원가입되었습니다.');
     } 
@@ -165,6 +198,8 @@ function Signin(props) {
       name: userName,
       idMail: signemail,
       passWord: password,
+      age,
+      gender,
     })
     .then((response) => {
       console.log('goood');
@@ -188,19 +223,35 @@ function Signin(props) {
               onChange={handleName}
               />
           </label>
+
+          <label>
+            <GenderSelect name='gender' value={gender} onChange={handleChangeGender}>
+              <option value="남자">남자</option>
+              <option value="여자">여자</option>
+            </GenderSelect>
+          </label>
+
+          <label>
+            <Input type='number'
+              placeholder='나이를 입력해주세요'
+              value={age}
+              onChange={handleChangeAge}
+              />
+          </label>
+
           <label for='email'></label>
           <input type='text' id='email' name='name' placeholder='moviegreen@example.com'
             value={signemail}
             onChange={handleEmail}             
           ></input>
-          <p>{emailMessage}</p>
+          <Warn>{emailMessage}</Warn>
           
           <label for='pw'></label>
           <input type={passwordType.type} id='pw' placeholder='moviegreen 비밀번호 설정'
             value={password}
             onChange={handlePassword}
           ></input>
-          <p>{passwordMessage}</p>
+          <Warn>{passwordMessage}</Warn>
 
           <PwShow>
             {passwordType.visible ? <MdOutlineVisibility  onClick={handlePasswordType}/> : <MdOutlineVisibilityOff onClick={handlePasswordType}/>}            

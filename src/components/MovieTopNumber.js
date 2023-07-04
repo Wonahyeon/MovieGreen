@@ -83,8 +83,8 @@ function MovieTopNumber(props) {
                   // .filter((movie) => movie.vote_count > 0) 
                   .slice(0, visibleMovies)
                   .map((movie) => (
-                     <SwiperSlide>
-                        <MovieTopItem key={movie.id} movie={movie} />
+                     <SwiperSlide key={movie.id}>
+                        <MovieTopItem  movie={movie} />
                      </SwiperSlide>
                ))}
             </div>
