@@ -1,5 +1,5 @@
-import React, {useState } from 'react';
-import styled from 'styled-components';
+import React, {useEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
@@ -7,6 +7,7 @@ import HeaderNav from './HeaderNav';
 import { selectLoginUser } from '../feature/user/userSlice';
 import LoginBar from './LoginBar';
 import LogoutBar from './LogoutBar';
+import { MdSearch } from "react-icons/md";
 
 const Nav = styled.div`
   display: flex;
@@ -51,7 +52,9 @@ const Container = styled.div`
     font-size: 35px;
     text-decoration: none;
   }
+
 `;
+
 
 const Navbar = styled.div`
   margin: 0 0 0 100px;
@@ -74,18 +77,46 @@ const Navbar = styled.div`
     }    
   }
 `;
+// input focus시 아이콘 투명화
+
+const Form = styled.form`
+  .searchIcon {
+    position: absolute;
+    top: 51px;
+    right: 118px;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    
+  }
+`;
+
+
 
 const Input = styled.input`
-  width: 200px;
-  height: 30px;
+  width: 40px;
+  height: 35px;
   padding: 7px;
   box-sizing: border-box;
   outline: none;
   border: none;
   border-radius: 10px;
   margin-right: 100px;
+  opacity: 0;
   &::placeholder {
-    color: #a8b0bf;
+    color: white;
+  }
+  &:focus {
+    &::placeholder {
+    color: black /*#a8b0bf*/;
+    }
+    opacity: 100;
+    width: 200px;
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+
+    .searchIcon {
+      display: none;
+    }
   }
 `;
 
@@ -101,6 +132,15 @@ console.log(userLogin);
 
   const [isLogin, setIsLogin] = useState(false);
 
+  const search = useRef(null);
+
+  useEffect(() => {
+    if(search.current) {
+      search.current.focus(value);
+    }
+  }, [])
+  console.log(search);
+  
   const handleSubmenu = () => {
     setSubmenuView(!submenuView);
   };
@@ -132,13 +172,16 @@ console.log(userLogin);
 
         <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>
 
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Input type='text'
+            className='search'
             placeholder='영화를 입력하세요.'
             value={value}
             onChange={handleChange}
             />
-        </form>
+            
+            <MdSearch className='searchIcon' ref={search}/>
+        </Form>
         </Container>
         {/* { submenuView &&
           <ul className='submenu'>

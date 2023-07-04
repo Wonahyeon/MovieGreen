@@ -12,9 +12,9 @@ const MovieItemBlock = styled.div`
    width: 240px;
    height: 360px;
    cursor: pointer;
+   transition: transform 0.3s ease;
    &:hover {
       transform: scale(1.2);
-      transition: transform 0.3s ease;
    }
 
    h2 {
@@ -40,6 +40,7 @@ const MovieItemBlock = styled.div`
       width: 100%;
       height: auto;
       margin-left: 35px;
+      border-radius: 20px;
    }
 `;
 

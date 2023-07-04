@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userName: null,
+  userPick: [],
   logInfo: false,
 }
 // login페이지에서 로그인 성공 시 logInfo = true로 바뀌면 
@@ -17,13 +18,21 @@ const userSlice = createSlice({
     selectLogin(state, action) {
       state.logInfo = action.payload;
     },
+    pickMovie: (state, {payload: movie}) => {
+      state.userPick.push(movie);
+    },
+    deletePickMovie: (state, {payload: movieId}) => {
+      const targetIndex = state.userPick.findIndex((pick) => pick.id === movieId);
+      state.userPick.splice(targetIndex,1);
+    },
   },
 });
 
 
-export const { selectUser, selectLogin } = userSlice.actions;
+export const { selectUser, pickMovie, deletePickMovie, selectLogin } = userSlice.actions;
 
 export const selectUserName = (state) => state.userData.userName;
 export const selectLoginUser = (state) => state.userData.logInfo;
+export const userPickMovie = (state) => state.userData.userPick;
 
 export default userSlice.reducer
