@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Youtube from "react-youtube";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCreative } from "swiper";
 import { async } from 'q';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
@@ -14,11 +14,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-// 유튜브가 부모 유튜브area, cover 자식 
-// 버튼 만들어서 누르면 슬라이드 정지
-//json-server --watch membership-db.json --port 4000
+// 버튼 눌러 슬라이드 정지 
 const VideoCover = styled.div`
   position: relative;
+
+  button{ //사용 시 스타일
+    position: absolute;
+    top: 96%;
+    left: 46%;  
+  }
 `;
 
 const StyledVideoWrapper = styled.div`
@@ -28,7 +32,6 @@ const StyledVideoWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
-
 
 const StyledSwiper = styled(Swiper)`
   height: 700px;
@@ -41,8 +44,31 @@ function Video(props) {
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
 
-  const swiper = useSwiper();
-
+  // const [start, setStart] = useState('');
+  // const [stop, setStop] = useState('');
+  // const [heroSwiper, setSwiperRef] = useRef(null);
+  // const [slidebutton, setSlidebutton] = useState(null);
+  // const playbutton = (e) => {
+  //   e.preventDefault()
+  //   if (slidebutton === null) {
+  //     setSlidebutton(slidebutton.swiper.autoplay.start())
+  //   } else {
+  //     setSlidebutton(slidebutton.swiper.autoplay.stop())
+  //   }
+  // }
+  // const playstart = (e) => {
+  //   setSlidebutton(e.target.value)
+  //   if (slidebutton === null) {
+  //     slidebutton.autoplay.start();
+  //   }
+  // }
+  // const playstop = (e) => {
+  //   setSlidebutton(e.target.value)
+  //   e.preventDefault()
+  //   if (slidebutton === 1000) {
+  //     slidebutton.autoplay.stop();
+  //   }
+  // }
 
   opts = {
     width: '100%',
@@ -53,8 +79,6 @@ function Video(props) {
       origin: 'http://localhost:3000'
     },
   };
-
-
 
   // 최근 상영작 5편
   const [trailerIds, setTrailerIds] = useState([]);
@@ -104,25 +128,39 @@ function Video(props) {
 
   return (
     <VideoCover>
-      <StyledVideoWrapper />
-        <StyledSwiper
-          modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-          loop={true}
-          autoplay={{
-            delay: 5000,
-          }}
-          slidesPerView={1} 
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          >
-          {trailerIds.map(({videoId, movieId}) => (
-            <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
-              {/* youtube 자식 */}
-              <Youtube videoId={videoId} opts={opts}/>
-              {/* <button>버튼</button> */}
-            </SwiperSlide>
-          ))}
-        </StyledSwiper>
+      {/* {slidebutton ? <button onClick={playbutton}>start</button> : <button onClick={playbutton}>stop</button>} */}
+      {/* 버튼 누르면 autoplay  null아니면 숫자 */}
+      {/* <button type='button' onClick={playbutton}>start</button>
+      <button type='button' onClick={playbutton}>stop</button> */}
+      <StyledSwiper
+        // onSwiper={setSwiperRef}
+        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        loop={true}
+        autoplay={{
+          // disableOnInteraction: false, //X 스와이프 후 자동재생이 비활성화 되지 않음
+          delay: 5000,
+          // pauseOnMouseEnter: true, //X
+        }}
+        // effect={'creative'}
+        // creativeEffect={{
+        //   prev: {
+        //     translate: ['-50%', 0, -100],
+        //   },
+        //   next: {
+        //     translate: ['-100%', 0, 0]
+        //   }
+        // }}
+        slidesPerView={1} 
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+        >
+        {trailerIds.map(({videoId, movieId}) => (
+          <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
+            <Youtube videoId={videoId} opts={opts}/>
+            <StyledVideoWrapper />
+          </SwiperSlide>
+        ))}
+      </StyledSwiper>
     </VideoCover>
     );
 }
