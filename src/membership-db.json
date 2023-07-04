@@ -4,37 +4,73 @@
       "id": "3",
       "name": "이수만",
       "idMail": "lsm11@naver.com",
-      "passWord": "Lee123"
+      "passWord": "Lee123",
+      "gender": "남자",
+      "age": "75"
     },
     {
       "name": "박서준",
       "idMail": "park111",
       "passWord": "Park123",
-      "id": "jlgMFlo"
+      "id": "jlgMFlo",
+      "gender": "남자",
+      "age": "34"
     },
     {
       "name": "정보영",
       "idMail": "jby111@naver.com",
       "passWord": "Jby123",
-      "id": "qvqnOPX"
+      "id": "qvqnOPX",
+      "gender": "여자",
+      "age": "23"
     },
     {
       "name": "이지은",
       "idMail": "lje111@naver.com",
       "passWord": "Lee123",
-      "id": "WM4J7hY"
+      "id": "WM4J7hY",
+      "gender": "여자",
+      "age": "32"
     },
     {
       "name": "김지수",
       "idMail": "kjs11@naver.com",
       "passWord": "Kjs123",
-      "id": "Kc9I5ZP"
+      "id": "Kc9I5ZP",
+      "gender": "여자",
+      "age": "23"
     },
     {
       "name": "유재석",
       "idMail": "you11@naver.com",
       "passWord": "Uou123",
-      "id": "SNooFax"
+      "id": "SNooFax",
+      "gender": "남자",
+      "age": "54"
+    },
+    {
+      "name": "강호동",
+      "idMail": "test2@naver.com",
+      "passWord": "Test123",
+      "age": "54",
+      "gender": "",
+      "id": "q1TGTeO"
+    },
+    {
+      "name": "서장훈",
+      "idMail": "test3@naver.com",
+      "passWord": "Test123",
+      "age": "34",
+      "gender": "남자",
+      "id": "ovZtiFW"
+    },
+    {
+      "name": "김민정",
+      "idMail": "test4@naver.com",
+      "passWord": "Test123",
+      "age": "22",
+      "gender": "여자",
+      "id": "lXRB_kS"
     }
   ],
   "user": {
