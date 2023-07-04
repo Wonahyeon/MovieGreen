@@ -4,22 +4,23 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchMovieCredits, fetchMovieDetails, selectMovie } from '../feature/movie/movieSlice';
-import { deletePickMovie, pickMovie, selectUser } from "../feature/user/userSlice";
+import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
+import StarRatings from 'react-star-ratings';
+
 
 const DetailWrapper = styled.div`
-  display: flex;
-  /* flex-direction: column; */
-  margin: 2rem auto;
-  width: 60rem;
+  width: 50rem;
+  height: 37.5rem;
+  margin: 0 auto;
+  .detail-top {
+    display: flex;
+    justify-content: space-between;
+  }
   img {
-    border-radius: 0.5rem;
     width: 15rem;
     height: 22.5rem;
-  }
-  .content {
-    display: flex;
-    justify-content: space-around;
+    flex-shrink: 0;
+    border-radius: 1.25rem;
   }
   h1 {
     font-size: 2rem;
@@ -30,15 +31,19 @@ const DetailWrapper = styled.div`
     font-size: 1rem;
     margin-bottom: 2rem;
   }
+  span {
+    color: black;
+  }
   .toggle-button {
     cursor: pointer;
   }
 `;
 
 const Content = styled.div`
+  width: 15rem;
+  height: 23.375rem;
   display: flex;
   flex-direction: column;
-  flex: 1;
   justify-content: center;
   h3 {
     margin-bottom: 1rem;
@@ -53,6 +58,7 @@ const Pick = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 10rem;
   svg {
     font-size: 3rem;
@@ -76,9 +82,10 @@ function MovieDetail(props) {
   const [loading, setLoading] = useState(true);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
-  const userName = useSelector(selectUser);
   const { movieId } = useParams();
   const dispatch = useDispatch();
+  const ratingColor = '#C8E4A7';
+
 
   useEffect(() => {
     dispatch(fetchMovieDetails(movieId));
@@ -90,14 +97,8 @@ function MovieDetail(props) {
       })
   }, [dispatch, movieId]);
 
-  // 하트 클릭 시
   const handlePick = () => {
     setPick(!pick);
-    if (!pick) { //  pick true
-      dispatch(pickMovie(movieDetails));
-    } else { // pick false
-      dispatch(deletePickMovie(movieId));
-    }
   };
   
   const handleToggleCast = () => {
@@ -127,65 +128,99 @@ function MovieDetail(props) {
   return (
       <>
       <DetailWrapper>
-        <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
-        <div className='content'>
-          <Content>
-            <h1>{movieDetails.title}</h1>
-            <h3>
-              장르{' '}
-              <span>
-                {movieDetails.genres.map((genre) => genre.name).join(', ')}
-              </span>
-            </h3>
-            <h3>
-              국가{' '}
-              <span>
-                {movieDetails.production_countries
-                    .map((country) => country.name)
-                    .join(', ')}
-              </span>
-            </h3>
-            <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
-            <h3>출연
-              <span>
-                  <CastWrapper>
-                    <div className="cast-list">
-                      {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
-                        <div key={cast.id} className="cast-item">
-                          {cast.name},
-                        </div>
-                      ))}
-                    </div>
-                    {movieCredits.cast.length > 3 && (
-                      <div className="toggle-button" onClick={handleToggleCast}>
-                        {showMoreCast ? '간략히 보기' : '자세히 보기'}
-                      </div>
-                    )}
-                  </CastWrapper>
-              </span>
-            </h3>
-            <h3>소개
-              <div>
-                <span>{
-                  movieDetails.overview.length <= 100 || isExpanded
-                  ? movieDetails.overview :
-                  movieDetails.overview.slice(0, 100) + '...'
-                  }</span>
-              </div>
-              {movieDetails.overview.length > 100 && (
-                <span className="toggle-button" onClick={handleToggleIntro}>
-                  {isExpanded ? '간략히 보기' : '자세히 보기'}
+        <div className='detail-top'>
+          <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
+            <Content>
+              <h1>{movieDetails.title}</h1>
+              <h2>{movieDetails.original_title}</h2>
+              <h3>{movieDetails?.belongs_to_collection?.name}</h3>
+              <h3>
+                평점{' '}
+                  <StarRatings
+                    rating={movieDetails.vote_average / 2}
+                    starRatedColor={ratingColor}
+                    starHoverColor={ratingColor}
+                    numberOfStars={5}
+                    starDimension='1.4rem'
+                    starSpacing='.08rem'
+                    name={`rating-${movieDetails.title}`}
+                    />
+                  <span>({movieDetails.vote_average} / 10)</span>
+              </h3>
+              <h3>
+                장르{' '}
+                <span>
+                  {movieDetails.genres.map((genre) => genre.name).join('/')}
                 </span>
-              )}
-            </h3>
-          </Content>
-          <Pick>
-            {pick?
-              <MdFavorite onClick={handlePick}/> :
-              <MdFavoriteBorder onClick={handlePick}/>
+              </h3>
+              <h3>
+                국가{' '}
+                <span>
+                  {movieDetails.production_countries
+                      .map((country) => country.name)
+                      .join(', ')}
+                </span>
+              </h3>
+              <h3>
+                개봉{' '}
+                <span>
+                  {movieDetails.release_date}
+                </span>
+              </h3>
+              <h3>
+                러닝타임{' '}
+                <span>
+                  {movieDetails.runtime}분
+                </span>
+              </h3>
+              <h3>
+                누적관객{' '}
+                <span>
+                  {movieDetails.runtime}분
+                </span>
+              </h3>
+            </Content>
+            <Pick>
+            {pick ?
+            <MdFavorite onClick={handlePick}/> :
+            <MdFavoriteBorder onClick={handlePick}/>
             }
           </Pick>
         </div>
+        <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
+        <h3>출연
+          <span>
+              <CastWrapper>
+                <div className="cast-list">
+                  {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
+                    <div key={cast.id} className="cast-item">
+                      {cast.name},
+                    </div>
+                  ))}
+                </div>
+                {movieCredits.cast.length > 3 && (
+                  <div className="toggle-button" onClick={handleToggleCast}>
+                    {showMoreCast ? '간략히 보기' : '자세히 보기'}
+                  </div>
+                )}
+              </CastWrapper>
+          </span>
+        </h3>
+        <h3>소개
+          <div>
+            <span>{
+              movieDetails.overview.length <= 100 || isExpanded
+              ? movieDetails.overview :
+              movieDetails.overview.slice(0, 100) + '...'
+              }</span>
+          </div>
+          {movieDetails.overview.length > 100 && (
+            <span className="toggle-button" onClick={handleToggleIntro}>
+              {isExpanded ? '간략히 보기' : '자세히 보기'}
+            </span>
+          )}
+        </h3>
+          
 
       </DetailWrapper>
       </>
