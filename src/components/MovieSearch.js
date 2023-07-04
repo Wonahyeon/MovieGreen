@@ -27,6 +27,7 @@ function MovieSearch() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.movie.searchResults);
+  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
   const status = useSelector((state) => state.movie.status);
   const error = useSelector((state) => state.movie.error);
 
@@ -54,17 +55,23 @@ function MovieSearch() {
   if (status === 'failed') {
     return <div>Error: {error}</div>;
   }
-  
+
   return (
     <MovieSearchWrapper>
-      <ul>
-        {searchResults.map((movie) => (
-          <li key={movie.id} onClick={() => {handleMovieClick(movie);}}>
-            <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
-            <h3>{movie.title}</h3>
-          </li>
-        ))}
-      </ul>
+      {searchResults &&
+      <div>
+        <h1>최근 검색 기록</h1>
+        {selectedMovie.title}
+      </div>
+      }
+        <ul>
+          {searchResults.map((movie) => (
+            <li key={movie.id} onClick={() => {handleMovieClick(movie);}}>
+              <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
+              <h3></h3>
+            </li>
+          ))}
+        </ul>
     </MovieSearchWrapper>
   );
 }
