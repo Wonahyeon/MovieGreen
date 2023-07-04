@@ -1,29 +1,13 @@
 {
   "members": [
     {
-      "id": "1",
-      "name": "김지수",
-      "idMail": "kjs11",
-      "passWord": "Kjs123"
-    },
-    {
-      "id": "2",
-      "name": "유재석",
-      "idMail": "yjs11",
-      "passWord": "You123"
-    },
-    {
       "id": "3",
       "name": "이수만",
-      "idMail": "lsm11",
+      "idMail": "lsm11@naver.com",
       "passWord": "Lee123"
     },
     {
-      "idMail": "kjs233",
-      "passWord": "KJmsk233",
-      "id": "1oZo5JG"
-    },
-    {
+      "name": "박서준",
       "idMail": "park111",
       "passWord": "Park123",
       "id": "jlgMFlo"
@@ -45,6 +29,12 @@
       "idMail": "kjs11@naver.com",
       "passWord": "Kjs123",
       "id": "Kc9I5ZP"
+    },
+    {
+      "name": "유재석",
+      "idMail": "you11@naver.com",
+      "passWord": "Uou123",
+      "id": "SNooFax"
     }
   ],
   "user": {

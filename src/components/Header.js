@@ -1,9 +1,12 @@
 import React, {useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
 import HeaderNav from './HeaderNav';
+import { selectLoginUser } from '../feature/user/userSlice';
+import LoginBar from './LoginBar';
+import LogoutBar from './LogoutBar';
 
 const Nav = styled.div`
   display: flex;
@@ -93,6 +96,10 @@ function Header(props) {
   const [value, setValue] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userLogin = useSelector(selectLoginUser);
+console.log(userLogin);
+
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleSubmenu = () => {
     setSubmenuView(!submenuView);
@@ -112,7 +119,7 @@ function Header(props) {
   return (
     <>
         <Nav>
-          <HeaderNav />
+          {userLogin ? <LogoutBar /> : <LoginBar />}
         </Nav>
 
       <HeaderWrapper>
