@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MovieItem from './MovieItem';
+import MovieItem from '../category/MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #fff;
+  background: #ffffff;
   color: #000;
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
   .title {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #000;
     padding: 1rem;
-    border-bottom: 0.2rem solid;
+    border-bottom: 0.2rem solid #000;
     span {
       margin-left: 0.5rem;
       font-size: 1rem;
     }
+  }
+  .titlet {
+    font-size: 1.8rem;
+    text-align: center;
   }
   .content {
     display: flex;
@@ -26,12 +31,22 @@ const MovieListBlock = styled.div`
     box-sizing: border-box;
     padding: 1rem;
     margin: 1rem;
-    width: 1280px;
+    /* width: 1280px; */
     margin: 0 auto;
+
+    .movie-item {
+      margin-bottom: 10px;
+      width: 20%;
+    }
+
+    .movie-item:hover .title {
+      color: #000000; /* Change the color to your desired hover color */
+      /* text-decoration: underline; Add underline on hover */
+    }
   }
   .see-more {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
 
@@ -52,10 +67,11 @@ const MovieListBlock = styled.div`
       }
     }
   }
-
 `;
 
-const MovieListGenre = ({ targetGenre, genreName }) => {
+
+
+function MovieListVote({ targetVote }) {
   const [movies, setMovies] = useState(null);
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
@@ -65,28 +81,24 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
     const fetchMovies = async () => {
       try {
         const response = await axios.get(
-          'https://api.themoviedb.org/3/discover/movie',
+          `https://api.themoviedb.org/3/discover/movie`,
           {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
               language: 'ko-KR',
-              region: 'KR',
-
-              with_genres: targetGenre,
+              vote_average_gte: targetVote,
             },
           }
         );
-
         const movies = response.data.results;
         setMovies(movies);
-        console.log('movies', movies);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchMovies();
-  }, [targetGenre]);
+  }, [targetVote]);
 
   const handleSeeMore = () => {
     setVisibleMovies(movies.length);
@@ -102,16 +114,19 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
 
   return (
     <MovieListBlock>
-      <div className="title">
-        {genreName}
-        <span></span>
-      </div>
+      <div className="title">{targetVote}점 이상 평가한 영화</div>  
       <div className="content">
         {movies &&
           movies
-            .filter((movie) => movie.vote_count > 0 && movie.backdrop_path !== null)
+            .filter(
+              (movie) => movie.vote_average >= targetVote && movie.vote_average < targetVote + 1
+            )
             .slice(0, visibleMovies)
-            .map((movie) => <MovieItem key={movie.id} movie={movie} />)}
+            .map((movie) => (
+              <div key={movie.id} className="movie-item">
+                <MovieItem movie={movie} />
+              </div>
+            ))}
       </div>
       {showSeeMore && (
         <div className="see-more">
@@ -129,42 +144,18 @@ const MovieListGenre = ({ targetGenre, genreName }) => {
       )}
     </MovieListBlock>
   );
-};
+}
 
-function MovieListGenreContainer() {
-  const targetGenres = [
-    { id: '28', name: '액션' },
-    { id: '12', name: '어드벤쳐' },
-    { id: '16', name: '애니메이션' },
-    { id: '35', name: '코미디' },
-    { id: '80', name: '범죄' },
-    { id: '99', name: '다큐멘터리' },
-    { id: '10751', name: '가족' },
-    { id: '14', name: '판타지' },
-    { id: '36', name: '역사' },
-    { id: '27', name: '공포' },
-    { id: '10402', name: '음악' },
-    { id: '9648', name: '미스테리' },
-    { id: '878', name: 'SF(Science Fiction)' },
-    { id: '10770', name: 'TV 영화' },
-    { id: '53', name: '스릴러' },
-    { id: '10752', name: '전쟁' },
-    { id: '37', name: '서부' },
-  ];
+function MovieListVoteContainer() {
+  const targetVotes = [8, 7, 6];
 
   return (
     <div>
-      {targetGenres.map((genre) => (
-        <MovieListGenre
-          key={genre.id}
-          targetGenre={genre.id}
-          genreName={genre.name}
-        />
+      {targetVotes.map((vote) => (
+        <MovieListVote key={vote} targetVote={vote} />
       ))}
     </div>
   );
 }
 
-export default MovieListGenreContainer;
-
-
+export default MovieListVoteContainer;

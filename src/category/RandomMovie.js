@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function RandomMovie({ movie }) {
+function RandomMovie() {
   const navigate = useNavigate();
 
   const handleButtonClick = async () => {
