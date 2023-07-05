@@ -67,7 +67,7 @@ const MovieItemBlock = styled.div`
   display: ${props => (props.showInfo ? 'none' : 'block')};
 }
   .additional-info {
-
+  word-break: keep-all;
   position: absolute;
   top: 50%;
   left: 50%;

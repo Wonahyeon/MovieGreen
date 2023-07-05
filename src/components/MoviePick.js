@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { useSelector } from "react-redux";
 import { selectUserName, userPickMovie } from "../feature/user/userSlice";
-
+import MovieItem from "../category/MovieItem";
 const MovieBlock = styled.div`
   background: #ffffff;
   color: #000;
@@ -57,7 +57,7 @@ function MoviePick(props) {
             .slice(0, 15)
             .map((movie) => (
               <SwiperSlide key={movie.id}>
-                  <MovieTopItem  movie={movie} />
+                  <MovieItem  movie={movie} />
               </SwiperSlide>
         ))}
         </div>

@@ -5,7 +5,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import {Navigation, Pagination, Autoplay } from "swiper";
 import styled from "styled-components";
 import MovieTopItem from "./MovieTopItem";
-
+import MovieItem from "../category/MovieItem";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -84,7 +84,7 @@ function MovieTopNumber(props) {
                   .slice(0, visibleMovies)
                   .map((movie) => (
                      <SwiperSlide key={movie.id}>
-                        <MovieTopItem  movie={movie} />
+                        <MovieItem  movie={movie} />
                      </SwiperSlide>
                ))}
             </div>
