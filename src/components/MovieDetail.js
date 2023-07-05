@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
 import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
+import ReviewPage from "../pages/ReviewPage";
 import axios from 'axios';
 
 
@@ -36,9 +37,6 @@ const DetailWrapper = styled.div`
   span {
     color: black;
   }
-  .toggle-button {
-    cursor: pointer;
-  }
 `;
 
 const Content = styled.div`
@@ -66,10 +64,24 @@ const Pick = styled.div`
     font-size: 3rem;
     margin-bottom: 1rem;
     color: pink;
-    cursor: pointer;
   }
 `;
 
+const Tab = styled.div`
+  .nav-tab {
+    height: 2rem;
+    display: flex;
+    border-bottom: 1px solid black; 
+  }
+  .nav-item {
+    padding: .5rem;
+    :hover {
+      border-bottom: 2px solid lightgray;
+      font-weight: bold;
+    }
+  }
+
+`;
 const CastWrapper = styled.div`
   .cast-list {
     display: flex;
@@ -82,6 +94,7 @@ function MovieDetail(props) {
   const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showTab, setShowTab] = useState('detail'); // 탭 상태
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const userName = useSelector(selectUserName);
@@ -193,48 +206,73 @@ function MovieDetail(props) {
                 </span>
               </h3>
             </Content>
-            <Pick>
+            <Pick className='cursor-pointer'>
             {pick ?
             <MdFavorite onClick={handlePick}/> :
             <MdFavoriteBorder onClick={handlePick}/>
             }
           </Pick>
         </div>
-        <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
-        <h3>출연
-          <span>
-              <CastWrapper>
-                <div className="cast-list">
-                  {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
-                    <div key={cast.id} className="cast-item">
-                      {cast.name},
-                    </div>
-                  ))}
-                </div>
-                {movieCredits.cast.length > 3 && (
-                  <div className="toggle-button" onClick={handleToggleCast}>
-                    {showMoreCast ? '간략히 보기' : '자세히 보기'}
-                  </div>
-                )}
-              </CastWrapper>
-          </span>
-        </h3>
-        <h3>소개
-          <div>
-            <span>{
-              movieDetails.overview.length <= 100 || isExpanded
-              ? movieDetails.overview :
-              movieDetails.overview.slice(0, 100) + '...'
-              }</span>
+        <Tab>
+          <div className='nav-tab cursor-pointer'>
+            <div className='nav-item' onClick={() => {
+              setShowTab('detail');
+            }}>
+              주요 정보
+            </div>
+            <div className='nav-item' onClick={() => {
+              setShowTab('credits');
+            }}>
+              <a>출연/제작</a>
+            </div>
+            <div className='nav-item' onClick={() => {
+              setShowTab('review');
+            }}>
+              <a>평점</a>
+            </div>
           </div>
-          {movieDetails.overview.length > 100 && (
-            <span className="toggle-button" onClick={handleToggleIntro}>
-              {isExpanded ? '간략히 보기' : '자세히 보기'}
-            </span>
-          )}
-        </h3>
-          
-
+        </Tab>
+        {
+          {
+            'detail' :
+            <div>
+            <h3>소개
+              <div>
+                <span>{
+                  movieDetails.overview.length <= 100 || isExpanded
+                  ? movieDetails.overview :
+                  movieDetails.overview.slice(0, 100) + '...'
+                  }</span>
+              </div>
+              {movieDetails.overview.length > 100 && (
+                <span className="cursor-pointer" onClick={handleToggleIntro}>
+                  {isExpanded ? '간략히 보기' : '자세히 보기'}
+                </span>
+              )}
+            </h3>
+              <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
+              <h3>출연
+                <span>
+                    <CastWrapper>
+                      <div className="cast-list">
+                        {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
+                          <div key={cast.id} className="cast-item">
+                            {cast.name},
+                          </div>
+                        ))}
+                      </div>
+                      {movieCredits.cast.length > 3 && (
+                        <div className="cursor-pointer" onClick={handleToggleCast}>
+                          {showMoreCast ? '간략히 보기' : '자세히 보기'}
+                        </div>
+                      )}
+                    </CastWrapper>
+                </span>
+              </h3>
+            </div>,
+            'review': <ReviewPage/>
+          }[showTab]
+        }
       </DetailWrapper>
       </>
   );

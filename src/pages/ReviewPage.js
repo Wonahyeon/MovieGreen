@@ -4,12 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addReview, addReviewList } from '../feature/review/reviewSlice';
 import StarRatings from 'react-star-ratings';
 import { useNavigate, useParams } from 'react-router-dom';
-import { selectUserName } from '../feature/user/userSlice';
+import { selectUserName } from '../feature/user/userSlice'; 
 
 const ReviewWrapper = styled.div`
   .review-write {
     display: flex;
     flex-direction: column;
+    border-radius: 0.25rem;
+    border: 1px solid black;
+    margin-top: 1rem;
+  }
+  .review-submit {
+    display: flex;
+      div {
+        flex: 1;
+      }
   }
 
   button {
@@ -22,6 +31,11 @@ const ReviewWrapper = styled.div`
 
   textarea{
     resize: none;
+    border: none;
+    background: none;
+    :focus {
+      outline: none;
+    }
   }
 
   .review-item {
@@ -62,7 +76,6 @@ function ReviewPage(props) {
       dispatch(addReview(reviewData));
       setRating(0);
       setReviewContent('');
-      navigate(`/movie-review/${movieId}`);
     } else {
       setWarningMessage(true);
     }
@@ -71,7 +84,6 @@ function ReviewPage(props) {
   return (
     <ReviewWrapper>
       <div className='review-write'>
-        <h2>{movieDetails.title}</h2>
         <StarRatings
           rating={rating}
           starRatedColor={ratingColor}
@@ -83,11 +95,12 @@ function ReviewPage(props) {
           name='rating'
         />
         <textarea value={reviewContent} onChange={(e) => setReviewContent(e.target.value)}/>
-        <button type='submit' onClick={handleAddReview}>확인</button>
+        <div className='review-submit'>
+          <div style = {{visibility: warningMessage? "visible" : "hidden"}}>로그인이 필요합니다.</div>
+          <button type='submit' onClick={handleAddReview}>확인</button>
+        </div>
       </div>
-      {warningMessage &&
-        <div>로그인이 필요합니다.</div>
-      }
+      
       <div className='review-list'>
       {reviewList.filter(review => review.id === movieId).map((review, index) => (
           <div className='review-item' key={index}>
