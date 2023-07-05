@@ -18,11 +18,8 @@ import Video from "./components/Video";
 import Main from "./pages/Main";
 import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
-<<<<<<< HEAD
 import Footer from "./components/Footer";
-=======
 import MovieDetail from "./components/MovieDetail";
->>>>>>> a042df9d8b4e4a6f870f85c7cff3f5bb680a1862
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
