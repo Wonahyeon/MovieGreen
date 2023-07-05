@@ -4,7 +4,7 @@ const initialState = {
   userName: null,
   userPick: [],
   logInfo: false,
-}
+};
 // login페이지에서 로그인 성공 시 logInfo = true로 바뀌면 
 // Nav 컴포넌트도 변경
 
@@ -19,7 +19,8 @@ const userSlice = createSlice({
       state.logInfo = action.payload;
     },
     pickMovie: (state, {payload: movie}) => {
-      state.userPick.push(movie);
+      const pickMovie = state.userPick.find(pick => pick.id === movie.id);
+      if (!pickMovie) state.userPick.unshift(movie);
     },
     deletePickMovie: (state, {payload: movieId}) => {
       const targetIndex = state.userPick.findIndex((pick) => pick.id === movieId);

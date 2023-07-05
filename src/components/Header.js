@@ -138,7 +138,7 @@ console.log(userLogin);
     if(search.current) {
       search.current.focus(value);
     }
-  }, [])
+  }, [value])
   console.log(search);
   
   const handleSubmenu = () => {

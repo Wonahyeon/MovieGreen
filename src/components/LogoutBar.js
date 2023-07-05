@@ -23,7 +23,6 @@ const NavWrapper = styled.div`
 `;
 
 function LogoutBar(props) {
-
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
 
@@ -31,7 +30,9 @@ function LogoutBar(props) {
     <>
       <NavWrapper>
         <a className="userName" onClick={undefined}>{userName}님</a>
-        <a className="logOut" onClick={() => {dispatch(selectLogin(false))}}>로그아웃</a>
+        <a className="logOut" onClick={() => {
+          dispatch(selectLogin(false));
+        }}>로그아웃</a>
       </NavWrapper>
     </>
   );
