@@ -4,15 +4,7 @@ import { resetPickMovie, selectLogin, selectUserName } from '../feature/user/use
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
-  .logOut {
-    padding: 10px;
-    cursor: pointer;
-    &:hover{
-      color: white;
-      transition: 1s ease-in-out;
-    }
-  }
-  .userName {
+  .navBar {
     padding: 10px;
     cursor: pointer;
     &:hover{
@@ -34,8 +26,10 @@ function LogoutBar(props) {
   return (
     <>
       <NavWrapper>
-        <a className="userName" onClick={undefined}>{userName}님</a>
-        <a className="logOut" onClick={handleLogout}>로그아웃</a>
+
+        <a className="navBar" onClick={undefined}>{userName}님</a>
+        <a className="navBar" onClick={handleLogout}>로그아웃</a>
+
       </NavWrapper>
     </>
   );
