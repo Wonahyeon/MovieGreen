@@ -6,6 +6,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
+import { deletePickMovie, pickMovie } from '../feature/user/userSlice';
 
 
 const DetailWrapper = styled.div`
@@ -99,6 +100,11 @@ function MovieDetail(props) {
 
   const handlePick = () => {
     setPick(!pick);
+    if (!pick) { //  pick true
+      dispatch(pickMovie(movieDetails));
+    } else { // pick false
+      dispatch(deletePickMovie(movieId));
+    }
   };
   
   const handleToggleCast = () => {

@@ -52,7 +52,7 @@ function HeaderNav(props) {
     } else {
       setIsShow(!isShow)
     }
-  }
+  };
 
   // login 성공시 회원가입/로그인 display none
 
