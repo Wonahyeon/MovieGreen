@@ -58,7 +58,7 @@ function App() {
           <Route path="/movie-category/country" element={<MovieListCountry />}/> 
           <Route path="/movie-category/genre" element={<MovieListGenre />}/>
           <Route path="/movie-category/custom" element={<MovieListCustom />}/>
-          
+
           </Route> 
         </Route>
       </Routes>

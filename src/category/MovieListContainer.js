@@ -45,7 +45,7 @@ function MovieListContainer() {
       setActiveTab('country');
     } else if (path.includes('year')) {
       setActiveTab('year');
-    } else {
+    } else if (path.includes('custom')) {
       setActiveTab('custom')
     }
   }, [location]);
@@ -69,12 +69,6 @@ function MovieListContainer() {
       <ButtonContainer>
 
         <button
-          className={activeTab === 'custom' ? 'active' : ''}
-          onClick={() => handleTabChange('custom')}
-        >
-          커스텀
-        </button>
-        <button
           className={activeTab === 'year' ? 'active' : ''}
           onClick={() => handleTabChange('year')}
         >
@@ -91,6 +85,12 @@ function MovieListContainer() {
           onClick={() => handleTabChange('country')}
         >
           국가별
+        </button>
+        <button
+          className={activeTab === 'custom' ? 'active' : ''}
+          onClick={() => handleTabChange('custom')}
+        >
+          커스텀
         </button>
         <RandomMovie />
       </ButtonContainer>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const MovieItemBlock = styled.div`
   display: flex;
-  background: #ffffff;
+  background: transparent;
   color: #aabb93;
   justify-content: space-between;
   align-items: center;
@@ -16,11 +16,11 @@ const MovieItemBlock = styled.div`
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease;
-
+  
   &:hover {
     transform: scale(1.2);
   }
-
+  
   h2 {
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@ const MovieItemBlock = styled.div`
     height: 3rem;
     text-decoration: underline;
   }
-
+  
   div {
     flex: 1;
     display: flex;
@@ -39,31 +39,33 @@ const MovieItemBlock = styled.div`
     text-align: right;
     padding: 0 1.5rem;
   }
-
+  
   img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 20px;
-  }
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+}
+.poster {
+  width: 200px;
+  height: 300px;
+  background-color: #ccc;
+  margin-bottom: 0.5rem;
+}
 
-  .poster {
-    width: 200px;
-    height: 300px;
-    background-color: #ccc;
-    margin-bottom: 0.5rem;
-  }
+.titlet {
+  /* font-size: 1.2rem; */
+  pointer-events: none;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  color: #000;
 
-  .title {
-    font-size: 21px;
-    text-align: center;
-    width: auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: ${props => (props.showInfo ? 'none' : 'block')};
-  }
-
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: ${props => (props.showInfo ? 'none' : 'block')};
+}
   .additional-info {
 
   position: absolute;
@@ -84,7 +86,8 @@ const MovieItemBlock = styled.div`
     display: block;
     background: rgba(0.5, 0.5, 0.5, 0.5);
     color: #fff;
-    transition: transform 0.3s ease;
+
+
   }
 `;
 
@@ -119,37 +122,34 @@ function MovieItem({ movie }) {
     setShowInfo(false);
   };
 
+  const handleTitleClick = () => {
+    navigate(`/movie-detail/${movie.id}`);
+  };
+
   return (
     <MovieItemBlock showInfo={showInfo} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <img src={posterUrl} alt={movieNm} onClick={() => navigate(`/movie-detail/${movie.id}`)} />
       <h2>{rank}</h2>
-      <div>
-        {showInfo && movieDetails && (
-          <div className="additional-info" onClick={() => navigate(`/movie-detail/${movie.id}`)}>
-            {movieDetails.release_date && <p>개봉: {movieDetails.release_date}</p>}
-            {movieDetails.genres && (
-              <p>장르: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>
+      {showInfo && movieDetails && (
+        <div className="additional-info" onClick={() => navigate(`/movie-detail/${movie.id}`)}>
+          {movieDetails.release_date && <p>개봉: {movieDetails.release_date}</p>}
+          {movieDetails.genres && <p>장르: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>}
+          {movieDetails.vote_average && <p>평점: {movieDetails.vote_average}</p>}
+          {movieDetails.credits &&
+            movieDetails.credits.crew &&
+            movieDetails.credits.crew.length > 0 && (
+              <p>감독: {movieDetails.credits.crew.find((person) => person.job === 'Director')?.name}</p>
             )}
-            <br />
-            {movieDetails.vote_average && <p>평점: {movieDetails.vote_average}</p>}
-            <br />
-            {movieDetails.credits &&
-              movieDetails.credits.crew &&
-              movieDetails.credits.crew.length > 0 && (
-                <p>감독: {movieDetails.credits.crew.find((person) => person.job === 'Director')?.name}</p>
-              )}
-            <br />
-            {movieDetails.credits &&
-              movieDetails.credits.cast &&
-              movieDetails.credits.cast.length > 0 && (
-                <p>Cast: {movieDetails.credits.cast.slice(0, 5).map((person) => person.name).join(', ')}</p>
-              )}
-          </div>
-        )}
-        <div className="title" onClick={() => navigate(`/movie-detail/${movie.id}`)}>{title}</div>
-      </div>
+          {movieDetails.credits &&
+            movieDetails.credits.cast &&
+            movieDetails.credits.cast.length > 0 && (
+              <p>Cast: {movieDetails.credits.cast.slice(0, 5).map((person) => person.name).join(', ')}</p>
+            )}
+        </div>
+      )}
+      <div className="titlet" onClick={handleTitleClick}>{title}</div>
     </MovieItemBlock>
   );
 }
-
 export default MovieItem;
+
