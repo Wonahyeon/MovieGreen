@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectLogin, selectUserName } from '../feature/user/userSlice';
+import { resetPickMovie, selectLogin, selectUserName } from '../feature/user/userSlice';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
@@ -18,13 +18,18 @@ function LogoutBar(props) {
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(selectLogin(false));
+    dispatch(resetPickMovie());
+  };
+
   return (
     <>
       <NavWrapper>
+
         <a className="navBar" onClick={undefined}>{userName}님</a>
-        <a className="navBar" onClick={() => {
-          dispatch(selectLogin(false));
-        }}>로그아웃</a>
+        <a className="navBar" onClick={handleLogout}>로그아웃</a>
+
       </NavWrapper>
     </>
   );

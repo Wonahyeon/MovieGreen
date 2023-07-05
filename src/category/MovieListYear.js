@@ -9,7 +9,7 @@ const MovieListBlock = styled.div`
   width: fit-content;
   margin: 0 auto;
   .title {
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: bold;
     padding: 1rem;
     border-bottom: 0.2rem solid;

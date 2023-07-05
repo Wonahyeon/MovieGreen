@@ -17,11 +17,13 @@ import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
 import Video from "./components/Video";
 import Main from "./pages/Main";
-import DetailPage from "./pages/DetailPage";
-import ReviewPage from "./pages/ReviewPage";
 import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
+<<<<<<< HEAD
 import Footer from "./components/Footer";
+=======
+import MovieDetail from "./components/MovieDetail";
+>>>>>>> a042df9d8b4e4a6f870f85c7cff3f5bb680a1862
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -29,6 +31,15 @@ const GlobalStyle = createGlobalStyle`
   body {
     background: #e9ecef;
     color: black;
+    box-sizing: border-box;
+  }
+
+  * {
+    box-sizing: inherit;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
   }
 `;
 
@@ -49,17 +60,24 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<Main/>}/>
           <Route path="/search" element={<MovieSearch/>} />
-          <Route path="/movie-detail/:movieId" element={<DetailPage/>} />
+          <Route path="/movie-detail/:movieId" element={<MovieDetail/>} />
           <Route path="/movie-community" element={<Community />}/>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
-          <Route path="/movie-review/:movieId" element={<ReviewPage/>}/>
           <Route path="/movie-category" element={<MovieListContainer />}>
+
             <Route path="/movie-category/year" element={<MovieListYear />}/> 
             <Route path="/movie-category/country" element={<MovieListCountry />}/> 
             <Route path="/movie-category/genre" element={<MovieListGenre />}/>
             <Route path="/movie-category/custom" element={<MovieListCustom />}/>
           
+
+          <Route path="/movie-category/year" element={<MovieListYear />}/> 
+          <Route path="/movie-category/country" element={<MovieListCountry />}/> 
+          <Route path="/movie-category/genre" element={<MovieListGenre />}/>
+          <Route path="/movie-category/custom" element={<MovieListCustom />}/>
+
+
           </Route> 
         </Route>
         {/* <Route element={<Footer />}/> */}
