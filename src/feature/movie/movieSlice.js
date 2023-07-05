@@ -69,7 +69,7 @@ const movieSlice = createSlice({
   initialState,
   reducers: {
     selectMovie: (state, action) => {
-      state.selectedMovie.push(action.payload);
+      state.selectedMovie= action.payload;
     },
   },
   extraReducers: (builder) => {

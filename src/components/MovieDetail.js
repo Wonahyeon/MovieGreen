@@ -6,7 +6,8 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
-import { deletePickMovie, pickMovie } from '../feature/user/userSlice';
+import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
+import axios from 'axios';
 
 
 const DetailWrapper = styled.div`
@@ -83,6 +84,8 @@ function MovieDetail(props) {
   const [loading, setLoading] = useState(true);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
+  const userName = useSelector(selectUserName);
+  const moviePickData = useSelector(userPickMovie);
   const { movieId } = useParams();
   const dispatch = useDispatch();
   const ratingColor = '#C8E4A7';
@@ -98,10 +101,14 @@ function MovieDetail(props) {
       })
   }, [dispatch, movieId]);
 
-  const handlePick = () => {
+  const handlePick = async () => {
     setPick(!pick);
     if (!pick) { //  pick true
       dispatch(pickMovie(movieDetails));
+      await axios.post('http://localhost:4000/members', {
+        userName,
+        pickList: [moviePickData]
+      });
     } else { // pick false
       dispatch(deletePickMovie(movieId));
     }

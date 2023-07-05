@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 const initialState = {
   userName: null,
   userPick: [],
@@ -26,11 +28,15 @@ const userSlice = createSlice({
       const targetIndex = state.userPick.findIndex((pick) => pick.id === movieId);
       state.userPick.splice(targetIndex,1);
     },
+    resetPickMovie: (state) => {
+      state.userPick = [];
+      state.userName = null;
+    }
   },
 });
 
 
-export const { selectUser, pickMovie, deletePickMovie, selectLogin } = userSlice.actions;
+export const { selectUser, pickMovie, deletePickMovie, selectLogin, resetPickMovie } = userSlice.actions;
 
 export const selectUserName = (state) => state.userData.userName;
 export const selectLoginUser = (state) => state.userData.logInfo;

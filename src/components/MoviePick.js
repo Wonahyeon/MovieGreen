@@ -42,6 +42,7 @@ const MovieBlock = styled.div`
 function MoviePick(props) {
   const userName = useSelector(selectUserName);
   const userPickMovieList = useSelector(userPickMovie);
+  
   return (
     <MovieBlock>
       <div className="title"><span>{userName}님이 찜한 콘텐츠</span></div>
