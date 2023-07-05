@@ -8,14 +8,15 @@ import { v4 as uuidv4 } from "uuid";
 import { json } from "react-router-dom";
 
 
-const Commnuity = styled.div`
-
+const StyledCommnuity = styled.div`
    text-align: center;
 `;
 
 const Commnuitycheck = styled.div`
+   position: absolute;
+   left: 0;
    margin: 0 auto;
-   width: 80%;
+   width: 50%;
    border: 1px solid gray;
    padding: 10px 0 30px 0;
    margin-bottom : 50px;
@@ -121,10 +122,9 @@ function Community(props) {
       title: '',
       content: ''
    });
-   
    const [viewContent, setViewContent] = useState([]);
+   // const [Message, setMessage] = useState(false);
 
-   // const [viewContent, setViewContent] = useState([]);  
    
    // axios사용해서
    // 버튼 onClick할 
@@ -133,7 +133,7 @@ function Community(props) {
    // content: communityContent.title
    
    const getValue = (e) => {
-      const {name, value} = e.target;
+      const {value, name} = e.target;
       setCommunityContent({
          ...communityContent,
          [name]: value
@@ -163,9 +163,9 @@ function Community(props) {
    // }, [communityText]);
 
    return(
-      <Commnuity>
+      <StyledCommnuity>
          <h1>커뮤니티</h1>
-         <Commnuitycheck>
+         <Commnuitycheck onChange={getValue}>
             {viewContent.map((text) => {
                return(
                   <div>
@@ -187,7 +187,7 @@ function Community(props) {
                //    console.log(communityContent);
                // }}
                />
-            <CKEditor 
+            <CKEditor // Editor설치
                editor={ClassicEditor}
                data="<p>Hello from CKEditor 5!</p>"            
                onReady={ editor => {
@@ -209,13 +209,12 @@ function Community(props) {
          </CommnuityText>
          <CommnuityButton
             onClick={() => {
-               setViewContent(viewContent.concat({...communityContent}))
+               setViewContent(viewContent.push({...communityContent}))
             }}
-         >등록하기</CommnuityButton>
-      </Commnuity>
-
-      
-
+         >
+            등록하기
+         </CommnuityButton>
+      </StyledCommnuity>
    )
 }
 export default Community;
