@@ -3,22 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavWapper = styled.div`
-  .sigIn {
+  .navBar {
     padding: 10px;
     cursor: pointer;
     &:hover{
       color: white;
       transition: 1s ease-in-out;
     }
-  .logIn {
-    padding: 10px;
-    cursor: pointer;
-    &:hover{
-      color: white;
-      transition: 1s ease-in-out;
-    } 
-  }
-  }
+  } 
 `;
 
 function LoginBar(props) {
@@ -28,8 +20,8 @@ function LoginBar(props) {
   return (
     <>
       <NavWapper>
-        <a className='sigIn' onClick={() => { navigate('/sign-in'); }}>회원가입</a>
-        <a className='logIn' onClick={() => { navigate("/log-in"); }} >로그인</a>
+        <a className='navBar' onClick={() => { navigate('/sign-in'); }}>회원가입</a>
+        <a className='navBar' onClick={() => { navigate("/log-in"); }} >로그인</a>
       </NavWapper>
     </>
   );

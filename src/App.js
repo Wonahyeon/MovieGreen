@@ -21,6 +21,7 @@ import DetailPage from "./pages/DetailPage";
 import ReviewPage from "./pages/ReviewPage";
 import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
+import Footer from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -54,14 +55,17 @@ function App() {
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-review/:movieId" element={<ReviewPage/>}/>
           <Route path="/movie-category" element={<MovieListContainer />}>
-          <Route path="/movie-category/year" element={<MovieListYear />}/> 
-          <Route path="/movie-category/country" element={<MovieListCountry />}/> 
-          <Route path="/movie-category/genre" element={<MovieListGenre />}/>
-          <Route path="/movie-category/custom" element={<MovieListCustom />}/>
+            <Route path="/movie-category/year" element={<MovieListYear />}/> 
+            <Route path="/movie-category/country" element={<MovieListCountry />}/> 
+            <Route path="/movie-category/genre" element={<MovieListGenre />}/>
+            <Route path="/movie-category/custom" element={<MovieListCustom />}/>
           
           </Route> 
         </Route>
+        {/* <Route element={<Footer />}/> */}
       </Routes>
+      <Footer />
+      
       
     </>
   );

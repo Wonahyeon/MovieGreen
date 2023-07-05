@@ -3,7 +3,6 @@ import styled, { keyframes } from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchMovies } from '../feature/movie/movieSlice';
-import HeaderNav from './HeaderNav';
 import { selectLoginUser } from '../feature/user/userSlice';
 import LoginBar from './LoginBar';
 import LogoutBar from './LogoutBar';
@@ -23,39 +22,36 @@ const HeaderWrapper = styled.div`
   height: 100px;
   background: #212126;
   padding: 8px;
-  .submenu {
-    background: #a8b0bf;
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 43px;
-    left: 135px;
-    padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  .container {
+    margin-right: 10px;
+    /* width: calc(100% - 30%); */
   }
-  .li {
-    padding: 8px;
-    cursor: pointer;
+  .form {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 15px 0;
+  .navBar {
+    margin-right: 330px;
+  }
   .Logo {
     color: #a8b0bf;
     font-weight: 600;
     font-size: 35px;
     text-decoration: none;
   }
-
 `;
-
-
 const Navbar = styled.div`
   margin: 0 0 0 100px;
   font-size: 20px;
@@ -73,26 +69,24 @@ const Navbar = styled.div`
     &:hover {
       color: white;
       transition: 1s;
-  
     }    
   }
 `;
-// input focus시 아이콘 투명화
-
 const Form = styled.form`
+  display: flex;
+  /* flex-grow: 2; */
   .searchIcon {
     position: absolute;
-    top: 51px;
-    right: 118px;
+    top: 70px;
+    right: 299px;
     font-size: 30px;
     color: black;
     cursor: pointer;
-    
+    &:focus {
+      opacity: 0;
+    }
   }
 `;
-
-
-
 const Input = styled.input`
   width: 40px;
   height: 35px;
@@ -101,59 +95,44 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 10px;
-  margin-right: 100px;
-  opacity: 0;
+  /* margin-left: 100px; */
+  /* opacity: 0; */
   &::placeholder {
     color: white;
   }
   &:focus {
     &::placeholder {
-    color: black /*#a8b0bf*/;
+    color: black;
     }
     opacity: 100;
     width: 200px;
     transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-
-    .searchIcon {
-      display: none;
-    }
   }
 `;
 
-
-
 function Header(props) {
-  const [submenuView, setSubmenuView] = useState(false);
+
   const [value, setValue] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector(selectLoginUser);
-console.log(userLogin);
+  const inputRef = useRef(null);
 
-  const [isLogin, setIsLogin] = useState(false);
-
-  const search = useRef(null);
-
-  useEffect(() => {
-    if(search.current) {
-      search.current.focus(value);
-    }
-  }, [value])
-  console.log(search);
-  
-  const handleSubmenu = () => {
-    setSubmenuView(!submenuView);
-  };
 
   const handleChange = (e) => {
     setValue(e.target.value);
     navigate(`/search`);
-  }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(searchMovies(value));
     setValue('');
   };
+
+  const handleClick = () => {
+    inputRef.current.focus();
+  }
 
 
   return (
@@ -163,8 +142,8 @@ console.log(userLogin);
         </Nav>
 
       <HeaderWrapper>
-        <Container>
-        <Navbar>
+        <Container className='container'>
+        <Navbar className='navBar'>
         <a href='#' className='home' onClick={() => { navigate('/'); }} >홈</a>
         <a className='categori' onClick={() => {navigate('/movie-category');}}>카테고리</a>
         <a className='community' onClick={() => {navigate('/movie-community');}}>게시판</a>
@@ -172,18 +151,19 @@ console.log(userLogin);
         </Navbar>
 
         <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>
-
-        <Form onSubmit={handleSubmit}>
+        </Container>
+        <Form className='form' onSubmit={handleSubmit} onClick={handleClick}>
           <Input type='text'
             className='search'
             placeholder='영화를 입력하세요.'
             value={value}
+            ref={inputRef}
             onChange={handleChange}
             />
             
-            <MdSearch className='searchIcon' ref={search}/>
+            <MdSearch className='searchIcon' />
         </Form>
-        </Container>
+
         {/* { submenuView &&
           <ul className='submenu'>
             <li className='li' onClick={() => {navigate('/movie-category/year');}}>연도</li>
