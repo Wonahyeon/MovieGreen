@@ -2,18 +2,14 @@ import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react'; //Editor설치
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'; //Editor설치
-import  ReactHtmlParser  from "html-react-parser"; //모듈설치 
+import ReactHtmlParser from "html-react-parser"; //모듈설치 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { json } from "react-router-dom";
 
-// 
-// 글쓰기 버튼(=글 작성 등록 버튼)
-// 글 작성 날짜 
-// 조회수
-// 채팅기능..?
 
 const Commnuity = styled.div`
+
    text-align: center;
 `;
 
@@ -26,7 +22,9 @@ const Commnuitycheck = styled.div`
 `;
 
 const CommnuityText = styled.div`
-   width: 80%;
+   position: absolute;
+   right: 0;
+   width: 50%;
    margin: 0 auto;
 
    input{
@@ -51,7 +49,8 @@ const CommnuityButton = styled.button`
    font-size: 20px;
    padding: 8px 16px;
    border: 1px;
-   border-radius: 5px;
+   border-radius: 8px;
+   cursor: pointer;
 `;
 
 
@@ -103,7 +102,6 @@ const CommnuityButton = styled.button`
 //       padding: 16px;
 //       font-size: 16px;
 //       line-height: 20px;
-
 //    }
 // `;
 
@@ -116,7 +114,6 @@ const CommnuityButton = styled.button`
 //    border: 1px;
 //    border-radius: 8px;
 //    cursor: pointer;
-
 // `;
 
 function Community(props) {
@@ -125,10 +122,7 @@ function Community(props) {
       content: ''
    });
    
-   const [viewContent, setViewContent] = useState([
-      // {
-      // }
-   ]);
+   const [viewContent, setViewContent] = useState([]);
 
    // const [viewContent, setViewContent] = useState([]);  
    
@@ -139,7 +133,7 @@ function Community(props) {
    // content: communityContent.title
    
    const getValue = (e) => {
-      const {name, value} = e.target.value;
+      const {name, value} = e.target;
       setCommunityContent({
          ...communityContent,
          [name]: value
@@ -218,9 +212,9 @@ function Community(props) {
                setViewContent(viewContent.concat({...communityContent}))
             }}
          >등록하기</CommnuityButton>
+      </Commnuity>
 
       
-      </Commnuity>
 
    )
 }
