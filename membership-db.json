@@ -45,6 +45,583 @@
       "idMail": "lje516@naver.com",
       "passWord": "Lee918",
       "id": "PqqBtv3"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        [
+          {
+            "adult": false,
+            "backdrop_path": "/2I5eBh98Q4aPq8WdQrHdTC8ARhY.jpg",
+            "belongs_to_collection": {
+              "id": 573436,
+              "name": "스파이더맨: 뉴 유니버스 시리즈",
+              "poster_path": "/eD4bGQNfmqExIAzKdvX5gDHhI2.jpg",
+              "backdrop_path": "/14F6gMaRjzgsN6EEpiwH87R1I00.jpg"
+            },
+            "budget": 100000000,
+            "genres": [
+              {
+                "id": 28,
+                "name": "액션"
+              },
+              {
+                "id": 12,
+                "name": "모험"
+              },
+              {
+                "id": 16,
+                "name": "애니메이션"
+              },
+              {
+                "id": 878,
+                "name": "SF"
+              }
+            ],
+            "homepage": "",
+            "id": 569094,
+            "imdb_id": "tt9362722",
+            "original_language": "en",
+            "original_title": "Spider-Man: Across the Spider-Verse",
+            "overview": "여러 성장통을 겪으며 새로운 스파이더맨이 된 마일스 모랄레스. 그 앞에 다른 평행세계의 스파이더우먼 그웬이 다시 나타난다. 모든 차원의 멀티버스 속 스파이더맨들을 만나게 되지만, 질서에 대한 신념이 부딪히며 예상치 못한 균열이 생기는데… 상상 그 이상을 넘어서는 멀티버스의 세계가 열린다!",
+            "popularity": 1848.739,
+            "poster_path": "/zG9TYiHt0fdaJiWuNEhFrfKzwoi.jpg",
+            "production_companies": [
+              {
+                "id": 5,
+                "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+                "name": "Columbia Pictures",
+                "origin_country": "US"
+              },
+              {
+                "id": 2251,
+                "logo_path": "/5ilV5mH3gxTEU7p5wjxptHvXkyr.png",
+                "name": "Sony Pictures Animation",
+                "origin_country": "US"
+              },
+              {
+                "id": 77973,
+                "logo_path": "/9y5lW86HnxKUZOFencYk3TIIRCM.png",
+                "name": "Lord Miller",
+                "origin_country": "US"
+              },
+              {
+                "id": 84041,
+                "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+                "name": "Pascal Pictures",
+                "origin_country": "US"
+              },
+              {
+                "id": 14439,
+                "logo_path": null,
+                "name": "Arad Productions",
+                "origin_country": "US"
+              }
+            ],
+            "production_countries": [
+              {
+                "iso_3166_1": "US",
+                "name": "United States of America"
+              }
+            ],
+            "release_date": "2023-05-31",
+            "revenue": 607271821,
+            "runtime": 140,
+            "spoken_languages": [
+              {
+                "english_name": "English",
+                "iso_639_1": "en",
+                "name": "English"
+              },
+              {
+                "english_name": "Hindi",
+                "iso_639_1": "hi",
+                "name": "हिन्दी"
+              },
+              {
+                "english_name": "Italian",
+                "iso_639_1": "it",
+                "name": "Italiano"
+              },
+              {
+                "english_name": "Spanish",
+                "iso_639_1": "es",
+                "name": "Español"
+              }
+            ],
+            "status": "Released",
+            "tagline": "한 명을 구할 것인가, 모두를 구할 것인가",
+            "title": "스파이더맨: 어크로스 더 유니버스",
+            "video": false,
+            "vote_average": 8.56,
+            "vote_count": 1986
+          }
+        ]
+      ],
+      "id": "CuAcvzU"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "knWYt7t"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "UZAjxGH"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "Q0xvTSo"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "nWMv-QK"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "wGThWD3"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "YjAfXT9"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "EAy2g_h"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "dny2cmX"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "FoMre1n"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "zmjhwsC"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "RpNTcUE"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "2DDoS3u"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "RgCL3T4"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "OzQHKpy"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "qqHDVGd"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "iUEVy3S"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "DR3-5ux"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "EcRoBkv"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "bDeAv7Y"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "pdQdMtG"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "oi2o7Bd"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "LA-fzzH"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "HcRbuqE"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "Im-q35q"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "5ApLPzF"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "MSGkZQ8"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "Im18mBV"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "LJvmcvt"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "cVp2Wyi"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "7arw9Ca"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "-BUuTHf"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "-PFs0HQ"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "fsyg1np"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        [
+          {
+            "adult": false,
+            "backdrop_path": "/2I5eBh98Q4aPq8WdQrHdTC8ARhY.jpg",
+            "belongs_to_collection": {
+              "id": 573436,
+              "name": "스파이더맨: 뉴 유니버스 시리즈",
+              "poster_path": "/eD4bGQNfmqExIAzKdvX5gDHhI2.jpg",
+              "backdrop_path": "/14F6gMaRjzgsN6EEpiwH87R1I00.jpg"
+            },
+            "budget": 100000000,
+            "genres": [
+              {
+                "id": 28,
+                "name": "액션"
+              },
+              {
+                "id": 12,
+                "name": "모험"
+              },
+              {
+                "id": 16,
+                "name": "애니메이션"
+              },
+              {
+                "id": 878,
+                "name": "SF"
+              }
+            ],
+            "homepage": "",
+            "id": 569094,
+            "imdb_id": "tt9362722",
+            "original_language": "en",
+            "original_title": "Spider-Man: Across the Spider-Verse",
+            "overview": "여러 성장통을 겪으며 새로운 스파이더맨이 된 마일스 모랄레스. 그 앞에 다른 평행세계의 스파이더우먼 그웬이 다시 나타난다. 모든 차원의 멀티버스 속 스파이더맨들을 만나게 되지만, 질서에 대한 신념이 부딪히며 예상치 못한 균열이 생기는데… 상상 그 이상을 넘어서는 멀티버스의 세계가 열린다!",
+            "popularity": 1848.739,
+            "poster_path": "/zG9TYiHt0fdaJiWuNEhFrfKzwoi.jpg",
+            "production_companies": [
+              {
+                "id": 5,
+                "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+                "name": "Columbia Pictures",
+                "origin_country": "US"
+              },
+              {
+                "id": 2251,
+                "logo_path": "/5ilV5mH3gxTEU7p5wjxptHvXkyr.png",
+                "name": "Sony Pictures Animation",
+                "origin_country": "US"
+              },
+              {
+                "id": 77973,
+                "logo_path": "/9y5lW86HnxKUZOFencYk3TIIRCM.png",
+                "name": "Lord Miller",
+                "origin_country": "US"
+              },
+              {
+                "id": 84041,
+                "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+                "name": "Pascal Pictures",
+                "origin_country": "US"
+              },
+              {
+                "id": 14439,
+                "logo_path": null,
+                "name": "Arad Productions",
+                "origin_country": "US"
+              }
+            ],
+            "production_countries": [
+              {
+                "iso_3166_1": "US",
+                "name": "United States of America"
+              }
+            ],
+            "release_date": "2023-05-31",
+            "revenue": 607271821,
+            "runtime": 140,
+            "spoken_languages": [
+              {
+                "english_name": "English",
+                "iso_639_1": "en",
+                "name": "English"
+              },
+              {
+                "english_name": "Hindi",
+                "iso_639_1": "hi",
+                "name": "हिन्दी"
+              },
+              {
+                "english_name": "Italian",
+                "iso_639_1": "it",
+                "name": "Italiano"
+              },
+              {
+                "english_name": "Spanish",
+                "iso_639_1": "es",
+                "name": "Español"
+              }
+            ],
+            "status": "Released",
+            "tagline": "한 명을 구할 것인가, 모두를 구할 것인가",
+            "title": "스파이더맨: 어크로스 더 유니버스",
+            "video": false,
+            "vote_average": 8.56,
+            "vote_count": 1986
+          }
+        ]
+      ],
+      "id": "3MWc3S0"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        [
+          {
+            "adult": false,
+            "backdrop_path": "/nniZPBIfrep9wbx0l1529RHXeD8.jpg",
+            "belongs_to_collection": null,
+            "budget": 100000000,
+            "genres": [
+              {
+                "id": 16,
+                "name": "애니메이션"
+              },
+              {
+                "id": 10751,
+                "name": "가족"
+              },
+              {
+                "id": 12,
+                "name": "모험"
+              },
+              {
+                "id": 14,
+                "name": "판타지"
+              },
+              {
+                "id": 35,
+                "name": "코미디"
+              }
+            ],
+            "homepage": "",
+            "id": 502356,
+            "imdb_id": "tt6718170",
+            "original_language": "en",
+            "original_title": "The Super Mario Bros. Movie",
+            "overview": "따단-딴-따단-딴 ♫ 전 세계를 열광시킬 올 타임 슈퍼 어드벤처의 등장! 뉴욕의 평범한 배관공 형제 '마리오'와 ‘루이지’는 배수관 고장으로 위기에 빠진 도시를 구하려다 미스터리한 초록색 파이프 안으로 빨려 들어가게 된다. 파이프를 통해 새로운 세상으로 차원 이동하게 된 형제. 형 '마리오'는 뛰어난 리더십을 지닌 '피치'가 통치하는 버섯왕국에 도착하지만 동생 '루이지'는 빌런 '쿠파'가 있는 다크랜드로 떨어지며 납치를 당하고 ‘마리오’는 동생을 구하기 위해 ‘피치’와 ‘키노피오’의 도움을 받아 '쿠파'에 맞서기로 결심한다. 그러나 슈퍼스타로 세상을 지배하려는 그의 강력한 힘 앞에 이들은 예기치 못한 위험에 빠지게 되는데...!",
+            "popularity": 1341.009,
+            "poster_path": "/dlGyzCxbBQK1U2O5o31Z1hB6erc.jpg",
+            "production_companies": [
+              {
+                "id": 33,
+                "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+                "name": "Universal Pictures",
+                "origin_country": "US"
+              },
+              {
+                "id": 6704,
+                "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
+                "name": "Illumination",
+                "origin_country": "US"
+              },
+              {
+                "id": 12288,
+                "logo_path": "/e4dQAqZD374H5EuM0W1ljEBWTKy.png",
+                "name": "Nintendo",
+                "origin_country": "JP"
+              }
+            ],
+            "production_countries": [
+              {
+                "iso_3166_1": "JP",
+                "name": "Japan"
+              },
+              {
+                "iso_3166_1": "US",
+                "name": "United States of America"
+              }
+            ],
+            "release_date": "2023-04-05",
+            "revenue": 1339203802,
+            "runtime": 93,
+            "spoken_languages": [
+              {
+                "english_name": "English",
+                "iso_639_1": "en",
+                "name": "English"
+              }
+            ],
+            "status": "Released",
+            "tagline": "동생을 구하기 위해! 세상을 지키기 위해! '슈퍼 마리오'로 레벨업하기 위한 '마리오'의 스펙터클한 스테이지가 시작된다!",
+            "title": "슈퍼 마리오 브라더스",
+            "video": false,
+            "vote_average": 7.793,
+            "vote_count": 5369
+          }
+        ]
+      ],
+      "id": "b-8ZULz"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "aVckeWZ"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "9xDRR4a"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "A6ig28w"
+    },
+    {
+      "userName": "원아현",
+      "pickList": [
+        []
+      ],
+      "id": "YcsAL76"
     }
   ],
   "user": {

@@ -46,10 +46,10 @@ const Container = styled.div`
     margin-right: 330px;
   }
   .Logo {
-    color: #a8b0bf;
-    font-weight: 600;
+    color: white;
     font-size: 35px;
     text-decoration: none;
+    font-family: 'Luckiest Guy', sans-serif;
   }
 `;
 const Navbar = styled.div`
