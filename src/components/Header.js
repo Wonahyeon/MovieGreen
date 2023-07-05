@@ -33,7 +33,7 @@ const HeaderWrapper = styled.div`
     width: 200px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
 `;
 
@@ -78,7 +78,7 @@ const Form = styled.form`
   .searchIcon {
     position: absolute;
     top: 70px;
-    right: 299px;
+    right: 217px;
     font-size: 30px;
     color: black;
     cursor: pointer;
