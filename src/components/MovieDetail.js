@@ -12,12 +12,11 @@ import axios from 'axios';
 
 
 const DetailWrapper = styled.div`
-  width: 50rem;
-  height: 37.5rem;
+  width: 80rem;
   margin: 0 auto;
+  margin-top: 5rem;
   .detail-top {
     display: flex;
-    justify-content: space-between;
   }
   img {
     width: 15rem;
@@ -25,12 +24,13 @@ const DetailWrapper = styled.div`
     flex-shrink: 0;
     border-radius: 1.25rem;
   }
-  h1 {
+  .movie-title {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    font-family: 'Black Han Sans',sans-serif;
+    margin: 1rem 0;
   }
-  h3 {
+  h2, h3 {
     font-size: 1rem;
     margin-bottom: 2rem;
   }
@@ -40,26 +40,30 @@ const DetailWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  width: 15rem;
-  height: 23.375rem;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
+  margin-left: 2rem;
   h3 {
+    display: flex;
     margin-bottom: 1rem;
     font-weight: bold;
+    justify-content: space-between;
+    width: 35rem;
   }
   span {
     font-weight: 400;
+    width: 25rem;
   }
 `;
 
 const Pick = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
-  width: 10rem;
+  width: 15rem;
   svg {
     font-size: 3rem;
     margin-bottom: 1rem;
@@ -68,6 +72,7 @@ const Pick = styled.div`
 `;
 
 const Tab = styled.div`
+  margin-top: 3rem;
   .nav-tab {
     height: 2rem;
     display: flex;
@@ -157,11 +162,12 @@ function MovieDetail(props) {
         <div className='detail-top'>
           <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
             <Content>
-              <h1>{movieDetails.title}</h1>
+              <h1 className='movie-title'>{movieDetails.title}</h1>
               <h2>{movieDetails.original_title}</h2>
               <h3>{movieDetails?.belongs_to_collection?.name}</h3>
               <h3>
                 평점{' '}
+                <span>
                   <StarRatings
                     rating={movieDetails.vote_average / 2}
                     starRatedColor={ratingColor}
@@ -171,7 +177,7 @@ function MovieDetail(props) {
                     starSpacing='.08rem'
                     name={`rating-${movieDetails.title}`}
                     />
-                  <span>({movieDetails.vote_average} / 10)</span>
+                  ({movieDetails.vote_average} / 10)</span>
               </h3>
               <h3>
                 장르{' '}
@@ -199,18 +205,20 @@ function MovieDetail(props) {
                   {movieDetails.runtime}분
                 </span>
               </h3>
-              <h3>
-                누적관객{' '}
-                <span>
-                  {movieDetails.runtime}분
-                </span>
-              </h3>
             </Content>
             <Pick className='cursor-pointer'>
             {pick ?
-            <MdFavorite onClick={handlePick}/> :
-            <MdFavoriteBorder onClick={handlePick}/>
+            <>
+            <MdFavorite onClick={handlePick}/>
+            <div>찜한 컨텐츠에 추가되었습니다.</div> 
+            </>
+            :
+            <>
+              <MdFavoriteBorder onClick={handlePick}/>
+              <div>찜한 컨텐츠에서 삭제되었습니다.</div>
+            </>
             }
+            
           </Pick>
         </div>
         <Tab>

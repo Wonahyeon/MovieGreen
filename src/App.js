@@ -4,8 +4,7 @@ import MovieListYear from "./category/MovieListYear";
 import MovieListGenre from "./category/MovieListGenre";
 import Detail from "./components/MovieDetail";
 import Header from "./components/Header";
-
-
+import './App.css';
 
 import MovieListCountry from "./category/MovieListCountry";
 
@@ -25,9 +24,9 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    background: #e9ecef;
     color: black;
     box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
   }
 
   * {

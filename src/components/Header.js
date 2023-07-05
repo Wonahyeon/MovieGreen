@@ -47,10 +47,10 @@ const Container = styled.div`
   justify-content: space-between;
   margin: 15px 0;
   .Logo {
-    color: #a8b0bf;
-    font-weight: 600;
+    color: white;
     font-size: 35px;
     text-decoration: none;
+    font-family: 'Luckiest Guy', sans-serif;
   }
 
 `;
