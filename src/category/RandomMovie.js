@@ -18,7 +18,7 @@ function RandomMovie() {
 
   return (
     <div>
-      <button onClick={handleButtonClick}>랜덤 선택</button>
+      <button onClick={handleButtonClick}>오늘 뭐보지?</button>
     </div>
   );
 }
