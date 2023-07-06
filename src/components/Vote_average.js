@@ -20,7 +20,7 @@ const MovieListBlock = styled.div`
     }
   }
   .titlet {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     text-align: center;
   }
   .content {
