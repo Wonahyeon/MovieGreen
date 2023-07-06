@@ -6,7 +6,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
-import { deletePickMovie, pickMovie, pickStatus, pickStatusChange, selectUserName, userPickMovie } from '../feature/user/userSlice';
+import { addPick, pickStatus, removePick, selectUserName, togglePick, userPickMovie } from '../feature/user/userSlice';
 import ReviewPage from "../pages/ReviewPage";
 import MovieTrailer from './MovieTrailer';
 import Recommendations from './Recommendations';
@@ -114,7 +114,6 @@ const CreditTab = styled.div`
 `;
 
 function MovieDetail(props) {
-  const [pick, setPick] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
@@ -139,22 +138,25 @@ function MovieDetail(props) {
   }, [dispatch, movieId]);
 
   const handlePick = () => {
-    setPick(!pick);
     // pick data
     const pickData = {
       id: movieId,
       userName,
+      userPickStatus,
       movieDetails,
-      userPickStatus
     };
     if (userPickStatus) {
-      dispatch(pickMovie(pickData));
-      dispatch(pickStatusChange(true));
+      dispatch(togglePick(userPickStatus));
+      dispatch(addPick(pickData));
+
     } else {
-      dispatch(pickStatusChange(false));
-      dispatch(deletePickMovie(pickData));
+      dispatch(togglePick(userPickStatus));
+      dispatch(removePick(pickData));
     }
   };
+
+  // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status
+  const pick = moviePickData.filter(pick => pick.userName === userName)?.filter(pick => pick.id === movieId)[0]?.userPickStatus;
   
   const handleToggleIntro = () => {
     setIsExpanded(!isExpanded);
@@ -169,7 +171,8 @@ function MovieDetail(props) {
   };
 
   // 관람 등급
-  const certification = movieDetails.certifications[0]?.release_dates[0].certification;
+  const certification = movieDetails?.certifications[0].release_dates[0].certification;
+  console.log(certification);
   let certificationImg;
 
   switch (certification) {
