@@ -301,8 +301,8 @@ function MovieDetail(props) {
             'credits' :
             <CreditTab>
               <h2>감독</h2>
-              <img src={getImageUrl(movieCredits.crew[2].profile_path)} alt={movieCredits.crew[2].name} />
-              <h3>{movieCredits.crew[2].name}</h3>
+              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} />
+              <h3>{movieCredits.crew[2]?.name}</h3>
               <h2>주연</h2>
               <div className='cast-main'>
                 {movieCredits.cast.slice(0,4).map((cast) => (
