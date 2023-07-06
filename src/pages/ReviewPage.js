@@ -52,12 +52,10 @@ function ReviewPage(props) {
   const [rating, setRating] = useState(0);
   const [warningMessage, setWarningMessage] = useState(false);
   const ratingColor = '#C8E4A7'; // 별점 색깔
-  const movieDetails = useSelector((state) => state.movie.movieDetails);
   const userName = useSelector(selectUserName);
   const reviewList = useSelector(addReviewList);
   const { movieId } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);

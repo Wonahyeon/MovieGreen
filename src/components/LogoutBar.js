@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetPickMovie, selectLogin, selectUserName } from '../feature/user/userSlice';
+import { selectLogin, selectUserName } from '../feature/user/userSlice';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
