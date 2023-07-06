@@ -4,136 +4,84 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'; //Editor설치
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'; //Editor설치
 import ReactHtmlParser from "html-react-parser"; //모듈설치 
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { json } from "react-router-dom";
-
 
 const StyledCommnuity = styled.div`
-   text-align: center;
+   height: 800px; //footer를 내리기 위한 height 
+   h1{
+      text-align: center;
+      font-weight: 700;
+      margin-top: 10px;
+      font-size: 25px;
+   }
 `;
 
-const Commnuitycheck = styled.div`
+const CommunityWrapper = styled.div`
+   position: relative;
+   top: 40px;
+   display: flex;
+`;
+
+const Commnuitycheck = styled.div` //등록되는 곳
+   overflow-y: scroll;
+   & ::-webkit-scrollbar {
+      height: 10px;
+   }
+   height: 490px;
    position: absolute;
-   left: 0;
-   margin: 0 auto;
-   width: 50%;
-   border: 1px solid gray;
+   left: 30px;
+   width: 48%;
+   border: 1px solid #dcdcde;
    padding: 10px 0 30px 0;
-   margin-bottom : 50px;
-`;
 
-const CommnuityText = styled.div`
+   .date{
+      font-weight: bold;
+   }
+`;
+const CommnuityText = styled.div` //내용 입력창 
    position: absolute;
-   right: 0;
-   width: 50%;
+   right: 30px;
+   width: 48%;
    margin: 0 auto;
 
-   input{
-      width: 80%;
-      height: 40px;
-      margin: 10px;
-   }
-   textarea{
-      width: 80%;
-      min-height: 500px;
+   input{ //제목 입력창
+      width: 100%;
+      height: 50px;
    }
 
-   .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-      min-height: 500px;
+   button{
+      width: 100px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid #dcdcde;
+      cursor: pointer;
    }
-`;
-
-const CommnuityButton = styled.button`
-   width: 200px;
-   height: 50px;
-   margin-top: 10px;
-   font-size: 20px;
-   padding: 8px 16px;
-   border: 1px;
-   border-radius: 8px;
-   cursor: pointer;
-`;
+   .ck.ck-editor__editable:not(.ck-editor__nested-editable) { //설치 Editor 스타일
+      min-height: 400px;
+   }
+   `;
 
 
-
-// const CommnuityChat = styled.div`
-//    margin: 0 auto;
-//    width: 80%;
-//    border: 1px solid #333;
-//    padding: 10px 0 30px 0;
-//    border-radius: 5px;
-//    margin-bottom : 50px;
-// `;
-
-
-// const CommunityWrapper = styled.div`
-//    position: relative;
-//    width: 100%;
-//    height: 700px;
-//    margin: 0 auto;
-//    color: #000;
-//       .title{
-//          margin-top: 20px;
-//          text-align: center;
-//          color: #000;
-//          font-size: 1.5rem;
-//          font-weight: 700;
-//       }
-// `;
-
-// const CommnuityText = styled.div`
-//    display: flex;
-//    position: absolute;
-//    width: 80%;
-//    height: 500px;
-//    left: 20%;
-
-//    input{
-//       position: relative;
-//       top: 50px;
-//       width: 80%;
-//       height: 40px;
-//    }
-
-//    textarea{
-//       width: 80%;
-//       position: absolute;
-//       top: 100px;
-//       height: ${props => props.height && props.height + 'px'};
-//       padding: 16px;
-//       font-size: 16px;
-//       line-height: 20px;
-//    }
-// `;
-
-// const StyledButton = styled.button`
-//    position: absolute;
-//    padding: 8px 16px;
-//    top: 7px;
-//    right: 20%;
-//    font-size: 16px;
-//    border: 1px;
-//    border-radius: 8px;
-//    cursor: pointer;
-// `;
+// 등록 날짜 제목 오른쪽 또는 제목 상단 스타일 지정
+// 내용 등록 길이 제한(자세히 보기) - 에러발생
+// 로그인 시 커뮤니티 작성 가능하게 
 
 function Community(props) {
+   // const {viewtext : {data}} = props;
    const [communityContent, setCommunityContent] = useState({
       title: '',
-      content: ''
+      content: '',
    });
-   const [viewContent, setViewContent] = useState([]);
+   const [viewContent, setViewContent] = useState([]); //내용 보여줄 state
    // const [Message, setMessage] = useState(false);
+   // const [value, setValue] = useState('');
+   const [isview, setIsview] = useState(false);
 
-   
-   // axios사용해서
-   // 버튼 onClick할 
-   // const 
-   // title: communityContent.title
-   // content: communityContent.title
-   
+   const date = new Date();
+   const datecurrent = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();  
+
    const getValue = (e) => {
-      const {value, name} = e.target;
+      const {name, value} = e.target;
       setCommunityContent({
          ...communityContent,
          [name]: value
@@ -141,79 +89,91 @@ function Community(props) {
       console.log(communityContent); //객체
    }
    
-   // const {height, value, title, onClick, communitytext} = props;
-   // useEffect(() => {
-   //    const dbCommunity = JSON.parse(localStorage.getItem('communitytext')) || [];
-   //    setCommunityText(dbCommunity);
-   // }, []);
+   const handleButton = async (e) => {
+      await axios.get(`http://localhost:3000`,
+      {
+         title: communityContent.title,
+         content: communityContent.content
+      })
+      .then(() => {
+         // alert('등록되었습니다.');
+      })
+      setViewContent(viewContent.concat({...communityContent}))
+      e.preventDefault();
+   }
 
-   // useEffect(() => {
-   //    localStorage.setItem('communitytext', JSON.stringify(communityText))
-   // }, [communityText]);
-   // const nextId = useRef(4);
-   // const handleInsert = useCallback((content) => {
-   //    const text = {
-   //       title: uuidv4(),
-   //       content,
-   //    };
-   //    const copyCommunity = [...communityText];
-   //    copyCommunity.push(text);
-   //    setCommunityText(communityText);
-   //    nextId.current += 1;
-   // }, [communityText]);
+   const handleIsView = () => {
+      setIsview(!isview);
+   }
+
+   // const handleInput = useCallback(() => {
+   //    const date = new Date();
+   //    const datecurrent = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();  
+   //    const viewtext = {
+   //       data: datecurrent
+   //    }
+   //    const copyDate = [...viewContent];
+   //    copyDate.push(viewtext);
+   //    setViewContent(copyDate);
+   // }, [viewContent]);
 
    return(
       <StyledCommnuity>
          <h1>커뮤니티</h1>
-         <Commnuitycheck onChange={getValue}>
-            {viewContent.map((text) => {
-               return(
-                  <div>
-                     <h2>{text.title}</h2>
-                     <div>{ReactHtmlParser(text.content)}</div>
-                  </div>
-               )
-            })}
-         </Commnuitycheck>
-         <CommnuityText>
-            <input type='text' placeholder='제목'
-               // onChange={(e, editor) => {
-               //    const data = editor.getValue();
-               //    console.log({ e, editor, data }); //Editor is ready to use
-               //    setCommunityContent({
-               //       ...communityContent,
-               //       content: data
-               //    })
-               //    console.log(communityContent);
-               // }}
-               />
-            <CKEditor // Editor설치
-               editor={ClassicEditor}
-               data="<p>Hello from CKEditor 5!</p>"            
-               onReady={ editor => {
-                  // You can store the "editor" and use when it is needed.
-                  console.log( 'Editor is ready to use!', editor );
-               } }
-               onChange={ ( event, editor ) => {
-                  const data = editor.getData();
-                  console.log( { event, editor, data } );
-               } }
-               onBlur={ ( event, editor ) => {
-                  console.log( 'Blur.', editor );
-               } }
-               onFocus={ ( event, editor ) => {
-                  console.log( 'Focus.', editor );
-               } }
+         <CommunityWrapper>
+            <Commnuitycheck>
+               {viewContent.map((text) => {
+                  return(
+                     <div>
+                        <h1>{text.title}</h1>
+                        <div>{ReactHtmlParser(text.content)}</div>
+                        <div>
+                           {/* {ReactHtmlParser(text.content).length <= 50 || isview
+                           ? ReactHtmlParser(text.content).length 
+                           : ReactHtmlParser(text.content).length.slice(0, 30) + '...'}  */}
+                           {/* slice 타입에러 발생함 */}
+                           {/* TypeError: Cannot read properties of undefined (reading 'slice') */}
+                        </div>
+                        
+                        {/* {ReactHtmlParser(text.content).length > 10 && (
+                           <div onClick={handleIsView}>{isview ? '보기' : '자세히 보기'}</div>
+                        )} */}
 
+                        <div className="date">{datecurrent}</div>
+                        <hr />
+                        </div>
+                  )
+               })}
+            </Commnuitycheck>
+            <CommnuityText>
+               <input type='text' placeholder='제목' name="title"
+                  onChange={getValue}
                />
-         </CommnuityText>
-         <CommnuityButton
-            onClick={() => {
-               setViewContent(viewContent.push({...communityContent}))
-            }}
-         >
-            등록하기
-         </CommnuityButton>
+               <CKEditor // Editor설치
+                  editor={ClassicEditor}
+                  data="<p></p>"            
+                  onReady={ editor => {
+                     // You can store the "editor" and use when it is needed.
+                     console.log( 'Editor is ready to use!', editor );
+                  } }
+                  onChange={ ( event, editor ) => {
+                     const data = editor.getData();
+                     console.log( { event, editor, data } );
+                     setCommunityContent({
+                        ...communityContent,
+                        content: data
+                     })
+                  } }
+                  onBlur={ ( event, editor ) => { //title
+                     console.log( 'Blur.', editor );
+                  } }
+                  onFocus={ ( event, editor ) => { //content
+                     console.log( 'Focus.', editor );
+                  } }
+                  />
+               <button onClick={handleButton}>등록하기</button>
+            </CommnuityText>            
+         </CommunityWrapper>
       </StyledCommnuity>
    )
 }
