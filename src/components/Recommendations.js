@@ -75,6 +75,22 @@ margin: 0 auto;
     width: 1280px;
     margin: 0 auto;
   }
+  .more,
+      .less {
+        font-size: 30px;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        background: none;
+        color: #000;
+        border: 0.1rem solid #000;
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          background: #000;
+          color: #fff;
+        }
+      }
 `;
 
 function Recommendations({ movieId }) {
@@ -121,15 +137,19 @@ function Recommendations({ movieId }) {
             <MovieItem key={movie.id} movie={movie} />
           ))}
         {showSeeMore && (
+        <div className="see-more">
           <button onClick={handleSeeMore} className="more">
-            더 보기
+            ↓
           </button>
-        )}
-        {showSeeLess && (
+        </div>
+      )}
+      {showSeeLess && (
+        <div className="see-more">
           <button onClick={handleSeeLess} className="less">
-            간략히 보기
+            ✕
           </button>
-        )}
+        </div>
+      )}
       </div>
     </RecommendationsWrapper>
   );
