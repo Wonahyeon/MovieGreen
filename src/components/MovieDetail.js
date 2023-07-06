@@ -119,14 +119,10 @@ function MovieDetail(props) {
       })
   }, [dispatch, movieId]);
 
-  const handlePick = async () => {
+  const handlePick = () => {
     setPick(!pick);
     if (!pick) { //  pick true
       dispatch(pickMovie(movieDetails));
-      await axios.post('http://localhost:4000/members', {
-        userName,
-        pickList: [moviePickData]
-      });
     } else { // pick false
       dispatch(deletePickMovie(movieId));
     }
@@ -155,6 +151,8 @@ function MovieDetail(props) {
   if (!movieDetails || !movieCredits) {
     return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
   }
+
+  console.log(movieDetails.certifications[0].release_dates[0].certification);
 
   return (
       <>
@@ -203,6 +201,12 @@ function MovieDetail(props) {
                 러닝타임{' '}
                 <span>
                   {movieDetails.runtime}분
+                </span>
+              </h3>
+              <h3>
+                관람등급{' '}
+                <span>
+                  {movieDetails.certifications[0].release_dates[0].certificatioㅜ}세
                 </span>
               </h3>
             </Content>
