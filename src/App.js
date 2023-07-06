@@ -20,6 +20,7 @@ import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
 import Footer from "./components/Footer";
 import MovieDetail from "./components/MovieDetail";
+import LiveChat from "./pages/LiveChat";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -58,6 +59,7 @@ function App() {
           <Route path="/search" element={<MovieSearch/>} />
           <Route path="/movie-detail/:movieId" element={<MovieDetail/>} />
           <Route path="/movie-community" element={<Community />}/>
+          <Route path="/live-chat" element={<LiveChat />}/>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-category" element={<MovieListContainer />}>

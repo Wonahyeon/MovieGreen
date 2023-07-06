@@ -113,11 +113,6 @@ const Warn = styled.div`
 
 `;
 
-
-
-// 나이 성별
-
-
 function Signin(props) {
   const [signemail, setSignemail] = useState(''); //이메일
   const [emailMessage, setEmailMessage] = useState(''); // 이메일 메시지
@@ -182,12 +177,18 @@ function Signin(props) {
     })
   }
   
+  // jsonserver 열림 유무에 따라 회원가입 가능/불가능
+  
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
     if (IsEmail === true && IsPassword == true) {
+      if (register()) {
       navigate('/log-in');
-      register()
-      alert('회원가입되었습니다.');
+      // register()
+      alert('회원가입되었습니다.');        
+      } else if (!register()) {
+        alert('회원가입 실패~')
+      }
     } 
   }
 
