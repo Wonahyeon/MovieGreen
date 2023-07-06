@@ -27,7 +27,8 @@ export const fetchMovieDetails = createAsyncThunk('movie/fetchMovieDetails', asy
     const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
       params: {
         api_key,
-        language: 'ko-KR'
+        language: 'ko-KR',
+        append_to_response: 'release_dates',
       },
     });
     const movieDetails = response.data;
@@ -93,6 +94,13 @@ const movieSlice = createSlice({
       .addCase(fetchMovieDetails.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.movieDetails = action.payload;
+
+        // 관람 등급 정보 추출
+        const releaseDates = action.payload.release_dates?.results;
+        if (releaseDates) {
+          const certifications = releaseDates.filter((date) => date.iso_3166_1 === 'KR');
+          state.movieDetails.certifications = certifications;
+        }
       })
       .addCase(fetchMovieDetails.rejected, (state, action) => {
         state.status = 'failed';
