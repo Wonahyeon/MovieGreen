@@ -8,11 +8,10 @@ import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlic
 import StarRatings from 'react-star-ratings';
 import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
 import ReviewPage from "../pages/ReviewPage";
-import axios from 'axios';
 
 
 const DetailWrapper = styled.div`
-  width: 80rem;
+  width: 60rem;
   margin: 0 auto;
   margin-top: 5rem;
   .detail-top {
@@ -53,8 +52,12 @@ const Content = styled.div`
     width: 35rem;
   }
   span {
-    font-weight: 400;
+    font-weight: initial;
     width: 25rem;
+  }
+  .certification-img {
+    width: 4rem;
+    height: 2rem;
   }
 `;
 
@@ -63,7 +66,7 @@ const Pick = styled.div`
   flex-direction:column;
   align-items: center;
   justify-content: center;
-  width: 15rem;
+  width: 3rem;
   svg {
     font-size: 3rem;
     margin-bottom: 1rem;
@@ -87,10 +90,24 @@ const Tab = styled.div`
   }
 
 `;
-const CastWrapper = styled.div`
-  .cast-list {
+const DetailInfoTab = styled.div`
+  .movie-intro {
+    margin: 1rem;
+
+    h2 {
+      font-weight: bold;
+    }
+    
+  }
+  .intro {
+    margin-bottom: 1rem;
+  }
+`;
+
+const CreditTab = styled.div`
+  .cast-main {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
   }
 `;
 
@@ -143,7 +160,33 @@ function MovieDetail(props) {
     }
     return `https://image.tmdb.org/t/p/w500${path}`;
   };
+
+  // 관람 등급
+  const certification = movieDetails.certifications[0]?.release_dates[0].certification;
+  let certificationImg;
+
+  switch (certification) {
+    case 'All':
+      certificationImg = 'https://i.namu.wiki/i/MyvTzUe8CU4Utl-aB4wt1S2OfdUcKhZuy42T3yDECI8bzGP9XrnwUljYAAwZ7NUuo0upLrtXboukNY7GtX7cM32gmFvtMbBIgCqOH8sysOWYYvADwv61hN5nNxw3CuyuGAIKheM_Zz8sXcLNnSuFng.svg';
+      break;
+      case '18':
+        certificationImg = 'https://i.namu.wiki/i/zZwPEFHiuRY-OkmxWRKy_o2cneH-BU69Fazp8Ur-QWA_bUBlNsKHJpR3q3HL7eQv4TucOMGGDri7R5sM_EDihwHSFGl8YNmZDE4ys1o5K4kate_6q-5wQPuHgh3ByNr234vTSIFGbnGYY6Zz5bq5dg.svg';
+      break;
+      case '15':
+      case '15세 이상 관람가':
+        certificationImg = 'https://i.namu.wiki/i/bkeDe_FYXnkoS1UT9WJOr3U1yV9GOarGnh-hF5u6zqF5DwMH8fIrbf7z8i8ijpAhxdTLXTB_OfJrbbECNLsbUD4W7X0TlqdhUlCbXwvLb-Ki2YjMZGYLdKZssX5S4FsMwVi1D9o4PajIIi4E461gKg.svg';
+      break;
+      case '12':
+        certificationImg = 'https://i.namu.wiki/i/SM8udWHcYzJ3O92qcIm_NtYveGa4JULu_1qyqtREQf4b684c_aThkbLH2FPM6Wq0DowKNGzo80rGI-vva2vF8e93lzAjvuutkvxsAqrv0G12eEji0txnwcKB9mUwB384dv9mNdh2jOf6UG8-PqwRUw.svg';
+      break;
+      case '':
+        certificationImg = '';
+    default:
+      break;
+  }
   
+  
+  console.log();
   if (loading) {
     return <div>Loading...</div>; // 로딩 컴포넌트
   }
@@ -152,15 +195,15 @@ function MovieDetail(props) {
     return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
   }
 
-  console.log(movieDetails.certifications[0].release_dates[0].certification);
-
   return (
       <>
       <DetailWrapper>
         <div className='detail-top'>
           <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
             <Content>
-              <h1 className='movie-title'>{movieDetails.title}</h1>
+              <h1 className='movie-title'>{movieDetails.title}
+              <img className='certification-img' src={certificationImg} alt='certification-img'/>
+              </h1>
               <h2>{movieDetails.original_title}</h2>
               <h3>{movieDetails?.belongs_to_collection?.name}</h3>
               <h3>
@@ -203,24 +246,11 @@ function MovieDetail(props) {
                   {movieDetails.runtime}분
                 </span>
               </h3>
-              <h3>
-                관람등급{' '}
-                <span>
-                  {movieDetails.certifications[0].release_dates[0].certificatioㅜ}세
-                </span>
-              </h3>
             </Content>
             <Pick className='cursor-pointer'>
             {pick ?
-            <>
-            <MdFavorite onClick={handlePick}/>
-            <div>찜한 컨텐츠에 추가되었습니다.</div> 
-            </>
-            :
-            <>
-              <MdFavoriteBorder onClick={handlePick}/>
-              <div>찜한 컨텐츠에서 삭제되었습니다.</div>
-            </>
+            <MdFavorite onClick={handlePick}/>:
+            <MdFavoriteBorder onClick={handlePick}/>
             }
             
           </Pick>
@@ -245,43 +275,53 @@ function MovieDetail(props) {
           </div>
         </Tab>
         {
-          {
+          { // 주요 정보 탭 내용
             'detail' :
-            <div>
-            <h3>소개
-              <div>
-                <span>{
-                  movieDetails.overview.length <= 100 || isExpanded
+            <DetailInfoTab>
+              <div className='movie-intro'>
+                <h2>{movieDetails.tagline}</h2>
+                <div className='intro'>
+                  {movieDetails.overview.length <= 100 || isExpanded
                   ? movieDetails.overview :
-                  movieDetails.overview.slice(0, 100) + '...'
-                  }</span>
+                  movieDetails.overview.slice(0, 100) + '...'}
+                </div>
+                {movieDetails.overview.length > 100 && (
+                  <span className="cursor-pointer" onClick={handleToggleIntro}>
+                    {isExpanded ? '간략히' : '더보기'}
+                  </span>
+                )}
               </div>
-              {movieDetails.overview.length > 100 && (
-                <span className="cursor-pointer" onClick={handleToggleIntro}>
-                  {isExpanded ? '간략히 보기' : '자세히 보기'}
-                </span>
-              )}
-            </h3>
-              <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
-              <h3>출연
-                <span>
-                    <CastWrapper>
-                      <div className="cast-list">
-                        {movieCredits.cast.slice(0, showMoreCast ? movieCredits.cast.length : 3).map((cast) => (
-                          <div key={cast.id} className="cast-item">
-                            {cast.name},
-                          </div>
-                        ))}
-                      </div>
-                      {movieCredits.cast.length > 3 && (
-                        <div className="cursor-pointer" onClick={handleToggleCast}>
-                          {showMoreCast ? '간략히 보기' : '자세히 보기'}
-                        </div>
-                      )}
-                    </CastWrapper>
-                </span>
-              </h3>
-            </div>,
+            </DetailInfoTab>,
+            'credits' :
+            <CreditTab>
+              <h2>감독</h2>
+              <img src={getImageUrl(movieCredits.crew[2].profile_path)} alt={movieCredits.crew[2].name} />
+              <h3>{movieCredits.crew[2].name}</h3>
+              <h2>주연</h2>
+              <div className='cast-main'>
+                {movieCredits.cast.slice(0,4).map((cast) => (
+                  <div>
+                    <img src={getImageUrl(cast.profile_path)} alt={cast.name} />
+                    <h3>{cast.name}</h3>
+                    <h3>{cast.character}역</h3>
+                  </div>
+                ))}
+              </div>
+              <h2>출연</h2>
+              <div className='cast-main cast-sub'>
+                {movieCredits.cast.slice(4,34).map((cast) => (
+                  <div>
+                    <img src={getImageUrl(cast.profile_path)} alt={cast.name} />
+                    <h3>{cast.name}</h3>
+                    <h3>{cast.character}역</h3>
+                  </div>
+                ))}
+              </div>
+              <h2>제작진</h2>
+              
+            </CreditTab>
+            ,
+            // 평점 탭 내용
             'review': <ReviewPage/>
           }[showTab]
         }
