@@ -6,7 +6,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
-import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
+import { deletePickMovie, pickMovie, pickStatus, pickStatusChange, selectUserName, userPickMovie } from '../feature/user/userSlice';
 import ReviewPage from "../pages/ReviewPage";
 import MovieTrailer from './MovieTrailer';
 import Recommendations from './Recommendations';
@@ -120,6 +120,7 @@ function MovieDetail(props) {
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
+  const userPickStatus = useSelector(pickStatus);
   const userName = useSelector(selectUserName);
   const moviePickData = useSelector(userPickMovie);
   const { movieId } = useParams();
@@ -144,12 +145,14 @@ function MovieDetail(props) {
       id: movieId,
       userName,
       movieDetails,
-      pick
+      userPickStatus
     };
-    if (!pick) { //  pick true
+    if (userPickStatus) {
       dispatch(pickMovie(pickData));
-    } else { // pick false
-      dispatch(deletePickMovie(movieId));
+      dispatch(pickStatusChange(true));
+    } else {
+      dispatch(pickStatusChange(false));
+      dispatch(deletePickMovie(pickData));
     }
   };
   
