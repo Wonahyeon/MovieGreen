@@ -89,6 +89,9 @@ const MovieItemBlock = styled.div`
 
 
   }
+  .opening {
+    white-space: nowrap;
+  }
 `;
 
 function MovieItem({ movie }) {
@@ -132,9 +135,9 @@ function MovieItem({ movie }) {
       <h2>{rank}</h2>
       {showInfo && movieDetails && (
         <div className="additional-info" onClick={() => navigate(`/movie-detail/${movie.id}`)}>
-          {movieDetails.release_date && <p>개봉: {movieDetails.release_date}</p>}
-          {movieDetails.genres && <p>장르: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>}
-          {movieDetails.vote_average && <p>평점: {movieDetails.vote_average}</p>}
+          {movieDetails.release_date && <p className='opening'>개봉: {movieDetails.release_date}</p>}<br></br>
+          {movieDetails.genres && <p>장르: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>}<br></br>
+          {movieDetails.vote_average && <p>평점: {movieDetails.vote_average}</p>}<br></br>
           {movieDetails.credits &&
             movieDetails.credits.crew &&
             movieDetails.credits.crew.length > 0 && (

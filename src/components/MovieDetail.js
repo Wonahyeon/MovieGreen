@@ -9,6 +9,8 @@ import StarRatings from 'react-star-ratings';
 import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
 import ReviewPage from "../pages/ReviewPage";
 import axios from 'axios';
+import MovieTrailer from './MovieTrailer';
+import Recommendations from './Recommendations';
 
 
 const DetailWrapper = styled.div`
@@ -152,7 +154,7 @@ function MovieDetail(props) {
     return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
   }
 
-  console.log(movieDetails.certifications[0].release_dates[0].certification);
+
 
   return (
       <>
@@ -206,9 +208,10 @@ function MovieDetail(props) {
               <h3>
                 관람등급{' '}
                 <span>
-                  {movieDetails.certifications[0].release_dates[0].certificatioㅜ}세
+                  {movieDetails.certifications[0]?.release_dates[0].certification}
                 </span>
               </h3>
+              <MovieTrailer movieId={movieId} />
             </Content>
             <Pick className='cursor-pointer'>
             {pick ?
@@ -262,7 +265,7 @@ function MovieDetail(props) {
                 </span>
               )}
             </h3>
-              <h3>감독 <span>{movieCredits.crew[2].name}</span></h3>
+              <h3>감독 <span>{movieCredits.crew[2]?.name}</span></h3>
               <h3>출연
                 <span>
                     <CastWrapper>
@@ -286,6 +289,7 @@ function MovieDetail(props) {
           }[showTab]
         }
       </DetailWrapper>
+      <Recommendations movieId={movieId} />
       </>
   );
 }
