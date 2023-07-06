@@ -2,7 +2,6 @@ import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {Navigation, Autoplay } from "swiper";
 import styled from "styled-components";
-import MovieTopItem from "./MovieTopItem";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -54,10 +53,11 @@ function MoviePick(props) {
         >
       <div className="content">
         {userPickMovieList && userPickMovieList
+          .filter(pick => pick.userName === userName)
             .slice(0, 15)
             .map((movie) => (
               <SwiperSlide key={movie.id}>
-                  <MovieItem  movie={movie} />
+                  <MovieItem  movie={movie.movieDetails} />
               </SwiperSlide>
         ))}
         </div>
