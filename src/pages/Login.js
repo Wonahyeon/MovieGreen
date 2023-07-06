@@ -136,7 +136,7 @@ function Login(props) {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
-      const existingMember = members.find(member => member.idMail === idValue);
+      const existingMember = members.find(member => member.idMail === idValue || member.passWord === pwValue);
       // console.log(existingMember);
       if (existingMember.passWord === pwValue && existingMember.idMail === idValue) {
         console.log('로그인 완료');
@@ -144,15 +144,20 @@ function Login(props) {
         dispatch(selectLogin(true));
         navigate('/');  
       } else if (existingMember.passWord !== pwValue) {
+        console.log('비번 틀림');
         setwarnPwMsShow(true);
         setIdValue('');
         setPwValue('');
       } else if (existingMember.idMail !== idValue) {
-        setWarnMsShow(true);
+        console.log('id 틀림');
+        setWarnMsShow(true); 
+      } else if (!existingMember) {
+        console.log('회원아님');
+        setWarnMsShow(true); 
       }
     })
     .catch((error) => {
-      console.error(error);
+      alert('서버가 끊겼습니다');
     })
   }
 
