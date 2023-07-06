@@ -39,7 +39,11 @@ const MovieBlock = styled.div`
       font-size: 2rem;
       margin-top: 7%;
    }
+   .swiperSlide {
+      padding-bottom: 10px;
+   }
 `;
+
 
 function MovieTopNumber(props) {
    const [movies, setMovies] = useState(null);
@@ -83,7 +87,7 @@ function MovieTopNumber(props) {
                   // .filter((movie) => movie.vote_count > 0) 
                   .slice(0, visibleMovies)
                   .map((movie) => (
-                     <SwiperSlide key={movie.id}>
+                     <SwiperSlide key={movie.id} className="swiperSlide">
                         <MovieItem  movie={movie} />
                      </SwiperSlide>
                ))}
