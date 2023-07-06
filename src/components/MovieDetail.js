@@ -8,6 +8,8 @@ import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlic
 import StarRatings from 'react-star-ratings';
 import { deletePickMovie, pickMovie, selectUserName, userPickMovie } from '../feature/user/userSlice';
 import ReviewPage from "../pages/ReviewPage";
+import MovieTrailer from './MovieTrailer';
+import Recommendations from './Recommendations';
 
 
 const DetailWrapper = styled.div`
@@ -195,6 +197,7 @@ function MovieDetail(props) {
     return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
   }
 
+
   return (
       <>
       <DetailWrapper>
@@ -246,6 +249,13 @@ function MovieDetail(props) {
                   {movieDetails.runtime}분
                 </span>
               </h3>
+              <h3>
+                관람등급{' '}
+                <span>
+                  {movieDetails.certifications[0]?.release_dates[0].certification}
+                </span>
+              </h3>
+              <MovieTrailer movieId={movieId} />
             </Content>
             <Pick className='cursor-pointer'>
             {pick ?
@@ -326,6 +336,7 @@ function MovieDetail(props) {
           }[showTab]
         }
       </DetailWrapper>
+      <Recommendations movieId={movieId} />
       </>
   );
 }
