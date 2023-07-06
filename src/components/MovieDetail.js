@@ -115,7 +115,6 @@ const CreditTab = styled.div`
 
 function MovieDetail(props) {
   const [pick, setPick] = useState(false);
-  const [showMoreCast, setShowMoreCast] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
@@ -140,17 +139,20 @@ function MovieDetail(props) {
 
   const handlePick = () => {
     setPick(!pick);
+    // pick data
+    const pickData = {
+      id: movieId,
+      userName,
+      movieDetails,
+      pick
+    };
     if (!pick) { //  pick true
-      dispatch(pickMovie(movieDetails));
+      dispatch(pickMovie(pickData));
     } else { // pick false
       dispatch(deletePickMovie(movieId));
     }
   };
   
-  const handleToggleCast = () => {
-    setShowMoreCast(!showMoreCast);
-  };
-
   const handleToggleIntro = () => {
     setIsExpanded(!isExpanded);
   };
@@ -247,12 +249,6 @@ function MovieDetail(props) {
                 러닝타임{' '}
                 <span>
                   {movieDetails.runtime}분
-                </span>
-              </h3>
-              <h3>
-                관람등급{' '}
-                <span>
-                  {movieDetails.certifications[0]?.release_dates[0].certification}
                 </span>
               </h3>
               <MovieTrailer movieId={movieId} />

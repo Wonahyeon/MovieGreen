@@ -21,17 +21,13 @@ const userSlice = createSlice({
       state.logInfo = action.payload;
     },
     pickMovie: (state, {payload: movie}) => {
-      const pickMovie = state.userPick.find(pick => pick.id === movie.id);
+      const pickMovie = state.userPick.filter(pick => pick.userName === movie.userName).find(pick => pick.id === movie.id);
       if (!pickMovie) state.userPick.unshift(movie);
     },
     deletePickMovie: (state, {payload: movieId}) => {
       const targetIndex = state.userPick.findIndex((pick) => pick.id === movieId);
       state.userPick.splice(targetIndex,1);
     },
-    resetPickMovie: (state) => {
-      state.userPick = [];
-      state.userName = null;
-    }
   },
 });
 

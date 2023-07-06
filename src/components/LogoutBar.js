@@ -20,7 +20,6 @@ function LogoutBar(props) {
 
   const handleLogout = () => {
     dispatch(selectLogin(false));
-    dispatch(resetPickMovie());
   };
 
   return (
