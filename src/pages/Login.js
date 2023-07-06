@@ -132,6 +132,9 @@ function Login(props) {
   }
 // json-server --watch ./src/membership-db.json --port 4000
 
+
+    // json server에 등록되지 않은 아이디는 경고창이 뜨지 않음
+    
     const handleRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
@@ -151,10 +154,7 @@ function Login(props) {
       } else if (existingMember.idMail !== idValue) {
         console.log('id 틀림');
         setWarnMsShow(true); 
-      } else if (!existingMember) {
-        console.log('회원아님');
-        setWarnMsShow(true); 
-      }
+      } 
     })
     .catch((error) => {
       alert('서버가 끊겼습니다');
