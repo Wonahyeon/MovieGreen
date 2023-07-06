@@ -63,8 +63,10 @@ const MovieItemBlock = styled.div`
 
   /* overflow: hidden; */
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: keep-all;
   display: ${props => (props.showInfo ? 'none' : 'block')};
+
 }
   .additional-info {
   word-break: keep-all;
