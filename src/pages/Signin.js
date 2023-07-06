@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -114,12 +115,12 @@ const Warn = styled.div`
 `;
 
 function Signin(props) {
-  const [signemail, setSignemail] = useState(''); //이메일
+  const [signEmail, setSignEmail] = useState(''); //이메일
   const [emailMessage, setEmailMessage] = useState(''); // 이메일 메시지
-  const [IsEmail, setIsEmail] = useState(false); //이메일 유효성 검사
+  const [isEmail, setIsEmail] = useState(false); //이메일 유효성 검사
   const [password, setPassword] = useState(''); //비밀번호
   const [passwordMessage, setPasswordMessage] = useState(''); //비밀번호 메시지
-  const [IsPassword, setIsPassword] = useState(false); //비밀번호 유효성 검사
+  const [isPassword, setIsPassword] = useState(false); //비밀번호 유효성 검사
   const [passwordType, setPasswordType] = useState({ //비밀번호 visible
     type: 'password',
     visible: false
@@ -143,7 +144,7 @@ function Signin(props) {
   
   const handleEmail = (e) => { //이메일
     const currentEamil = e.target.value;
-    setSignemail(currentEamil);
+    setSignEmail(currentEamil);
     const emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
     if (!emailRegExp.test(currentEamil)) {
       setEmailMessage('이메일의 형식이 올바르지 않습니다.');
@@ -178,10 +179,12 @@ function Signin(props) {
   }
   
   // jsonserver 열림 유무에 따라 회원가입 가능/불가능
+  // jsonserver 닫혀있으면 alert창 뜨긴 하는데 성공해도 뜸
+
   
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
-    if (IsEmail === true && IsPassword == true) {
+    if (isEmail === true && isPassword == true) {
       if (register()) {
       navigate('/log-in');
       // register()
@@ -197,7 +200,7 @@ function Signin(props) {
     axios
     .post('http://localhost:4000/members', {
       name: userName,
-      idMail: signemail,
+      idMail: signEmail,
       passWord: password,
       age,
       gender,
@@ -208,6 +211,7 @@ function Signin(props) {
     })
     .catch((error) => {
       console.error('err');
+      alert('회원가입 실패');
     })
 
   }
@@ -242,7 +246,7 @@ function Signin(props) {
 
           <label for='email'></label>
           <input type='text' id='email' name='name' placeholder='moviegreen@example.com'
-            value={signemail}
+            value={signEmail}
             onChange={handleEmail}             
           ></input>
           <Warn>{emailMessage}</Warn>
