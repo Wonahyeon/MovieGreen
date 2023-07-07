@@ -26,7 +26,7 @@ const MovieListBlock = styled.div`
   .content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-start;
     box-sizing: border-box;
     padding: 1rem;
