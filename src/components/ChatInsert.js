@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+
+const SelecBtn = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  .btn {
+    width: 60px;
+    height: 35px;
+    background: white;
+    border-radius: 30px;
+    margin-left: 50px;
+    box-sizing: border-box;
+  }
+`;
+
+
 const Chatwrapper = styled.form`
 
 `;
@@ -22,7 +38,9 @@ const Button = styled.button`
   height: 35px;
 `;
 
-function ChatInsert({onInsert}) {
+function ChatInsert(props) {
+  const { messages, onInsert, onAdd } = props;
+  // console.log(messages);
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
@@ -35,8 +53,18 @@ function ChatInsert({onInsert}) {
     setValue('');
   };
 
+// 원하는 질문 번호 선택시 id값에 따라 누를때만 출력
+
   return (
     <>
+      <SelecBtn>
+        <button type='button' className='btn' onClick={onAdd}>1번</button>
+        <button type='button' className='btn' onClick={undefined}>2번</button>
+        <button type='button' className='btn'>3번</button>
+        <button type='button' className='btn'>4번</button>
+        <button type='button' className='btn'>5번</button>
+      </SelecBtn>
+      
       <Chatwrapper onSubmit={handleSubmit}>
         <Intext 
           type='text'
