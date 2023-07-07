@@ -66,7 +66,7 @@ function MoviePick(props) {
             .map((movie) => (
               <SwiperSlide key={movie.id}>
                   <MovieItem  movie={movie.movieDetails} />
-                  <RemovePick onClick={() => dispatch(removePick(movie))}>X</RemovePick>
+                  <RemovePick onClick={() => dispatch(removePick(movie))}/>
               </SwiperSlide>
         ))}
         </div>

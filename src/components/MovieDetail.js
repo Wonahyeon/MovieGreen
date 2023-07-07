@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { isStyledComponent } from "styled-components";
+import styled from "styled-components";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
@@ -10,14 +10,16 @@ import { addPick, pickStatus, removePick, selectUserName, togglePick, userPickMo
 import ReviewPage from "../pages/ReviewPage";
 import MovieTrailer from './MovieTrailer';
 import Recommendations from './Recommendations';
+import CastItem from './CastItem';
 
 
 const DetailWrapper = styled.div`
-  width: 60rem;
+  width: 80rem;
   margin: 0 auto;
   margin-top: 5rem;
   .detail-top {
     display: flex;
+    width: 60rem;
   }
   img {
     width: 15rem;
@@ -90,23 +92,57 @@ const Tab = styled.div`
 
 `;
 const DetailInfoTab = styled.div`
-  .movie-intro {
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
     margin: 1rem;
-
-    h2 {
-      font-weight: bold;
-    }
-    
+    span {
+      font-weight: initial;
+    }    
+  }
+  img {
+    width: 10rem;
+    height: 15rem;
+  }
+  .movie-intro {
+    margin: 2rem;    
   }
   .intro {
     margin-bottom: 1rem;
   }
+  .movie-cast {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  .pd-wrapper {
+    margin-right: 13rem;
+  }
+  .cast-wrapper {
+    display: flex;
+    width: 55rem;
+    justify-content: space-between;
+  }
 `;
 
 const CreditTab = styled.div`
-  .cast-main {
+  img {
+    width: 10rem;
+    height: 15rem;
+    margin-right: 1rem;
+  }
+  .cast-wrapper {
     display: flex;
-    justify-content: space-between;
+    width: 80rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 1rem;
   }
 `;
 
@@ -305,30 +341,42 @@ function MovieDetail(props) {
                   </span>
                 )}
               </div>
+              <h2>출연진
+                <span onClick={() => {
+              setShowTab('credits');
+            }}>더보기</span>
+              </h2>
+              <div className='movie-cast'>
+                <div className='pd-wrapper'>
+                  <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} />
+                  <h3>{movieCredits.crew[2]?.name}</h3>
+                </div>
+                  <div className='cast-wrapper'>
+                {movieCredits.cast?.slice(0,3).map((cast) => (<div className='cast-item'>
+                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' />
+                    <h3 className='profile-name'>{cast?.name}</h3>
+                  </div>
+                ))}
+                </div>
+              </div>
             </DetailInfoTab>,
             'credits' :
             <CreditTab>
               <h2>감독</h2>
-              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} />
-              <h3>{movieCredits.crew[2]?.name}</h3>
+              <div className='cast-wrapper'>
+                <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} />
+                <h3>{movieCredits.crew[2]?.name}</h3>
+              </div>
               <h2>주연</h2>
-              <div className='cast-main'>
-                {movieCredits.cast?.slice(0,4).map((cast) => (
-                  <div key={cast?.name}>
-                    <img src={getImageUrl(cast.profile_path)} alt={cast.name} />
-                    <h3>{cast?.name}</h3>
-                    <h3>{cast?.character}역</h3>
-                  </div>
+              <div className='cast-wrapper'>
+                {movieCredits.cast?.slice(0,3).map((cast) => (
+                  <CastItem cast={cast}/>
                 ))}
               </div>
               <h2>출연</h2>
-              <div className='cast-main cast-sub'>
-                {movieCredits.cast?.slice(4,34).map((cast) => (
-                  <div key={cast?.name}>
-                    <img src={getImageUrl(cast?.profile_path)} alt={cast?.name} />
-                    <h3>{cast?.name}</h3>
-                    <h3>{cast?.character}역</h3>
-                  </div>
+              <div className='cast-wrapper'>
+                {movieCredits.cast?.slice(3,13).map((cast) => (
+                  <CastItem cast={cast}/>
                 ))}
               </div>
               <h2>제작진</h2>
