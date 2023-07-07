@@ -62,7 +62,7 @@ const MovieListBlock = styled.div`
       cursor: pointer;
 
       &:hover {
-        background: #000;
+        background: rgb(200, 228, 122);
         color: #fff;
       }
     }
@@ -147,7 +147,7 @@ function MovieListVote({ targetVote }) {
 }
 
 function MovieListVoteContainer() {
-  const targetVotes = [8, 7, 6];
+  const targetVotes = [8, 7, 6,];
 
   return (
     <div>

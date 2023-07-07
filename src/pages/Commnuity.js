@@ -125,7 +125,7 @@ function Community(props) {
             <Commnuitycheck>
                {viewContent.map((text) => {
                   return(
-                     <div>
+                     <div> 
                         <h1>{text.title}</h1>
                         <div>{ReactHtmlParser(text.content)}</div>
                         <div>

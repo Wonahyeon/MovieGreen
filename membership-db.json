@@ -622,6 +622,22 @@
         []
       ],
       "id": "YcsAL76"
+    },
+    {
+      "name": "고길동",
+      "idMail": "movie@movie.com",
+      "passWord": "Movie123",
+      "age": "123",
+      "gender": "남자",
+      "id": "VVAJiOo"
+    },
+    {
+      "name": "가나다",
+      "idMail": "moviemovie@movie.com",
+      "passWord": "Movie123",
+      "age": "",
+      "gender": "남자",
+      "id": "IBF-qah"
     }
   ],
   "user": {
