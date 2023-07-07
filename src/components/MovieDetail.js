@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from "styled-components";
+import styled, { isStyledComponent } from "styled-components";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
@@ -34,9 +34,6 @@ const DetailWrapper = styled.div`
   h2, h3 {
     font-size: 1rem;
     margin-bottom: 2rem;
-  }
-  span {
-    color: black;
   }
 `;
 
@@ -117,6 +114,7 @@ function MovieDetail(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
+  const [imgError, setImgError] = useState(false);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const userPickStatus = useSelector(pickStatus);
@@ -170,9 +168,13 @@ function MovieDetail(props) {
     return `https://image.tmdb.org/t/p/w500${path}`;
   };
 
+  // 에러 이미지 다루는 함수
+  const handleImgError = () => {
+    setImgError(true);
+  };
+
   // 관람 등급
-  const certification = movieDetails?.certifications[0].release_dates[0].certification;
-  console.log(certification);
+  const certification = movieDetails?.certifications[0]?.release_dates[0].certification || movieDetails?.certifications[0]?.release_dates[1].certification;
   let certificationImg;
 
   switch (certification) {
@@ -196,7 +198,6 @@ function MovieDetail(props) {
   }
   
   
-  console.log();
   if (loading) {
     return <div>Loading...</div>; // 로딩 컴포넌트
   }
@@ -213,15 +214,16 @@ function MovieDetail(props) {
           <img src={getImageUrl(movieDetails.poster_path)} alt={movieDetails.title} />
             <Content>
               <h1 className='movie-title'>{movieDetails.title}
-              <img className='certification-img' src={certificationImg} alt='certification-img'/>
+              <img className='certification-img' src={certificationImg} alt='certification-img'
+              onError={handleImgError} style={{display: imgError ? 'none' : 'block'}}/>
               </h1>
-              <h2>{movieDetails.original_title}</h2>
+              <h2>{movieDetails?.original_title}</h2>
               <h3>{movieDetails?.belongs_to_collection?.name}</h3>
               <h3>
                 평점{' '}
                 <span>
                   <StarRatings
-                    rating={movieDetails.vote_average / 2}
+                    rating={movieDetails?.vote_average / 2}
                     starRatedColor={ratingColor}
                     starHoverColor={ratingColor}
                     numberOfStars={5}
@@ -240,7 +242,7 @@ function MovieDetail(props) {
               <h3>
                 국가{' '}
                 <span>
-                  {movieDetails.production_countries
+                  {movieDetails?.production_countries
                       .map((country) => country.name)
                       .join(', ')}
                 </span>
@@ -248,13 +250,13 @@ function MovieDetail(props) {
               <h3>
                 개봉{' '}
                 <span>
-                  {movieDetails.release_date}
+                  {movieDetails?.release_date}
                 </span>
               </h3>
               <h3>
                 러닝타임{' '}
                 <span>
-                  {movieDetails.runtime}분
+                  {movieDetails?.runtime}분
                 </span>
               </h3>
               <MovieTrailer movieId={movieId} />
@@ -282,7 +284,7 @@ function MovieDetail(props) {
             <div className='nav-item' onClick={() => {
               setShowTab('review');
             }}>
-              <a>평점</a>
+              <a>리뷰</a>
             </div>
           </div>
         </Tab>
@@ -291,13 +293,13 @@ function MovieDetail(props) {
             'detail' :
             <DetailInfoTab>
               <div className='movie-intro'>
-                <h2>{movieDetails.tagline}</h2>
+                <h2>{movieDetails?.tagline}</h2>
                 <div className='intro'>
-                  {movieDetails.overview.length <= 100 || isExpanded
-                  ? movieDetails.overview :
-                  movieDetails.overview.slice(0, 100) + '...'}
+                  {movieDetails?.overview.length <= 100 || isExpanded
+                  ? movieDetails?.overview :
+                  movieDetails?.overview.slice(0, 100) + '...'}
                 </div>
-                {movieDetails.overview.length > 100 && (
+                {movieDetails?.overview.length > 100 && (
                   <span className="cursor-pointer" onClick={handleToggleIntro}>
                     {isExpanded ? '간략히' : '더보기'}
                   </span>
@@ -311,21 +313,21 @@ function MovieDetail(props) {
               <h3>{movieCredits.crew[2]?.name}</h3>
               <h2>주연</h2>
               <div className='cast-main'>
-                {movieCredits.cast.slice(0,4).map((cast) => (
-                  <div>
+                {movieCredits.cast?.slice(0,4).map((cast) => (
+                  <div key={cast?.name}>
                     <img src={getImageUrl(cast.profile_path)} alt={cast.name} />
-                    <h3>{cast.name}</h3>
-                    <h3>{cast.character}역</h3>
+                    <h3>{cast?.name}</h3>
+                    <h3>{cast?.character}역</h3>
                   </div>
                 ))}
               </div>
               <h2>출연</h2>
               <div className='cast-main cast-sub'>
-                {movieCredits.cast.slice(4,34).map((cast) => (
-                  <div>
-                    <img src={getImageUrl(cast.profile_path)} alt={cast.name} />
-                    <h3>{cast.name}</h3>
-                    <h3>{cast.character}역</h3>
+                {movieCredits.cast?.slice(4,34).map((cast) => (
+                  <div key={cast?.name}>
+                    <img src={getImageUrl(cast?.profile_path)} alt={cast?.name} />
+                    <h3>{cast?.name}</h3>
+                    <h3>{cast?.character}역</h3>
                   </div>
                 ))}
               </div>

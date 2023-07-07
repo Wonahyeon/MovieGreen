@@ -1,13 +1,13 @@
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {Navigation, Autoplay } from "swiper";
+import {Navigation } from "swiper";
 import styled from "styled-components";
+import { FiMinusCircle } from "react-icons/fi";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
-import { useSelector } from "react-redux";
-import { selectUserName, userPickMovie } from "../feature/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { removePick, selectUserName, userPickMovie } from "../feature/user/userSlice";
 import MovieItem from "../category/MovieItem";
 const MovieBlock = styled.div`
   background: #ffffff;
@@ -38,9 +38,17 @@ const MovieBlock = styled.div`
       margin-top: 7%;
   }
 `;
+
+const RemovePick = styled(FiMinusCircle)`
+  color: gray;
+  position: relative;
+  left: 14.5rem;
+  bottom: 24.5rem;
+`;
 function MoviePick(props) {
   const userName = useSelector(selectUserName);
   const userPickMovieList = useSelector(userPickMovie);
+  const dispatch = useDispatch();
   
   return (
     <MovieBlock>
@@ -58,6 +66,7 @@ function MoviePick(props) {
             .map((movie) => (
               <SwiperSlide key={movie.id}>
                   <MovieItem  movie={movie.movieDetails} />
+                  <RemovePick onClick={() => dispatch(removePick(movie))}>X</RemovePick>
               </SwiperSlide>
         ))}
         </div>
