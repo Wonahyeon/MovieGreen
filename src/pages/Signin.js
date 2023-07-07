@@ -180,18 +180,13 @@ function Signin(props) {
   
   // jsonserver 열림 유무에 따라 회원가입 가능/불가능
   // jsonserver 닫혀있으면 alert창 뜨긴 하는데 성공해도 뜸
-
+  // 회원가입시 실패면 catch에 있는 alert뜸 post 실패??
   
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
-    if (isEmail === true && isPassword == true) {
-      if (register()) {
+    if (isEmail === true && isPassword == true ) {
       navigate('/log-in');
-      // register()
-      alert('회원가입되었습니다.');        
-      } else if (!register()) {
-        alert('회원가입 실패~')
-      }
+      register();
     } 
   }
 
@@ -206,6 +201,7 @@ function Signin(props) {
       gender,
     })
     .then((response) => {
+      alert('회원가입되었습니다.');        
       console.log('goood');
       console.log('user profile', response.data.members);
     })
@@ -222,7 +218,8 @@ function Signin(props) {
         <MainSignin >
           <h1 className='SignContent'>이메일과 비밀번호만으로 MovieGreen 즐기기</h1>
           <label>
-            <Input type='text'
+            <Input 
+              type='text'
               placeholder='이름을 입력해주세요'
               value={userName}
               onChange={handleName}
@@ -237,7 +234,8 @@ function Signin(props) {
           </label>
 
           <label>
-            <Input type='number'
+            <Input 
+              type='number'
               placeholder='나이를 입력해주세요'
               value={age}
               onChange={handleChangeAge}
@@ -245,17 +243,24 @@ function Signin(props) {
           </label>
 
           <label for='email'></label>
-          <input type='text' id='email' name='name' placeholder='moviegreen@example.com'
+          <input 
+            type='text' 
+            id='email' 
+            name='name' 
+            placeholder='moviegreen@example.com'
             value={signEmail}
             onChange={handleEmail}             
-          ></input>
+          />
           <Warn>{emailMessage}</Warn>
           
           <label for='pw'></label>
-          <input type={passwordType.type} id='pw' placeholder='moviegreen 비밀번호 설정'
+          <input 
+            type={passwordType.type} 
+            id='pw' 
+            placeholder='moviegreen 비밀번호 설정'
             value={password}
             onChange={handlePassword}
-          ></input>
+          />
           <Warn>{passwordMessage}</Warn>
 
           <PwShow>
