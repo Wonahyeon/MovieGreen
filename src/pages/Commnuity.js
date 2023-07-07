@@ -34,6 +34,7 @@ const Commnuitycheck = styled.div` //등록되는 곳
    padding: 10px 0 30px 0;
 
    .date{
+      margin-left: 90%;
       font-weight: bold;
    }
 `;
@@ -151,7 +152,7 @@ function Community(props) {
                />
                <CKEditor // Editor설치
                   editor={ClassicEditor}
-                  data="<p></p>"            
+                  data=''            
                   onReady={ editor => {
                      // You can store the "editor" and use when it is needed.
                      console.log( 'Editor is ready to use!', editor );
