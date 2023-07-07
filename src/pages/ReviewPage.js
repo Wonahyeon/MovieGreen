@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReview, addReviewList } from '../feature/review/reviewSlice';
 import StarRatings from 'react-star-ratings';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { selectUserName } from '../feature/user/userSlice'; 
 
 const ReviewWrapper = styled.div`
