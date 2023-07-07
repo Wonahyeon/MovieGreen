@@ -4,29 +4,31 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'; //Editor설치
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'; //Editor설치
 import ReactHtmlParser from "html-react-parser"; //모듈설치 
 import axios from "axios";
+import { MdDelete } from "react-icons/md";
 
 const StyledCommnuity = styled.div`
-   height: 800px; //footer를 내리기 위한 height 
+   height: 700px; //footer를 내리기 위한 height 
    h1{
       text-align: center;
       font-weight: 700;
-      margin-top: 10px;
+      margin-top: 30px;
       font-size: 25px;
    }
 `;
 
 const CommunityWrapper = styled.div`
    position: relative;
-   top: 40px;
+   top: 60px;
    display: flex;
 `;
 
 const Commnuitycheck = styled.div` //등록되는 곳
+   overflow-x: hidden;
    overflow-y: scroll;
    & ::-webkit-scrollbar {
       height: 10px;
    }
-   height: 490px;
+   height: 590px;
    position: absolute;
    left: 30px;
    width: 48%;
@@ -34,10 +36,19 @@ const Commnuitycheck = styled.div` //등록되는 곳
    padding: 10px 0 30px 0;
 
    .date{
-      margin-left: 90%;
+      margin-left: 87%;
       font-weight: bold;
    }
+
+   button{
+      /* position: absolute; */
+      right: 0;
+      top: 13%;
+      right: 15px;
+
+   }
 `;
+
 const CommnuityText = styled.div` //내용 입력창 
    position: absolute;
    right: 30px;
@@ -58,27 +69,25 @@ const CommnuityText = styled.div` //내용 입력창
       cursor: pointer;
    }
    .ck.ck-editor__editable:not(.ck-editor__nested-editable) { //설치 Editor 스타일
-      min-height: 400px;
+      min-height: 500px;
    }
    `;
 
 
-// 등록 날짜 제목 오른쪽 또는 제목 상단 스타일 지정
-// 내용 등록 길이 제한(자세히 보기) - 에러발생
+// 내용 등록 길이 제한(자세히 보기) - 에러발생 - 지움
 // 로그인 시 커뮤니티 작성 가능하게 
+// 삭제 기능 - 내가 누른 거 삭제X, 밑에서부터 삭제가 됨
+// 삭제 오류해결하기
 
 function Community(props) {
-   // const {viewtext : {data}} = props;
+   const {data} = props;
+
    const [communityContent, setCommunityContent] = useState({
       title: '',
       content: '',
    });
    const [viewContent, setViewContent] = useState([]); //내용 보여줄 state
-   // const [Message, setMessage] = useState(false);
-   // const [value, setValue] = useState('');
-   const [isview, setIsview] = useState(false);
-
-   const date = new Date();
+   const date = new Date(); //날짜
    const datecurrent = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();  
 
    const getValue = (e) => {
@@ -90,7 +99,9 @@ function Community(props) {
       console.log(communityContent); //객체
    }
    
+   // 등록
    const handleButton = async (e) => {
+      e.preventDefault();
       await axios.get(`http://localhost:3000`,
       {
          title: communityContent.title,
@@ -100,23 +111,22 @@ function Community(props) {
          // alert('등록되었습니다.');
       })
       setViewContent(viewContent.concat({...communityContent}))
-      e.preventDefault();
    }
 
-   const handleIsView = () => {
-      setIsview(!isview);
-   }
+   //삭제
+   const handleDelete = useCallback((id) => {
+      if (window.confirm('삭제하시겠습니까?')) {
+         const copyContent = [...viewContent];
+         const targetIndex = viewContent.findIndex((data) => data.id === id);
+         copyContent.splice(targetIndex, 1);
+         setViewContent(copyContent);
+         // const copyContent = [...viewContent];
+         // copyContent.splice(id, 1)
+         // setViewContent(copyContent);
+         // setViewContent(viewContent => viewContent.filter((data) => data.id !== id));
+      }
+   }, [viewContent])
 
-   // const handleInput = useCallback(() => {
-   //    const date = new Date();
-   //    const datecurrent = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();  
-   //    const viewtext = {
-   //       data: datecurrent
-   //    }
-   //    const copyDate = [...viewContent];
-   //    copyDate.push(viewtext);
-   //    setViewContent(copyDate);
-   // }, [viewContent]);
 
    return(
       <StyledCommnuity>
@@ -128,19 +138,9 @@ function Community(props) {
                      <div>
                         <h1>{text.title}</h1>
                         <div>{ReactHtmlParser(text.content)}</div>
-                        <div>
-                           {/* {ReactHtmlParser(text.content).length <= 50 || isview
-                           ? ReactHtmlParser(text.content).length 
-                           : ReactHtmlParser(text.content).length.slice(0, 30) + '...'}  */}
-                           {/* slice 타입에러 발생함 */}
-                           {/* TypeError: Cannot read properties of undefined (reading 'slice') */}
-                        </div>
-                        
-                        {/* {ReactHtmlParser(text.content).length > 10 && (
-                           <div onClick={handleIsView}>{isview ? '보기' : '자세히 보기'}</div>
-                        )} */}
-
                         <div className="date">{datecurrent}</div>
+                        <button viewContent={viewContent} onClick={handleDelete}>삭제</button>
+                        <input type="text" placeholder="댓글"/>
                         <hr />
                         </div>
                   )
