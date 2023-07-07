@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BsFacebook, BsYoutube, BsInstagram } from "react-icons/bs";
 
 const FooterWrapper = styled.div`
-  background: #C8E4A7;
+  background: rgb(200, 228, 122);
   height: 200px;
   position: relative;
   transform: translateY(100%);

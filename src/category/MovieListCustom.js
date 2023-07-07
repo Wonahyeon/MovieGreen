@@ -47,7 +47,7 @@ const MovieListBlock = styled.div`
         cursor: pointer;
 
         &:hover {
-          background: #000;
+          background: rgb(200, 228, 122);
           color: #fff;
         }
       }
@@ -65,7 +65,7 @@ const MovieListBlock = styled.div`
       outline: none;
 
       &:hover {
-        background: #000;
+        background: rgb(200, 228, 122);
         color: #fff;
       }
     }
@@ -96,7 +96,7 @@ const ButtonContainer = styled.div`
       outline: none;
 
       &:hover {
-        background: #000;
+        background: rgb(200, 228, 122);
         color: #fff;
       }
     }
@@ -114,7 +114,7 @@ const SelectGenre = styled.select`
       outline: none;
 
       &:hover {
-        background: #000;
+        background: rgb(200, 228, 122);
         color: #fff;
       } 
 `
