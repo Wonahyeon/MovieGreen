@@ -47,7 +47,7 @@ const MovieListBlock = styled.div`
       cursor: pointer;
 
       &:hover {
-        background: #000;
+        background: rgb(200, 228, 122);
         color: #fff;
       }
     }

@@ -87,10 +87,32 @@ margin: 0 auto;
         cursor: pointer;
 
         &:hover {
-          background: #000;
+          background: rgb(200, 228, 122);
           color: #fff;
         }
       }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  button {
+    font-size: 30px;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    background: none;
+    color: #000;
+    border: 0.1rem solid #000;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(200, 228, 122);
+      color: #fff;
+    }
+  }
 `;
 
 function Recommendations({ movieId }) {
@@ -136,21 +158,19 @@ function Recommendations({ movieId }) {
           .map((movie) => (
             <MovieItem key={movie.id} movie={movie} />
           ))}
+      </div>
+      <ButtonWrapper>
         {showSeeMore && (
-        <div className="see-more">
           <button onClick={handleSeeMore} className="more">
             ↓
           </button>
-        </div>
-      )}
-      {showSeeLess && (
-        <div className="see-more">
+        )}
+        {showSeeLess && (
           <button onClick={handleSeeLess} className="less">
             ✕
           </button>
-        </div>
-      )}
-      </div>
+        )}
+      </ButtonWrapper>
     </RecommendationsWrapper>
   );
 }

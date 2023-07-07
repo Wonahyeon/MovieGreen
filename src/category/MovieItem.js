@@ -86,10 +86,9 @@ const MovieItemBlock = styled.div`
 
   &:hover .additional-info {
     display: block;
-    background: rgba(0.5, 0.5, 0.5, 0.5);
-    color: #fff;
-
-
+    background: rgba(200,228,112, 0.5);
+    color: #000;
+    font-weight: bolder;
   }
   .opening {
     white-space: nowrap;
