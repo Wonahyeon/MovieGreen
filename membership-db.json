@@ -624,6 +624,7 @@
       "id": "YcsAL76"
     },
     {
+
       "name": "고길동",
       "idMail": "movie@movie.com",
       "passWord": "Movie123",
@@ -638,6 +639,14 @@
       "age": "",
       "gender": "남자",
       "id": "IBF-qah"
+    },
+    {
+      "name": "아무개",
+      "idMail": "amg@naver.com",
+      "passWord": "Amg123",
+      "age": "25",
+      "gender": "남자",
+      "id": "-dRhGC_"
     }
   ],
   "user": {
