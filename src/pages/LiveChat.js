@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from "uuid";
 
 const ChatWrapper = styled.div`
   width: 1024px;
@@ -94,36 +95,34 @@ const Button = styled.button`
 function LiveChat(props) {
   const [message, setMessage] = useState('');
   const [asks, setAsks] = useState([]);
+  const [showUserContainer, setShowUserContainer] = useState(false);
 
   const handleChange = (e) => {
-    setMessage(e.target.value);
+    setAsks(e.target.value);
   };
-
-  // const handleInsert = useCallback((message) => {
-  //   const ask = {
-  //     id: uuidv4(),
-  //     message,
-  //   }
-  // })
 
   // submit 후 내 말풍선 올라감(내가 작성한 내용이)
   // localstorage에 작성한 내용 저장해서 올리기
   // 원하는 질문 번호 입력하면 그에 맞는 답변 나옴
   
   // 스토리지에서 가져오기
-  useEffect(() => {
-    const dbAsk = JSON.parse(localStorage.getItem('asks')) || [];
-    setAsks(dbAsk);
-  }, []);
+  // useEffect(() => {
+  //   const dbAsk = JSON.parse(localStorage.getItem('asks')) || [];
+  //   setAsks(dbAsk);
+  // }, []);
 
-  // 스토리지에 저장
-  useEffect(() => {
-    localStorage.setItem('asks', JSON.stringify(asks));
-  }, []);
+  // // 스토리지에 저장
+  // useEffect(() => {
+  //   localStorage.setItem('asks', JSON.stringify(asks));
+  // }, []);
 
+
+  // submit -> 컨테이너에 input에서 적은 내용 올라감
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+    setShowUserContainer(true);
+    }
+  
 
 
 
@@ -156,29 +155,25 @@ function LiveChat(props) {
         </Container>
 
 
-        <UserContainer>
+        {showUserContainer && <UserContainer >
           <UserTime>
             18:15
           </UserTime>          
           <MessageUser>
-            {message}
+            {asks}
           </MessageUser>
-        </UserContainer>
+        </UserContainer>}
 
       </Chat>
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Intext 
           type='text'
           placeholder='내용을 입력하세요'
-          value={message}
+          value={asks}
           onChange={handleChange}
         />
-        <Button
-          type='submit'
-          onSubmit={handleSubmit}
-          >
-          
+        <Button type='submit'>
           전송
         </Button>
         

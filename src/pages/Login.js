@@ -132,15 +132,12 @@ function Login(props) {
   }
 // json-server --watch ./src/membership-db.json --port 4000
 
-
-    // json server에 등록되지 않은 아이디는 경고창이 뜨지 않음
-    
     const handleRegister = () => {
     axios.get('http://localhost:4000/members') // 데이터 요청
     .then((response) => { // response 받아옴
       const members = response.data;
       const existingMember = members.find(member => member.idMail === idValue || member.passWord === pwValue);
-      // console.log(existingMember);
+      
       if (existingMember.passWord === pwValue && existingMember.idMail === idValue) {
         console.log('로그인 완료');
         dispatch(selectUser(existingMember.name));
@@ -166,7 +163,8 @@ function Login(props) {
       <MainLogin>
         <h1 className='LogText'>로그인</h1>
         <label>
-          <Input type='text' 
+          <Input 
+            type='text' 
             placeholder='이메일 주소 또는 아이디'
             value={idValue}
             onChange={handleChangeId}
@@ -179,7 +177,8 @@ function Login(props) {
         </Warn>}
 
         <label>
-          <Input type={showPassward.type} 
+          <Input 
+            type={showPassward.type} 
             placeholder='비밀번호'
             value={pwValue}
             onChange={handleChangePw}
