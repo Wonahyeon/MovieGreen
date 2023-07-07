@@ -174,7 +174,7 @@ function MovieDetail(props) {
   };
 
   // 관람 등급
-  const certification = movieDetails?.certifications[0]?.release_dates[0].certification || movieDetails?.certifications[0]?.release_dates[1].certification;
+  const certification = movieDetails?.certifications[0]?.release_dates[0]?.certification || movieDetails?.certifications[0]?.release_dates[1]?.certification;
   let certificationImg;
 
   switch (certification) {
