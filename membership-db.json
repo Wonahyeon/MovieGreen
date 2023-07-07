@@ -622,6 +622,14 @@
         []
       ],
       "id": "YcsAL76"
+    },
+    {
+      "name": "아무개",
+      "idMail": "amg@naver.com",
+      "passWord": "Amg123",
+      "age": "25",
+      "gender": "남자",
+      "id": "-dRhGC_"
     }
   ],
   "user": {
