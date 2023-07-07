@@ -1,14 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from "uuid";
+import ChatInsert from '../components/ChatInsert';
+import ChatList from '../components/ChatList';
 
 const ChatWrapper = styled.div`
   width: 1024px;
+  height: auto;
   margin: 0 auto;
   background: #d9d9d9;
+  overflow-y: scroll;
 `;
 const Menu  = styled.div`
-  background: #C8E4A7;
+  color: rgba(137, 191, 84, 1);
   height: 40px;
 `;
 const Title = styled.h1`
@@ -39,145 +43,89 @@ const Container = styled.div`
   display: flex;
   align-items: flex-end;
 `;
-const UserContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-`;
 
 const MessageBot = styled.div`
   background: beige;
-  width: 350px;
+  width: auto;
   border-radius: 10px;
   margin-left: 50px;
   margin-top: 7px;
   padding: 15px;
-`;
-const MessageUser = styled.div`
-  background: beige;
-  width: 350px;
-  border-radius: 10px;
-  margin-right: 50px;
-  margin-top: 7px;
-  padding: 15px;
-  right: 0;
 `;
 
 const Time = styled.p`
   margin-left: 10px;
   font-size: 14px;
 `;
-const UserTime = styled.p`
-  margin-right: 10px;
-  font-size: 14px;
-`;
-const Form = styled.form`
-
-`;
-const Intext = styled.input`
-  width: 890px;
-  height: 35px;
-  box-sizing: border-box;
-  outline: none;
-  border: none;
-  border-radius: 10px;
-  margin-left: 10px;
-  padding: 10px;
-  background: aqua;
-`;
-const Button = styled.button`
-  background: #3F8600;
-  margin-left: 10px;
-  width: 60px;
-  height: 35px;
-`;
 
 function LiveChat(props) {
-  const [message, setMessage] = useState('');
-  const [asks, setAsks] = useState([]);
-  const [showUserContainer, setShowUserContainer] = useState(false);
-
-  const handleChange = (e) => {
-    setAsks(e.target.value);
-  };
-
-  // submit 후 내 말풍선 올라감(내가 작성한 내용이)
-  // localstorage에 작성한 내용 저장해서 올리기
-  // 원하는 질문 번호 입력하면 그에 맞는 답변 나옴
+  const [asks, setAsks] = useState([
+    // {
+    //   id: 1,
+    //   text: '1번'
+    // },
+  ]);
   
   // 스토리지에서 가져오기
-  // useEffect(() => {
-  //   const dbAsk = JSON.parse(localStorage.getItem('asks')) || [];
-  //   setAsks(dbAsk);
-  // }, []);
+  useEffect(() => {
+    const dbAsk = JSON.parse(localStorage.getItem('asks')) || [];
+    setAsks(dbAsk);
+  }, []);
 
-  // // 스토리지에 저장
-  // useEffect(() => {
-  //   localStorage.setItem('asks', JSON.stringify(asks));
-  // }, []);
+  // 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('asks', JSON.stringify(asks));
+  }, [asks]);
+
+  const nextId = useRef(4);
+
+  const handleInsert = useCallback((text) => {
+    const ask = {
+      id: uuidv4(),
+      text
+    };
+    setAsks(asks => asks.concat(ask)); 
+    nextId.current += 1; 
+  }, []);
 
 
-  // submit -> 컨테이너에 input에서 적은 내용 올라감
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowUserContainer(true);
-    }
+
+
+
   
-
-
-
-
   return (
     <ChatWrapper>
       <Menu>
         <Title>
-          라이브톡
+          챗봇
         </Title>
-      </Menu>        
+      </Menu>   
+
       <Chat>
         <Profile>
           <img className='img' src='./chatbotimg.jpg' />
           <p className='chatName'>상담봇</p>
         </Profile>
-
         <Container>
           <MessageBot>
             질문을 선택하세요<br />
-            1. 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구<br />
-            2. 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구<br />
-            3. 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구<br />
-            4. 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구<br />
-            5. 어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구
-          </MessageBot>     
+            1. 고객센터 ARS 안내가 궁금해요.<br />
+            2. IOS에서 일부 최신 영화가 안 보여요.<br />
+            3. WI-FI 신호가 약해서 동영상이 잘 재생되지 않아요.<br />
+            4. movie Green을 원활하게 이용하기 위한 인터넷 환경을 알려주세요.<br />
+            5. 고객센터 연락처를 못 찾겠어요.
+          </MessageBot> 
+
           <Time>
             17:20
           </Time>
+
         </Container>
 
-
-        {showUserContainer && <UserContainer >
-          <UserTime>
-            18:15
-          </UserTime>          
-          <MessageUser>
-            {asks}
-          </MessageUser>
-        </UserContainer>}
-
+        <ChatList asks={asks} />
       </Chat>
 
-      <Form onSubmit={handleSubmit}>
-        <Intext 
-          type='text'
-          placeholder='내용을 입력하세요'
-          value={asks}
-          onChange={handleChange}
-        />
-        <Button type='submit'>
-          전송
-        </Button>
-        
-      </Form>
+      <ChatInsert onInsert={handleInsert}/>
 
       
     </ChatWrapper>

@@ -12,7 +12,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: end;
   top: 0;
-  background: #212126;
+  background: rgb(200, 228, 122);
   color: #a8b0bf;
   right: 0;
   padding: 5px 30px;
@@ -20,7 +20,7 @@ const Nav = styled.div`
 
 const HeaderWrapper = styled.div`
   height: 100px;
-  background: #212126;
+  background: rgb(200, 228, 122);
   padding: 8px;
   display: flex;
   align-items: center;
