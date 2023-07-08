@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { useDispatch, useSelector } from "react-redux";
-import { removePick, selectUserName, userPickMovie } from "../feature/user/userSlice";
+import { removePick, selectUserName, togglePick, userPickMovie } from "../feature/user/userSlice";
 import MovieItem from "../category/MovieItem";
 const MovieBlock = styled.div`
   background: #ffffff;
@@ -66,7 +66,7 @@ function MoviePick(props) {
             .map((movie) => (
               <SwiperSlide key={movie.id}>
                   <MovieItem  movie={movie.movieDetails} />
-                  <RemovePick onClick={() => dispatch(removePick(movie))}/>
+                  <RemovePick onClick={() => dispatch(togglePick(movie))}/>
               </SwiperSlide>
         ))}
         </div>

@@ -153,9 +153,8 @@ function MovieDetail(props) {
   const [imgError, setImgError] = useState(false);
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
-  const userPickStatus = useSelector(pickStatus);
   const userName = useSelector(selectUserName);
-  const moviePickData = useSelector(userPickMovie);
+  const userPick = useSelector(userPickMovie);
   const { movieId } = useParams();
   const dispatch = useDispatch();
   const ratingColor = '#C8E4A7';
@@ -176,21 +175,13 @@ function MovieDetail(props) {
     const pickData = {
       id: movieId,
       userName,
-      userPickStatus,
-      movieDetails,
+      movieDetails
     };
-    if (userPickStatus) {
-      dispatch(togglePick(userPickStatus));
-      dispatch(addPick(pickData));
-
-    } else {
-      dispatch(togglePick(userPickStatus));
-      dispatch(removePick(pickData));
-    }
+   dispatch(togglePick(pickData));
   };
 
   // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status
-  const pick = moviePickData.filter(pick => pick.userName === userName)?.filter(pick => pick.id === movieId)[0]?.userPickStatus;
+  const pick = userPick.filter(pick => pick.userName === userName).find(pick => pick.id === movieId);
   
   const handleToggleIntro = () => {
     setIsExpanded(!isExpanded);
