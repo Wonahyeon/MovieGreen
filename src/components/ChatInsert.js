@@ -1,3 +1,4 @@
+import { click } from '@testing-library/user-event/dist/click';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -6,13 +7,19 @@ const SelecBtn = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  justify-content: space-around;
+  background: white;
   .btn {
-    width: 60px;
+    width: 65px;
     height: 35px;
     background: white;
     border-radius: 30px;
-    margin-left: 50px;
     box-sizing: border-box;
+    background: rgb(200, 228, 122);
+    margin: 5px 0 5px 0px;
+    &:active {
+      background: rgb(100, 218, 112);
+    }
   }
 `;
 
@@ -39,8 +46,8 @@ const Button = styled.button`
 `;
 
 function ChatInsert(props) {
-  const { messages, onInsert, onAdd } = props;
-  // console.log(messages);
+  const { answer, onInsert, onAdd } = props;
+  console.log(answer);
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
@@ -53,12 +60,16 @@ function ChatInsert(props) {
     setValue('');
   };
 
+
 // 원하는 질문 번호 선택시 id값에 따라 누를때만 출력
+// 만약 1번 버튼 누르면 '1번' 이라고 메세지가 보내지고 
+// 챗봇이 1번 질문에 대한 답 출력
+
 
   return (
     <>
       <SelecBtn>
-        <button type='button' className='btn' onClick={onAdd}>1번</button>
+        <button type='button' className='btn' onClick={undefined}>1번</button>
         <button type='button' className='btn' onClick={undefined}>2번</button>
         <button type='button' className='btn'>3번</button>
         <button type='button' className='btn'>4번</button>

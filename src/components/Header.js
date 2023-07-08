@@ -19,75 +19,61 @@ const Nav = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-  height: 100px;
   background: rgb(200, 228, 122);
-  padding: 8px;
+`;
+
+const Container  = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  .container {
+  height: 100px;
+`;
+
+const Navbar  = styled.div`
+  display: flex;
+  width: calc(30%);
+
+  .home, .categori, .community, .categori {
+    text-decoration: none;
     margin-right: 10px;
-    /* width: calc(100% - 30%); */
-  }
-  .form {
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+      &:hover {
+       color: black;
+       transition: 1s;
+     }   
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 15px 0;
-  .navBar {
-    margin-right: 330px;
-  }
+const LogoWrapper  = styled.div`
   .Logo {
+    text-decoration: none;
     color: white;
     font-size: 35px;
     text-decoration: none;
     font-family: 'Luckiest Guy', sans-serif;
   }
 `;
-const Navbar = styled.div`
-  margin: 0 0 0 100px;
-  font-size: 20px;
-  color: #a8b0bf;
-  .home {
-    padding: 8px;
-    color: #a8b0bf;
-    text-decoration: none;
-    padding: 10px;
-  }
-  .categori, .community{
-    padding: 8px;
-    cursor: pointer;
 
-    &:hover {
-      color: white;
-      transition: 1s;
-    }    
-  }
-`;
-const Form = styled.form`
+const Form  = styled.div`
+  width: calc(30%);
   display: flex;
-  /* flex-grow: 2; */
+  justify-content: center;
+
   .searchIcon {
     position: absolute;
-    top: 70px;
-    right: 217px;
-    font-size: 30px;
-    color: black;
-    cursor: pointer;
+    display: flex;
+    top: 65px;
+    font-size: 25px;
     &:focus {
-      opacity: 0;
+      display: none;
+      color: white;
     }
   }
 `;
-const Input = styled.input`
+
+const Input  = styled.input`
   width: 40px;
   height: 35px;
   padding: 7px;
@@ -95,19 +81,18 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 10px;
-  /* margin-left: 100px; */
-  /* opacity: 0; */
-  &::placeholder {
-    color: white;
-  }
-  &:focus {
-    &::placeholder {
-    color: black;
-    }
-    opacity: 100;
-    width: 200px;
-    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-  }
+  position: relative;
+     &::placeholder {
+     color: white;
+   }
+   &:focus {
+     &::placeholder {
+     color: black;
+     }
+     opacity: 100;
+     width: 200px;
+     transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+   }
 `;
 
 function Header(props) {
@@ -150,9 +135,11 @@ function Header(props) {
         <a className='categori' onClick={() => {navigate('/live-chat');}}>라이브톡</a>
         
         </Navbar>
+        <LogoWrapper>
+          <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>          
+        </LogoWrapper>
 
-        <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>
-        </Container>
+
         <Form className='form' onSubmit={handleSubmit} onClick={handleClick}>
           <Input type='text'
             className='search'
@@ -164,7 +151,7 @@ function Header(props) {
             
             <MdSearch className='searchIcon' />
         </Form>
-
+        </Container>
         {/* { submenuView &&
           <ul className='submenu'>
             <li className='li' onClick={() => {navigate('/movie-category/year');}}>연도</li>

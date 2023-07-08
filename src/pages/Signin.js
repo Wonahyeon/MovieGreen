@@ -6,7 +6,7 @@ import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
 import axios from "axios";
 
 const SigninWrapper = styled.div`
-  background: #212126;
+  background: rgb(200, 228, 122);
   max-width: 450px;
   height: 750px;
   margin: auto;
