@@ -8,13 +8,11 @@ const BotProfileWrapper = styled.div`
 
 
 function BotProfile(props) {
-  const { messages } = props;
+  const { answers } = props;
   return (
     <BotProfileWrapper>
-      <BotProfileItem message={messages} />
-      {/* {messages.map(message => (
-        <BotProfileItem key={message.id} message={message}  />
-      ))} */}
+      <BotProfileItem answers={answers} />
+
     </BotProfileWrapper>
   );
 }
