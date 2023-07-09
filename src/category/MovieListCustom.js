@@ -4,53 +4,52 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
+  background: linear-gradient(to bottom, #FF6699, #33CCFF
+, #FF6699);
+  color: #ffffff;
+  padding: 2rem;
+
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #ffffff;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 1rem;
+  }
+
+  .black {
+  color: #000;
+  }
+
+  .see-All,
+  .see-NotAll {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .see-All button,
+  .see-NotAll button {
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;
     background: #ffffff;
-    color: #000;
-    width: fit-content;
-    margin: 0 auto;
-    .title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      padding: 1rem;
-      border-bottom: 0.2rem solid;
-      span {
-        margin-left: 0.5rem;
-        font-size: 1rem;
-      }
-    }
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-evenly;
-      align-items: flex-start;
-      box-sizing: border-box;
-      padding: 1rem;
-      margin: 1rem;
-      width: 1280px;
-      margin: 0 auto;
-    }
-    .see-more {
-      text-align: center;
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
+    color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-      .more,
-      .less {
-        font-size: 30px;
-        margin: 0 1rem;
-        padding: 0.5rem 1rem;
-        background: none;
-        color: #000;
-        border: 0.1rem solid #000;
-        border-radius: 0.5rem;
-        cursor: pointer;
-
-        &:hover {
-          background: rgb(200, 228, 122);
-          color: #fff;
-        }
-      }
+    &:hover {
+      background: #cccccc;
+    }
+      
     }
     .deleteButton {
       margin: 0 0.5rem;
@@ -69,7 +68,7 @@ const MovieListBlock = styled.div`
         color: #fff;
       }
     }
-  `;
+  `
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -99,25 +98,71 @@ const ButtonContainer = styled.div`
         background: rgb(200, 228, 122);
         color: #fff;
       }
+
+&:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+&:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+}
+
+
+&::-ms-expand {
+  display: none;
+}
+
+
+&::after {
+  content: "\\25BC";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
     }
   `;
 const SelectGenre = styled.select`
-  margin: 0 0.5rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      color: #000;
-      border: 0.1rem solid #000;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      outline: none;
+margin: 0 0.5rem;
+padding: 0.5rem 1rem;
+background: none;
+color: #000;
+border: 0.1rem solid #000;
+border-radius: 0.5rem;
+cursor: pointer;
+font-size: 1rem;
+font-weight: bold;
+outline: none;
 
-      &:hover {
-        background: rgb(200, 228, 122);
-        color: #fff;
-      } 
-`
+
+&:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+&:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+}
+
+
+&::-ms-expand {
+  display: none;
+}
+
+
+&::after {
+  content: "\\25BC";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+`;
 const targetGenres = [
   { id: '28', name: '액션' },
   { id: '12', name: '어드벤쳐' },
@@ -140,7 +185,7 @@ const targetGenres = [
 
 function MovieListCustom({ targetDate, selectedGenre, targetCountry, handleGenreChange, handleDelete }) {
   const [movies, setMovies] = useState(null);
-  const [visibleMovies, setVisibleMovies] = useState(4);
+  const [visibleMovies, setVisibleMovies] = useState(8);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
 
@@ -186,42 +231,42 @@ function MovieListCustom({ targetDate, selectedGenre, targetCountry, handleGenre
     <MovieListBlock>
       <div className="title">
         {targetDate.slice(0, 4)}년
-
         <button onClick={() => handleDelete(targetDate)} className="deleteButton">
           삭제
         </button>
       </div>  
       <SelectGenre
-  value={selectedGenre}
-  onChange={(event) => handleGenreChange(event, targetDate)}
-  className="selectGenre"
->
-  <option value="">모든 장르</option>
-  {targetGenres.map((genre) => (
-    <option key={genre.id} value={genre.id}>
-      {genre.name}
-    </option>
-  ))}
-</SelectGenre>
-      <div className="content">
-        {movies &&
-          movies
+        value={selectedGenre}
+        onChange={(event) => handleGenreChange(event, targetDate)}
+        className="selectGenre"
+      >
+        <option value="">모든 장르</option>
+        {targetGenres.map((genre) => (
+          <option key={genre.id} value={genre.id}>
+            {genre.name}
+          </option>
+        ))}
+      </SelectGenre>
+      {movies && movies.length > 0 ? (
+        <div className="content">
+          {movies
             .filter((movie) => movie.vote_count > 0 && movie.backdrop_path !== null)
             .slice(0, visibleMovies)
-            .map((movie) => <MovieItem key={movie.id} movie={movie} />)}
-      </div>
+            .map((movie) => (
+              <MovieItem key={movie.id} movie={movie} />
+            ))}
+        </div>
+      ) : (
+        <div className='black'> <br></br>영화 정보가 없습니다</div>
+      )}
       {showSeeMore && (
-        <div className="see-more">
-          <button onClick={handleSeeMore} className="more">
-            ↓
-          </button>
+        <div className="see-All">
+          <button onClick={handleSeeMore}>더보기</button>
         </div>
       )}
       {showSeeLess && (
-        <div className="see-more">
-          <button onClick={handleSeeLess} className="less">
-            ✕
-          </button>
+        <div className="see-NotAll">
+          <button onClick={handleSeeLess}>접기</button>
         </div>
       )}
     </MovieListBlock>

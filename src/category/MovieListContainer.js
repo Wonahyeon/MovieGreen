@@ -24,10 +24,31 @@ const ButtonContainer = styled.div`
     font-weight: bold;
     outline: none;
 
-    &.active {
-      background: rgb(200, 228, 122);
-      color: #fff;
-    }
+
+&:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+&:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+}
+
+
+&::-ms-expand {
+  display: none;
+}
+
+
+&::after {
+  content: "\\25BC";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
   }
 `;
 
