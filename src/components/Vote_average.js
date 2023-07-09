@@ -40,8 +40,7 @@ const MovieListBlock = styled.div`
     }
 
     .movie-item:hover .title {
-      color: #000000; /* Change the color to your desired hover color */
-      /* text-decoration: underline; Add underline on hover */
+      color: #000000;
     }
   }
   .see-more {

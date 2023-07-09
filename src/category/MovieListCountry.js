@@ -4,52 +4,44 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #fff;
-  color: #000;
-  width: fit-content;
-  margin: 0 auto;
+  background: linear-gradient(to bottom, #B8F3B8, #FFADC5, #B8F3B8);
+  color: #ffffff;
+  padding: 2rem;
+
   .title {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
-    padding: 1rem;
-    border-bottom: 0.2rem solid;
-    span {
-      margin-left: 0.5rem;
-      font-size: 1rem;
-    }
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #ffffff;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+
   .content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: 1rem;
-    margin: 1rem;
-    width: 1280px;
-    margin: 0 auto;
+    flex-wrap: wrap; 
+    gap: 1rem;
   }
-  .see-All , .see-NotAll {
+
+  .see-All,
+  .see-NotAll {
     text-align: center;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+    margin-top: 2rem;
+  }
 
-    .all,
-    .notALL {
-      font-size: 30px;
-      margin: 0 1rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      color: #000;
-      border: 0.1rem solid #000;
-      border-radius: 0.5rem;
-      cursor: pointer;
+  .see-All button,
+  .see-NotAll button {
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-      &:hover {
-        background: #000;
-        color: #fff;
-      }
+    &:hover {
+      background: #cccccc;
     }
   }
 `;
@@ -58,31 +50,47 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  font-size: 50px;
-  input {
-    font-size: 50px;
-    width: 130px;
-    text-align: center;
-  }
+  font-size: 1.2rem;
 
-  button , .selectGenre{
-    margin: 0 0.5rem;
+  select {
+    font-size: 1.2rem;
+    width: 200px;
     padding: 0.5rem 1rem;
-    background: none;
-    color: #000;
-    border: 0.1rem solid #000;
+    border: none;
     border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
     outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
 
-    &:hover {
-      background: rgb(200, 228, 122);
-      color: #fff;
-    }
+&:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+&:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+}
+
+
+&::-ms-expand {
+  display: none;
+}
+
+
+&::after {
+  content: "\\25BC";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
   }
 `;
+
 const targetGenres = [
   { id: '28', name: '액션' },
   { id: '12', name: '어드벤쳐' },
@@ -103,12 +111,21 @@ const targetGenres = [
   { id: '37', name: '서부' },
 ];
 
-function MovieListCountry({ targetCountry ,selectedGenre }) {
+const DecoratedMovieItem = styled(MovieItem)`
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+function MovieListCountry({ targetCountry, selectedGenre }) {
   const [movies, setMovies] = useState(null);
-  const [visibleMovies, setVisibleMovies] = useState(4);
+  const [visibleMovies, setVisibleMovies] = useState(8);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
-  console.log('moviesszz', movies);
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -117,15 +134,16 @@ function MovieListCountry({ targetCountry ,selectedGenre }) {
           {
             params: {
               api_key: '43af09871fd391abc84a35b271386b01',
-              
               language: 'ko-KR',
-              without_genres: '18,10749,',
+              without_genres: '18,10749',
               with_genres: selectedGenre,
               with_original_language: targetCountry === '한국' ? 'ko' : 'en',
             },
           }
         );
-        const movies = response.data.results.filter(movie => movie.genre_ids.length > 0);
+        const movies = response.data.results.filter(
+          (movie) => movie.genre_ids.length > 0
+        );
 
         setMovies(movies);
       } catch (error) {
@@ -147,52 +165,50 @@ function MovieListCountry({ targetCountry ,selectedGenre }) {
     setShowSeeMore(true);
     setShowSeeLess(false);
   };
-  console.log('mmmmmmmmmovies', movies);
+
   return (
     <MovieListBlock>
-      <div className="title">
-        {targetCountry} 영화
-      </div>
+      <div className="title">{targetCountry} 영화</div>
       <div className="content">
-
         {movies &&
           movies
-            .filter((movie) => movie.vote_count > 0) 
+            .filter((movie) => movie.vote_count > 0)
             .slice(0, visibleMovies)
             .map((movie) => (
-              <MovieItem key={movie.id} movie={movie} />
+              <DecoratedMovieItem key={movie.id} movie={movie} />
             ))}
-        </div>
+      </div>
 
-        {showSeeMore && (
-          <div className="see-All">
-            <button onClick={handleSeeMore} className="all">
-            ↓
-            </button>
-          </div>
-        )}
-        
+      {showSeeMore && (
+        <div className="see-All">
+          <button onClick={handleSeeMore}>더보기</button>
+        </div>
+      )}
+
       {showSeeLess && (
         <div className="see-NotAll">
-          <button onClick={handleSeeLess} className="notAll">
-            ✕
-          </button>
+          <button onClick={handleSeeLess}>접기</button>
         </div>
       )}
     </MovieListBlock>
   );
 }
 
-
 function MovieListCountryContainer() {
   const [selectedGenre, setSelectedGenre] = useState('');
+
   const handleGenreChange = (event) => {
     setSelectedGenre(event.target.value);
   };
+
   return (
     <>
-    <ButtonContainer>
-    <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
+      <ButtonContainer>
+        <select
+          value={selectedGenre}
+          onChange={handleGenreChange}
+          className="selectGenre"
+        >
           <option value="">모든 장르</option>
           {targetGenres.map((genre) => (
             <option key={genre.id} value={genre.id}>
@@ -200,13 +216,13 @@ function MovieListCountryContainer() {
             </option>
           ))}
         </select>
-    </ButtonContainer>
-    <div>
-      <MovieListCountry targetCountry="한국" selectedGenre={selectedGenre} />
-      <MovieListCountry targetCountry="외국" selectedGenre={selectedGenre} />
-    </div>
+      </ButtonContainer>
+      <div>
+        <MovieListCountry targetCountry="한국" selectedGenre={selectedGenre} />
+        <MovieListCountry targetCountry="외국" selectedGenre={selectedGenre} />
+      </div>
     </>
   );
 }
 
-    export default MovieListCountryContainer;
+export default MovieListCountryContainer;

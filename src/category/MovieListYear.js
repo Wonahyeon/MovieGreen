@@ -4,52 +4,45 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #ffffff;
+  background: linear-gradient(to bottom, #CCFFFF, #669933
+, #CCFFFF);
   color: #000;
-  width: fit-content;
-  margin: 0 auto;
+  padding: 2rem;
+
   .title {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
-    padding: 1rem;
-    border-bottom: 0.2rem solid;
-    span {
-      margin-left: 0.5rem;
-      font-size: 1rem;
-    }
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+
   .content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: 1rem;
-    margin: 1rem;
-    width: 1280px;
-    margin: 0 auto;
+    flex-wrap: wrap; 
+    gap: 1rem;
   }
-  .see-more {
+
+  .see-All,
+  .see-NotAll {
     text-align: center;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+    margin-top: 2rem;
+  }
 
-    .more,
-    .less {
-      font-size: 30px;
-      margin: 0 1rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      color: #000;
-      border: 0.1rem solid #000;
-      border-radius: 0.5rem;
-      cursor: pointer;
+  .see-All button,
+  .see-NotAll button {
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-      &:hover {
-        background: rgb(200, 228, 122);
-        color: #fff;
-      }
+    &:hover {
+      background: #cccccc;
     }
   }
 `;
@@ -58,29 +51,44 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  font-size: 50px;
-  input {
-    font-size: 50px;
-    width: 130px;
-    text-align: center;
-  }
+  font-size: 1.2rem;
 
-  button , .selectGenre , .selectCountry{
-    margin: 0 0.5rem;
+  select {
+    font-size: 1.2rem;
+    width: 200px;
     padding: 0.5rem 1rem;
-    background: none;
-    color: #000;
-    border: 0.1rem solid #000;
+    border: none;
     border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
     outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
 
-    &:hover {
-      background: rgb(200, 228, 122);
-      color: #fff;
-    }
+
+&:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+&:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+}
+
+
+&::-ms-expand {
+  display: none;
+}
+
+
+&::after {
+  content: "\\25BC";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
   }
 `;
 const targetGenres = [
@@ -106,7 +114,7 @@ const targetGenres = [
 
 function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
   const [movies, setMovies] = useState(null);
-  const [visibleMovies, setVisibleMovies] = useState(4);
+  const [visibleMovies, setVisibleMovies] = useState(8);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
 
@@ -152,7 +160,7 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
   return (
     <MovieListBlock>
       <div className="title">
-        {targetDate.slice(0, 4)}년<span>{targetDate}</span>
+        {targetDate.slice(0, 4)}년
       </div>
       <div className="content">
         {movies &&
@@ -162,17 +170,14 @@ function MovieListYear({ targetDate, selectedGenre, targetCountry }) {
             .map((movie) => <MovieItem key={movie.id} movie={movie} />)}
       </div>
       {showSeeMore && (
-        <div className="see-more">
-          <button onClick={handleSeeMore} className="more">
-            ↓
-          </button>
+        <div className="see-All">
+          <button onClick={handleSeeMore}>더보기</button>
         </div>
       )}
+
       {showSeeLess && (
-        <div className="see-more">
-          <button onClick={handleSeeLess} className="less">
-            ✕
-          </button>
+        <div className="see-NotAll">
+          <button onClick={handleSeeLess}>접기</button>
         </div>
       )}
     </MovieListBlock>
