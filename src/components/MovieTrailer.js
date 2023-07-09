@@ -3,19 +3,19 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 const Trailer = styled.div`
+  display: flex;
+  align-items: center;
   a {
-    margin: 0 0.5rem;
     padding: 0.5rem 1rem;
-    background: none;
-    color: #000;
-    border: 0.1rem solid #000;
+    color: rgb(200, 228, 122);
+    border: 0.2rem solid rgb(200, 228, 122);
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
-    outline: none;
+    text-decoration: none;
 
-    &.active {
+   :hover {
       background: rgb(200, 228, 122);
       color: #fff;
     }

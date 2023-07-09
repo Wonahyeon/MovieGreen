@@ -54,6 +54,8 @@ margin: 0 auto;
 
   
   h3 {
+    width: 60rem;
+    margin: 0 auto;
     font-size: 1.2rem;
     font-weight: bold;
     padding: 1rem;
@@ -72,7 +74,7 @@ margin: 0 auto;
     box-sizing: border-box;
     padding: 1rem;
     margin: 1rem;
-    width: 1280px;
+    width: fit-content;
     margin: 0 auto;
   }
   .more,
@@ -97,6 +99,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+  margin: 0 auto;
+  width: fit-content;
 
   button {
     font-size: 30px;

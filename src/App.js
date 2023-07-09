@@ -26,13 +26,12 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    color: black;
     box-sizing: border-box;
     font-family: 'Nanum Gothic', sans-serif;
   }
 
   * {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
   .cursor-pointer {
@@ -46,13 +45,6 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-
-      {/* <Signin /> */}
-
-      {/* <Header />
-      <MovieListYear />
-      <MovieListCountry /> */}
-      {/* <CategoryHome /> */}
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Main/>}/>
@@ -63,26 +55,18 @@ function App() {
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/movie-category" element={<MovieListContainer />}>
-
             <Route path="/movie-category/year" element={<MovieListYear />}/> 
             <Route path="/movie-category/country" element={<MovieListCountry />}/> 
             <Route path="/movie-category/genre" element={<MovieListGenre />}/>
             <Route path="/movie-category/custom" element={<MovieListCustom />}/>
-          
-
-          <Route path="/movie-category/year" element={<MovieListYear />}/> 
-          <Route path="/movie-category/country" element={<MovieListCountry />}/> 
-          <Route path="/movie-category/genre" element={<MovieListGenre />}/>
-          <Route path="/movie-category/custom" element={<MovieListCustom />}/>
-
-
+            <Route path="/movie-category/year" element={<MovieListYear />}/> 
+            <Route path="/movie-category/country" element={<MovieListCountry />}/> 
+            <Route path="/movie-category/genre" element={<MovieListGenre />}/>
+            <Route path="/movie-category/custom" element={<MovieListCustom />}/>
           </Route> 
         </Route>
-        {/* <Route element={<Footer />}/> */}
       </Routes>
       <Footer />
-      
-      
     </>
   );
 }
