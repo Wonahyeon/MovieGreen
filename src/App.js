@@ -1,20 +1,15 @@
 import reset from "styled-reset";
+import './App.css';
 import { createGlobalStyle } from "styled-components";
+import { Route, Routes } from "react-router";
 import MovieListYear from "./category/MovieListYear";
 import MovieListGenre from "./category/MovieListGenre";
-import Detail from "./components/MovieDetail";
 import Header from "./components/Header";
-import './App.css';
-
 import MovieListCountry from "./category/MovieListCountry";
-
-import { Route, Routes } from "react-router";
 import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import MovieSearch from "./components/MovieSearch";
-import CategoryHome from "./category/CategoryHome";
 import MovieListContainer from "./category/MovieListContainer";
-import Video from "./components/Video";
 import Main from "./pages/Main";
 import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
