@@ -54,11 +54,7 @@ function ChatList(props) {
   return (
     <ChatListWrapper>
       <UserContainer >
-        <UserTime>
-          18:15
-        </UserTime> 
-          
-        {/* 메세지 */}
+        <UserTime>18:15</UserTime> 
         <MessageUser>{text}</MessageUser>
           
       </UserContainer>

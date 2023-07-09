@@ -79,7 +79,6 @@ function BotProfileItem(props) {
               </Time>
             </Container> 
           </BotMsContainer>
-
         </ChatContainer>
     </BotItemWrapper>
   );

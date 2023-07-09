@@ -47,7 +47,6 @@ const Button = styled.button`
 
 function ChatInsert(props) {
   const { answer, onInsert, onAdd } = props;
-  console.log(answer);
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {

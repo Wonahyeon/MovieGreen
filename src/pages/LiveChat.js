@@ -65,55 +65,11 @@ function LiveChat(props) {
   const [allChat, setAllChat] = useState(); // 채팅
 
   const [showBotMs, setShowBotMs] = useState(false); // 질문
-  const [asks, setAsks] = useState([ // 작성자
-    {
-      id: 1,
-      text: '1번'
-    },
-    {
-      id: 2,
-      text: '2번'
-    },
-    {
-      id: 3,
-      text: '3번'
-    },
-    {
-      id: 4,
-      text: '4번'
-    },
-    {
-      id: 5,
-      text: '5번'
-    }
-  ]);
+  const [asks, setAsks] = useState([]);
 
-  // 채팅다루는 state 만들어야함 채팅내용 바뀔때마다 
-  // 사용자가 선택하는 id값 채팅state 에 push
-
-  // 배열은 굳이 stateX
-  
-  // 스토리지에서 가져오기
-  useEffect(() => {
-    const dbAsk = JSON.parse(localStorage.getItem('asks')) || [];
-    setAsks(dbAsk);
-  }, []);
-
-  // 스토리지에 저장
-  useEffect(() => {
-    localStorage.setItem('asks', JSON.stringify(asks));
-  }, [asks]);
-
-  const nextId = useRef(4);
-
-  const handleInsert = useCallback((text) => {
-    const ask = {
-      id: uuidv4(),
-      text
-    };
-    setAsks(asks => asks.concat(ask)); 
-    nextId.current += 1; 
-  }, []);
+  const handleInsert =() => {
+    setAsks(answers.id === 1); 
+  };
 
   const handleShow = () => {
     setShowBotMs(true);
@@ -136,11 +92,7 @@ function LiveChat(props) {
         <BotProfile showBotMs={showBotMs} answers={answers} />
         <ChatList asks={asks} />        
       </Chat>
-
-
       <ChatInsert onInsert={handleInsert} onShow={handleShow} answers={answers} onAdd={handleAdd} />
-
-      
     </ChatWrapper>
   );
 }
