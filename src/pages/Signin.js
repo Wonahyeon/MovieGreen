@@ -184,7 +184,7 @@ function Signin(props) {
   
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
-    if (isEmail === true && isPassword == true ) {
+    if (isEmail && isPassword) {
       navigate('/log-in');
       register();
     } 

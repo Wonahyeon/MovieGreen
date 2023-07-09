@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { useDispatch, useSelector } from "react-redux";
-import { removePick, selectUserName, togglePick, userPickMovie } from "../feature/user/userSlice";
+import { selectUserName, togglePick, userPickMovie } from "../feature/user/userSlice";
 import MovieItem from "../category/MovieItem";
 const MovieBlock = styled.div`
   background: #ffffff;

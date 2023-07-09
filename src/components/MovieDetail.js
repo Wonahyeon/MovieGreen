@@ -155,9 +155,10 @@ function MovieDetail(props) {
       break;
       case '':
         certificationImg = '';
+      break;
     default:
       break;
-  }
+  };
   
   
   if (loading) {
@@ -233,7 +234,7 @@ function MovieDetail(props) {
           </Pick>
         </div>
       </DetailWrapper>
-      <TabContent movieDetails={movieDetails} movieCredits={movieCredits} />
+      <TabContent movieDetails={movieDetails} movieCredits={movieCredits}  onError={handleImgError} imgError={imgError} setImgError={setImgError}/>
       <Recommendations movieId={movieId} />
       </>
   );

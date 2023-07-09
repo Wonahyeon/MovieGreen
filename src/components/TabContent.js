@@ -109,7 +109,7 @@ const CreditTab = styled.div`
 `;
 
 function TabContent(props) {
-  const {movieDetails, movieCredits} = props;
+  const {movieDetails, movieCredits, onError, imgError, setImgError} = props;
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -171,7 +171,7 @@ function TabContent(props) {
             <div className='movie-cast'>
               {mainCast.map((cast) => (
                 <div key={cast.id} className='cursor-pointer cast-item '>
-                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' />
+                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' onError={onError}/>
                   <h3 className='profile-name'>{cast?.name}</h3>
                 </div>
               ))}
