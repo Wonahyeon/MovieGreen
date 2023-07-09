@@ -45,7 +45,6 @@ const Commnuitycheck = styled.div` //등록되는 곳
       right: 0;
       top: 13%;
       right: 15px;
-
    }
 `;
 
@@ -80,8 +79,6 @@ const CommnuityText = styled.div` //내용 입력창
 // 삭제 오류해결하기
 
 function Community(props) {
-   const {data} = props;
-
    const [communityContent, setCommunityContent] = useState({
       title: '',
       content: '',
@@ -89,6 +86,20 @@ function Community(props) {
    const [viewContent, setViewContent] = useState([]); //내용 보여줄 state
    const date = new Date(); //날짜
    const datecurrent = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();  
+
+
+   // 댓글 
+   const [comment, setComment] = useState('');
+   const [listComments, setListComments] = useState([]);
+   const [isValid, setIsValid] = useState(false);
+
+   const post  =(e) => {
+      const copylistComments = [...listComments];
+      copylistComments.push(comment)
+      setListComments(copylistComments)
+      setComment('');
+   }
+
 
    const getValue = (e) => {
       const {name, value} = e.target;
@@ -140,11 +151,34 @@ function Community(props) {
                         <div>{ReactHtmlParser(text.content)}</div>
                         <div className="date">{datecurrent}</div>
                         <button viewContent={viewContent} onClick={handleDelete}>삭제</button>
-                        <input type="text" placeholder="댓글"/>
-                        <hr />
-                        </div>
+
+                     
+                        <input type="text" placeholder="댓글 달기" value={comment}
+                           onChange={(e) => {setComment(e.target.value);}}
+                           onKeyUp={(e) => {
+                              e.target.value.length > 0
+                              ? setIsValid(true) : setIsValid(false)
+                           }}
+                        />
+                        <button type="button"
+                           onClick={post}
+                           disabled={isValid? false : true}
+                        >등록</button>
+                        {listComments.map((commentArr, index) => {
+                           return(
+                              <div key={index} userComment ={commentArr}>
+                                 <p>{comment}</p>
+                              </div>
+
+                           )
+                        })}
+
+                        
+                     </div>
                   )
                })}
+               
+
             </Commnuitycheck>
             <CommnuityText>
                <input type='text' placeholder='제목' name="title"
