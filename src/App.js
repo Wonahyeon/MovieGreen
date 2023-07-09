@@ -15,7 +15,6 @@ import MovieListCustom from "./category/MovieListCustom";
 import Community from "./pages/Commnuity";
 import Footer from "./components/Footer";
 import MovieDetail from "./components/MovieDetail";
-import LiveChat from "./pages/LiveChat";
 import Chatbot from "./pages/Chatbot";
 
 const GlobalStyle = createGlobalStyle`

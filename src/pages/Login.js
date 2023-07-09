@@ -79,7 +79,7 @@ const Btn = styled.button`
 
 const InFo = styled.div`
   margin-top: 20px;
-  color: #D9D9D9;
+  color: black;
   display: flex;
   flex-direction: row;
 
@@ -89,7 +89,7 @@ const InFo = styled.div`
 
 `;
 const GoToSign = styled.a`
-  color: #D9D9D9;
+  color: black;
   cursor: pointer;
     &:hover {
       text-decoration: underline;

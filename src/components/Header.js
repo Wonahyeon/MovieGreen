@@ -56,16 +56,16 @@ const LogoWrapper  = styled.div`
   }
 `;
 
-const Form  = styled.div`
+const Form  = styled.form`
   width: calc(30%);
   display: flex;
-  justify-content: center;
-
+  justify-content: flex-end;
+  align-items: center;
   .searchIcon {
     position: absolute;
     display: flex;
-    top: 65px;
-    font-size: 25px;
+    top: 64px;
+    font-size: 27px;
     &:focus {
       display: none;
       color: white;
@@ -74,7 +74,7 @@ const Form  = styled.div`
 `;
 
 const Input  = styled.input`
-  width: 40px;
+  width: 35px;
   height: 35px;
   padding: 7px;
   box-sizing: border-box;

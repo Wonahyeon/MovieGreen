@@ -1,14 +1,49 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from "uuid";
+
+const Mainheader = styled.div`
+  width: 1024px;
+  height: 40px;
+  background: #BCE067;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .main {
+    font-size: 20px;
+  }
+`;
+
 
 const ChatbotWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  /* height: 70px; */
   padding: 20px;
-  .chat-container .message{
+  width: 1024px;
+  margin: 0 auto;
+  background: rgb(234, 234, 234);
+
+  .chat-container .message {
     display: flex;
     flex-direction: column;
+  }
+  .profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: green;
+    margin-right: 5px;
+  }
+  .botname {
+    margin-bottom: 5px;
   }
   .user-message {
     justify-content: flex-end;
@@ -20,15 +55,86 @@ const ChatbotWrapper = styled.div`
     text-align: right;
   }
   
-  .bot-message {
+  /* .bot-message {
     align-self: flex-start;
     background-color: #f2f2f2;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
     width: fit-content;
-    /* width: 50vw; */
+    width: 50vw;
+  } */
+  .bot-message {
+    display: flex;
+    flex-direction: row;    
   }
+  .user-wrapper {
+    display: flex;
+    flex-direction: row;    
+    justify-content: flex-end;
+  }
+  .botms-ds {
+    align-self: flex-start;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .time {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .btnWrapper {
+    display: flex;
+    justify-content: space-around;
+  }
+  .btn {
+    width: 100px;
+    height: 30px;
+    background: rgb(200, 228, 122);
+    border-radius: 30px;
+    box-sizing: border-box;
+    margin-right: 10px;
+  }
+  /* .inputWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;    
+  }  
+  .input {
+    width: 100%;
+    height: 35px;
+    padding: 5px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    outline: none;
+  } */
+  .inputBtn {
+    width: 50px;
+    height: 35px;
+    background: rgb(200, 228, 122);
+    margin-left: 3px;
+    border-radius: 10px;
+    &:active {
+      background: rgb(134, 229, 127);
+    }
+  }
+`;
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  margin-top: 7px;    
+`;
+const Input = styled.input`
+  width: 100%;
+  height: 35px;
+  padding: 5px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
 `;
 
 const botData = [
@@ -89,6 +195,7 @@ const botData = [
 function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [msgNum, setMsgNum] = useState(0);
+  const [inputText, setInputText] = useState('');
 
   const handleQuestionSelect = (selectedQuestion) => {
     const generatedAnswer = botData.find((data) => data.question === selectedQuestion)?.answer || '';
@@ -104,35 +211,89 @@ function Chatbot() {
 
   const renderButtons = () => {
     return botData.map((data, index) => (
-      <button key={index} onClick={() => handleQuestionSelect(data.question)}>
+      <button className='btn' key={index} onClick={() => handleQuestionSelect(data.question)}>
         {index + 1}
       </button>
     ));
   };
 
+  const handleChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const nextId = useRef(4);
+  const handleInsert = useCallback((text) => {
+    const message = {
+      id: uuidv4()
+    };
+
+    nextId.current += 1;
+  }, []);
+
+  const handleSubmit = (e) => {
+    handleInsert(inputText);
+    setInputText(''); 
+    e.preventDefault();
+  };
+
+
   return (
+    <>
+    <Mainheader>
+      <div className='head'>
+        <p className='main'>상담챗봇</p>
+      </div>              
+    </Mainheader>
     <ChatbotWrapper>
-      <h1>챗봇</h1>
+
+      <div className='profile'>
+        <img className='img' alt='img' src='./chatbotimg.jpg' />
+        <h1 className='botname'>챗봇</h1>        
+      </div>
+
       <div className="chat-container">
         <div className='bot-message' style={{width: 'fit-content'}}>
-          <p> 질문을 선택하세요<br />
+          <p className='botms-ds'> 질문을 선택하세요<br />
             1. 고객센터 ARS 안내가 궁금해요.<br />
             2. IOS에서 일부 최신 영화가 안 보여요.<br />
             3. WI-FI 신호가 약해서 동영상이 잘 재생되지 않아요.<br />
             4. movie Green을 원활하게 이용하기 위한 인터넷 환경을 알려주세요.<br />
             5. 고객센터 연락처를 못 찾겠어요.</p>
+          <p className='time'>{new Date().toLocaleTimeString()}</p>            
         </div> 
+
+
         {messages.map((message, index) => (
           <div key={index} className="message" isUserMessage={index % 2 === 0}>
-            <p className='user-message'>{message.question}</p>
-            <p className='bot-message'>{message.answer}</p>
+
+            <div className='user-wrapper'>
+              <p className='time'>{new Date().toLocaleTimeString()}</p>               
+              <p className='user-message'>{message.question}</p>   
+            </div>
+
+            <div className='profile'>
+              <img className='img' alt='img' src='./chatbotimg.jpg' />
+              <h1 className='botname'>챗봇</h1>        
+            </div>   
+
+            <div className='bot-message'>
+              <p className='botms-ds'>{message.answer}</p>              
+              <p className='time'>{new Date().toLocaleTimeString()}</p>            
+            </div>     
+
           </div>
         ))}
       </div>
-      <div>
+      <div className='btnWrapper'>
         {renderButtons()}
       </div>
+      <Form className='inputWrapper' onSubmit={handleSubmit}>
+        <Input className='input' type='text' placeholder='입력하세요' value={inputText} onChange={handleChange} />        
+        <button className='inputBtn' type='subnit' >전송</button>
+      </Form>
+
     </ChatbotWrapper>
+    </>
   );
 }
 
