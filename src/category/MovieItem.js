@@ -10,7 +10,7 @@ const MovieItemBlock = styled.div`
   align-items: center;
   margin: 1.5rem 0;
   padding: 1rem;
-  width: 240px;
+  width: 212px;
   height: 360px;
   flex-direction: column;
   border-radius: 10px;
