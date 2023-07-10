@@ -13,7 +13,7 @@ const MovieListBlock = styled.div`
     font-weight: bold;
     color: #000;
     padding: 1rem;
-    border-bottom: 0.2rem solid #000;
+    border-bottom: 0.2rem solid ${props => props.theme.main};
     span {
       margin-left: 0.5rem;
       font-size: 1rem;
@@ -61,7 +61,7 @@ const MovieListBlock = styled.div`
       cursor: pointer;
 
       &:hover {
-        background: rgb(200, 228, 122);
+        background: ${props => props.theme.main};
         color: #fff;
       }
     }

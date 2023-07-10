@@ -12,14 +12,14 @@ const Nav = styled.div`
   display: flex;
   justify-content: end;
   top: 0;
-  background: rgb(200, 228, 122);
+  background: ${props => props.theme.main};
   color: #a8b0bf;
   right: 0;
   padding: 5px 30px;
 `;
 
 const HeaderWrapper = styled.div`
-  background: rgb(200, 228, 122);
+  background: ${props => props.theme.main};
 `;
 
 const Container  = styled.div`
@@ -37,12 +37,12 @@ const Navbar  = styled.div`
     text-decoration: none;
     margin-right: 10px;
     font-size: 20px;
-    color: gray;
+    color: ${props => props.theme.text};
     cursor: pointer;
       &:hover {
-       color: black;
-       transition: 1s;
-     }   
+        color: black;
+        transition: 1s;
+    }   
   }
 `;
 
@@ -82,17 +82,17 @@ const Input  = styled.input`
   border: none;
   border-radius: 10px;
   position: relative;
-     &::placeholder {
-     color: white;
-   }
-   &:focus {
-     &::placeholder {
-     color: black;
-     }
-     opacity: 100;
-     width: 200px;
-     transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-   }
+    &::placeholder {
+    color: white;
+  }
+  &:focus {
+    &::placeholder {
+    color: black;
+    }
+    opacity: 100;
+    width: 200px;
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+  }
 `;
 
 function Header(props) {

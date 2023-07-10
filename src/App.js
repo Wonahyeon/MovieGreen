@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
     font-family: 'Nanum Gothic', sans-serif;
+    background: #FDF6EE;
   }
 
   * {

@@ -19,7 +19,7 @@ const MovieBlock = styled.div`
       font-size: 2rem;
       font-weight: 700;
       padding: 1rem;
-      border-bottom: 0.2rem solid;
+      border-bottom: 0.2rem solid ${props => props.theme.main};
       span{
         margin-left: 0.5rem;
       }
