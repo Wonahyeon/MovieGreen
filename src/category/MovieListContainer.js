@@ -10,7 +10,7 @@ import RandomMovie from './RandomMovie';
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 2rem;
 
   button {
     margin: 0 0.5rem;

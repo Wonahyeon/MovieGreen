@@ -4,7 +4,8 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: linear-gradient(to bottom, #FFFFFF, #333333, #FFFFFF);
+  /* background: linear-gradient(to bottom,#ffffff,#ffffff,#ffffff,#FFFFFF,#333333, #FFFFFF,#ffffff,#ffffff,#ffffff ); */
+  background-color: #fff;
   color: #000;
   padding: 2rem;
 
@@ -31,17 +32,18 @@ const MovieListBlock = styled.div`
 
   .see-All button,
   .see-NotAll button {
-    font-size: 1.2rem;
-    padding: 0.5rem 2rem;
-    background: #ffffff;
-    color: #000000;
-    border: none;
+    padding: 0.5rem 1rem;
+    color: rgb(200, 228, 122);
+    border: 0.2rem solid rgb(200, 228, 122);
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
 
-    &:hover {
-      background: #cccccc;
+   :hover {
+      background: rgb(200, 228, 122);
+      color: #fff;
     }
   }
 `;
