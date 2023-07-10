@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
+import MovieItemVertical from './MovieItemVertical';
 
 const MovieSearchWrapper = styled.div`
   margin-top: 1rem;
@@ -10,15 +11,26 @@ const MovieSearchWrapper = styled.div`
   h3 {
     font-weight: bold;
   }
-  li {
-    margin: 3rem;
+  .search-recent {
+    margin-bottom: 2rem;
+  }
+  .search-result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 3rem;
+    width: fit-content;
+  }
+  .search-result-item {
+    width: 24rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
   }
-  img {
-    width: 20rem;
+  .search-result-item img {
+    width: 100%;
     border-radius: 1.2rem;
   }
 `;
@@ -59,18 +71,22 @@ function MovieSearch() {
   return (
     <MovieSearchWrapper>
       {searchResults &&
-      <div>
+      <div className='search-recent'>
         <h1>최근 검색 기록</h1>
         {selectedMovie.title}
       </div>
       }
-        <ul>
+        <div className='search-result'>
           {searchResults.map((movie) => (
-            <li key={movie.id} onClick={() => {handleMovieClick(movie);}}>
-              <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
-            </li>
+            <div
+              key={movie.id}
+              className='search-result-item'
+              onClick={() => {handleMovieClick(movie);}}
+            >
+              <MovieItemVertical  movie={movie}/>
+            </div>
           ))}
-        </ul>
+        </div>
     </MovieSearchWrapper>
   );
 }
