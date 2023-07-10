@@ -116,7 +116,7 @@ function MovieDetail(props) {
       userName,
       movieDetails
     };
-   dispatch(togglePick(pickData));
+  dispatch(togglePick(pickData));
   };
 
   // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status

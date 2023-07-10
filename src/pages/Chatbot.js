@@ -1,6 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from "uuid";
+import chatbotImg from '../images/chatbotimg.jpg';
+
+const WholeWraper = styled.div`
+  margin-top: 50px;
+`;
+
 
 const Mainheader = styled.div`
   width: 1024px;
@@ -10,6 +16,7 @@ const Mainheader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 3px;
   .main {
     font-size: 20px;
   }
@@ -25,7 +32,7 @@ const ChatbotWrapper = styled.div`
   width: 1024px;
   margin: 0 auto;
   background: rgb(234, 234, 234);
-
+  border-radius: 3px;
   .chat-container .message {
     display: flex;
     flex-direction: column;
@@ -94,7 +101,7 @@ const ChatbotWrapper = styled.div`
   .btn {
     width: 100px;
     height: 30px;
-    background: rgb(200, 228, 122);
+    background: ${props => props.theme.main};
     border-radius: 30px;
     box-sizing: border-box;
     margin-right: 10px;
@@ -115,7 +122,7 @@ const ChatbotWrapper = styled.div`
   .inputBtn {
     width: 50px;
     height: 35px;
-    background: rgb(200, 228, 122);
+    background: ${props => props.theme.main};
     margin-left: 3px;
     border-radius: 10px;
     &:active {
@@ -239,6 +246,9 @@ function Chatbot() {
 
   return (
     <>
+    <WholeWraper>
+
+
     <Mainheader>
       <div className='head'>
         <p className='main'>상담챗봇</p>
@@ -247,7 +257,7 @@ function Chatbot() {
     <ChatbotWrapper>
 
       <div className='profile'>
-        <img className='img' alt='img' src='./chatbotimg.jpg' />
+        <img className='img' alt='img' src={chatbotImg}/>
         <h1 className='botname'>챗봇</h1>        
       </div>
 
@@ -272,7 +282,7 @@ function Chatbot() {
             </div>
 
             <div className='profile'>
-              <img className='img' alt='img' src='./chatbotimg.jpg' />
+              <img className='img' alt='img'  src={chatbotImg} />
               <h1 className='botname'>챗봇</h1>        
             </div>   
 
@@ -287,13 +297,14 @@ function Chatbot() {
       <div className='btnWrapper'>
         {renderButtons()}
       </div>
-      <Form className='inputWrapper' onSubmit={handleSubmit}>
+      {/* <Form className='inputWrapper' onSubmit={handleSubmit}>
         <Input className='input' type='text' placeholder='입력하세요' value={inputText} onChange={handleChange} />        
         <button className='inputBtn' type='subnit' >전송</button>
-      </Form>
+      </Form> */}
 
     </ChatbotWrapper>
-    </>
+    </WholeWraper>
+    </>    
   );
 }
 

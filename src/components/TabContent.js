@@ -11,7 +11,7 @@ const TabContentWrapper = styled.div`
   display: flex;
   align-items: center;
   margin: 0 auto;
-  border-bottom: .2rem solid #C8E4A7;
+  border-bottom: .2rem solid ${props => props.theme.main};
   }
   .nav-item {
     width: 10rem;
@@ -25,7 +25,7 @@ const TabContentWrapper = styled.div`
     font-weight: bold;
     color: white;
     border-radius: .5rem .5rem 0 0;
-    background-color: #C8E4A7;
+    background-color: ${props => props.theme.main};
   }
 `;
 const DetailInfoTab = styled.div`
@@ -41,7 +41,7 @@ const DetailInfoTab = styled.div`
     width: 60rem;
     margin: 2rem auto;
     padding: 1rem;
-    border-bottom: 2px solid black;
+    border-bottom: .2rem solid ${props => props.theme.main};
     span {
       font-weight: initial;
       &:hover {

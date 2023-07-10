@@ -59,7 +59,7 @@ margin: 0 auto;
     font-size: 1.2rem;
     font-weight: bold;
     padding: 1rem;
-    border-bottom: 0.2rem solid;
+    border-bottom: 0.2rem solid ${props => props.theme.main};
     span {
       margin-left: 0.5rem;
       font-size: 1rem;
@@ -93,12 +93,12 @@ margin: 0 auto;
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
+        &:hover {
+          background: ${props => props.theme.main};
+          color: #fff;
+        }
+      }
 
-   :hover {
-      background: rgb(200, 228, 122);
-      color: #fff;
-    }
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -119,7 +119,7 @@ const ButtonWrapper = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: rgb(200, 228, 122);
+      background: ${props => props.theme.main};
       color: #fff;
     }
   }

@@ -6,8 +6,8 @@ import styled from 'styled-components';
 const MovieListBlock = styled.div`
   /* background: linear-gradient(to bottom,#ffffff, #FF6699, #33CCFF, #FF6699,#ffffff); */
   background-color: #fff;
+  color: ${props => props.theme.text};
 
-  color: #000;
   padding: 2rem;
 
   
@@ -66,7 +66,7 @@ const MovieListBlock = styled.div`
       outline: none;
 
       &:hover {
-        background: rgb(200, 228, 122);
+        background: ${props => props.theme.main};
         color: #fff;
       }
     }
@@ -97,7 +97,7 @@ const ButtonContainer = styled.div`
       outline: none;
 
       &:hover {
-        background: rgb(200, 228, 122);
+        background: ${props => props.theme.main};
         color: #fff;
       }
 
