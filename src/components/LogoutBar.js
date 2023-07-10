@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectLogin, selectUserName } from '../feature/user/userSlice';
+import { selectLogin, selectUser, selectUserName } from '../feature/user/userSlice';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
@@ -20,6 +20,7 @@ function LogoutBar(props) {
 
   const handleLogout = () => {
     dispatch(selectLogin(false));
+    dispatch(selectUser(''));
   };
 
   return (

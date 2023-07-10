@@ -4,8 +4,6 @@ import MovieItem from '../category/MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: #ffffff;
-  color: #000;
   width: 100%;
   margin: 0 auto;
   .title {
@@ -51,8 +49,9 @@ const MovieListBlock = styled.div`
   .see-All button,
   .see-NotAll button {
     padding: 0.5rem 1rem;
-    color: rgb(200, 228, 122);
-    border: 0.2rem solid rgb(200, 228, 122);
+    background: none;
+    color: ${props => props.theme.main};
+    border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1rem;

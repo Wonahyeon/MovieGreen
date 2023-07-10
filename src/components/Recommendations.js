@@ -3,8 +3,6 @@ import styled from "styled-components";
 import axios from 'axios';
 import MovieItem from "../category/MovieItem";
 const RecommendationsWrapper = styled.div`
-background: #fff;
-color: #000;
 width: fit-content;
 margin: 0 auto;
 .title {
@@ -86,8 +84,8 @@ margin: 0 auto;
   .see-All button,
   .see-NotAll button {
     padding: 0.5rem 1rem;
-    color: rgb(200, 228, 122);
-    border: 0.2rem solid rgb(200, 228, 122);
+    color: ${props => props.theme.main};
+    border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1rem;

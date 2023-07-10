@@ -16,40 +16,38 @@ const ButtonContainer = styled.div`
     margin: 0 0.5rem;
     padding: 0.5rem 1rem;
     background: none;
-    color: #000;
-    border: 0.1rem solid #000;
+    border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
     outline: none;
 
+    &:hover {
+      background-color: ${props => props.theme.main};
+      color: ${props => props.theme.text};
+    }
 
-&:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
+    &:focus {
+      /* border-color: #00bfff;
+      box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5); */
+      background-color: ${props => props.theme.main};
+      color: ${props => props.theme.text};
+      }
+    }
 
+    &::-ms-expand {
+      display: none;
+    }
 
-&:focus {
-  border-color: #00bfff;
-  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
-}
-
-
-&::-ms-expand {
-  display: none;
-}
-
-
-&::after {
-  content: "\\25BC";
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-  }
+    &::after {
+      content: "\\25BC";
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
 `;
 
 function MovieListContainer() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import CastItem from './CastItem';
 import ReviewPage from '../pages/ReviewPage';
-import errorImg from '../images/profile-error-img.png';
+import errorImg from '../images/error-img.png';
 
 
 const TabContentWrapper = styled.div`

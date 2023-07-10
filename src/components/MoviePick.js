@@ -9,9 +9,8 @@ import 'swiper/css/scrollbar';
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserName, togglePick, userPickMovie } from "../feature/user/userSlice";
 import MovieItem from "../category/MovieItem";
+
 const MovieBlock = styled.div`
-  background: #ffffff;
-  color: #000;
   width: 100%;
   margin: 0 auto;
 
@@ -40,7 +39,7 @@ const MovieBlock = styled.div`
 `;
 
 const RemovePick = styled(FiMinusCircle)`
-  color: gray;
+  color: ${props => props.theme.second};
   position: relative;
   left: 14.5rem;
   bottom: 24.5rem;

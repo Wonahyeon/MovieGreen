@@ -1,11 +1,10 @@
 import React from 'react';
-// import { MdLink } from 'react-icons/md';
 import styled from 'styled-components';
 
-import netflixImage from './image/netflix.png';
-import amazonImage from './image/아마존.png';
-import wavveImage from './image/웨이브.png';
-import watchaImage from './image/왓챠.png';
+import netflixImage from '../images/netflix.png';
+import amazonImage from '../images/아마존.png';
+import wavveImage from '../images/웨이브.png';
+import watchaImage from '../images/왓챠.png';
 
 const Button = styled.div`
   button {
@@ -51,13 +50,13 @@ function OTTLinks({ movie }) {
 
   return (
     <Button>
-      <button onClick={() => handleOTTClick('Netflix')} style={{ backgroundImage: `url(${netflixImage})` }}>
+      <button onClick={() => handleOTTClick('Netflix')} style={{ backgroundImage: `url(${netflixImage})` , backgroundSize: 'cover' }}>
       </button>
-      <button onClick={() => handleOTTClick('Amazon')} style={{ backgroundImage: `url(${amazonImage})` }}>
+      <button onClick={() => handleOTTClick('Amazon')} style={{ backgroundImage: `url(${amazonImage})` , backgroundColor: '#fff' }}>
       </button>
-      <button onClick={() => handleOTTClick('Wavve')} style={{ backgroundImage: `url(${wavveImage})` }}>
+      <button onClick={() => handleOTTClick('Wavve')} style={{ backgroundImage: `url(${wavveImage})`, backgroundSize: 'cover' }}>
       </button>
-      <button onClick={() => handleOTTClick('Watcha')} style={{ backgroundImage: `url(${watchaImage})` }}>
+      <button onClick={() => handleOTTClick('Watcha')} style={{ backgroundImage: `url(${watchaImage})` , backgroundSize: 'cover' }}>
       </button>
     </Button>
   );

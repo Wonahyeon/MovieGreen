@@ -4,18 +4,14 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  /* background: linear-gradient(to bottom,#ffffff,#ffffff,#ffffff,#FFFFFF,#333333, #FFFFFF,#ffffff,#ffffff,#ffffff ); */
-  background-color: #fff;
-  color: #000;
   padding: 2rem;
 
   .title {
     font-size: 2rem;
     font-weight: bold;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #000;
+    border-bottom: .2rem solid ${props => props.theme.main};
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .content {
