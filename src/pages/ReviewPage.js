@@ -7,12 +7,17 @@ import { useParams } from 'react-router-dom';
 import { selectUserName } from '../feature/user/userSlice'; 
 
 const ReviewWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: fit-content;
   .review-write {
     display: flex;
     flex-direction: column;
-    border-radius: 0.25rem;
-    border: 1px solid black;
-    margin-top: 1rem;
+    border-radius: .2rem;
+    border: .2rem solid ${props => props.theme.main};
+    margin: 2rem auto;
+    padding: 1rem;
   }
   .review-submit {
     display: flex;
@@ -24,7 +29,7 @@ const ReviewWrapper = styled.div`
   button {
     border: none;
     color: white;
-    background-color: #C8E4A7;
+    background-color: ${props => props.theme.main};
     text-align: center;
     width: 3rem;
   }
@@ -33,15 +38,29 @@ const ReviewWrapper = styled.div`
     resize: none;
     border: none;
     background: none;
+    width: 58rem;
+    min-height: 3rem;
     :focus {
       outline: none;
     }
   }
+  .review-list {
+    width: fit-content;
+    margin: 0 auto;
+  }
 
   .review-item {
     display: flex;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    border: .2rem solid ${props => props.theme.main};
     h3 {
       font-weight: bold;
+    }
+    h4 {
+      width: 44rem;
+      margin-left: 1rem;
     }
   }
 `;
