@@ -40,9 +40,9 @@ const Navbar  = styled.div`
     color: gray;
     cursor: pointer;
       &:hover {
-       color: black;
-       transition: 1s;
-     }   
+      color: black;
+      transition: 1s;
+    }   
   }
 `;
 
@@ -82,17 +82,17 @@ const Input  = styled.input`
   border: none;
   border-radius: 10px;
   position: relative;
-     &::placeholder {
-     color: white;
-   }
-   &:focus {
-     &::placeholder {
-     color: black;
-     }
-     opacity: 100;
-     width: 200px;
-     transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-   }
+    &::placeholder {
+    color: white;
+  }
+  &:focus {
+    &::placeholder {
+    color: black;
+    }
+    opacity: 100;
+    width: 200px;
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+  }
 `;
 
 function Header(props) {
