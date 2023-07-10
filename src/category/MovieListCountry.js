@@ -4,15 +4,17 @@ import MovieItem from './MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  background: linear-gradient(to bottom, #B8F3B8, #FFADC5, #B8F3B8);
-  color: #ffffff;
+  /* background: linear-gradient(to bottom,#ffffff,#ffffff, #B8F3B8, #FFADC5, #B8F3B8,#ffffff,#ffffff); */
+  background-color: #fff;
+
+  color: #000;
   padding: 2rem;
 
   .title {
     font-size: 2rem;
     font-weight: bold;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 2px solid #000;
     margin-bottom: 2rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
@@ -31,17 +33,18 @@ const MovieListBlock = styled.div`
 
   .see-All button,
   .see-NotAll button {
-    font-size: 1.2rem;
-    padding: 0.5rem 2rem;
-    background: #ffffff;
-    color: #000000;
-    border: none;
+    padding: 0.5rem 1rem;
+    color: rgb(200, 228, 122);
+    border: 0.2rem solid rgb(200, 228, 122);
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
 
-    &:hover {
-      background: #cccccc;
+   :hover {
+      background: rgb(200, 228, 122);
+      color: #fff;
     }
   }
 `;

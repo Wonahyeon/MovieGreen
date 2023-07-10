@@ -133,7 +133,7 @@ function Header(props) {
         <a className='categori' onClick={() => {navigate('/movie-category');}}>카테고리</a>
         <a className='community' onClick={() => {navigate('/movie-community');}}>게시판</a>        
         <a className='categori' onClick={() => {navigate('/live-chat');}}>라이브톡</a>
-        
+
         </Navbar>
         <LogoWrapper>
           <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>          

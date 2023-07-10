@@ -29,8 +29,8 @@ const MovieListBlock = styled.div`
     justify-content: center;
     align-items: flex-start;
     box-sizing: border-box;
-    padding: 1rem;
-    margin: 1rem;
+    /* padding: 1rem; */
+    /* margin: 1rem; */
     /* width: 1280px; */
     margin: 0 auto;
 
@@ -43,29 +43,28 @@ const MovieListBlock = styled.div`
       color: #000000;
     }
   }
-  .see-more {
+  .see-All,
+  .see-NotAll {
     text-align: center;
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
+  }
 
-    .more,
-    .less {
-      font-size: 30px;
-      margin: 0 1rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      color: #000;
-      border: 0.1rem solid #000;
-      border-radius: 0.5rem;
-      cursor: pointer;
+  .see-All button,
+  .see-NotAll button {
+    padding: 0.5rem 1rem;
+    color: rgb(200, 228, 122);
+    border: 0.2rem solid rgb(200, 228, 122);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
 
-      &:hover {
-        background: rgb(200, 228, 122);
-        color: #fff;
-      }
+   :hover {
+      background: rgb(200, 228, 122);
+      color: #fff;
     }
   }
+  
 `;
 
 
@@ -128,17 +127,14 @@ function MovieListVote({ targetVote }) {
             ))}
       </div>
       {showSeeMore && (
-        <div className="see-more">
-          <button onClick={handleSeeMore} className="more">
-            ↓
-          </button>
+        <div className="see-All">
+          <button onClick={handleSeeMore}>더보기</button>
         </div>
       )}
+
       {showSeeLess && (
-        <div className="see-more">
-          <button onClick={handleSeeLess} className="less">
-            ✕
-          </button>
+        <div className="see-NotAll">
+          <button onClick={handleSeeLess}>접기</button>
         </div>
       )}
     </MovieListBlock>
@@ -146,7 +142,7 @@ function MovieListVote({ targetVote }) {
 }
 
 function MovieListVoteContainer() {
-  const targetVotes = [8, 7, 6,];
+  const targetVotes = [8, 7, 6];
 
   return (
     <div>

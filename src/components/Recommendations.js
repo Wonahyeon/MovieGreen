@@ -77,22 +77,28 @@ margin: 0 auto;
     width: fit-content;
     margin: 0 auto;
   }
-  .more,
-      .less {
-        font-size: 30px;
-        margin: 0 1rem;
-        padding: 0.5rem 1rem;
-        background: none;
-        color: #000;
-        border: 0.1rem solid #000;
-        border-radius: 0.5rem;
-        cursor: pointer;
+  .see-All,
+  .see-NotAll {
+    text-align: center;
+    margin-top: 2rem;
+  }
 
-        &:hover {
-          background: rgb(200, 228, 122);
-          color: #fff;
-        }
-      }
+  .see-All button,
+  .see-NotAll button {
+    padding: 0.5rem 1rem;
+    color: rgb(200, 228, 122);
+    border: 0.2rem solid rgb(200, 228, 122);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+
+   :hover {
+      background: rgb(200, 228, 122);
+      color: #fff;
+    }
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -164,16 +170,17 @@ function Recommendations({ movieId }) {
           ))}
       </div>
       <ButtonWrapper>
-        {showSeeMore && (
-          <button onClick={handleSeeMore} className="more">
-            ↓
-          </button>
-        )}
-        {showSeeLess && (
-          <button onClick={handleSeeLess} className="less">
-            ✕
-          </button>
-        )}
+      {showSeeMore && (
+        <div className="see-All">
+          <button onClick={handleSeeMore}>더보기</button>
+        </div>
+      )}
+
+      {showSeeLess && (
+        <div className="see-NotAll">
+          <button onClick={handleSeeLess}>접기</button>
+        </div>
+      )}
       </ButtonWrapper>
     </RecommendationsWrapper>
   );
