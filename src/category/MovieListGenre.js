@@ -33,8 +33,8 @@ const MovieListBlock = styled.div`
   .see-All button,
   .see-NotAll button {
     padding: 0.5rem 1rem;
-    color: rgb(200, 228, 122);
-    border: 0.2rem solid rgb(200, 228, 122);
+    color: ${props => props.theme.main};
+    border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 1rem;
@@ -42,7 +42,7 @@ const MovieListBlock = styled.div`
     text-decoration: none;
 
    :hover {
-      background: rgb(200, 228, 122);
+      background: ${props => props.theme.main};
       color: #fff;
     }
   }

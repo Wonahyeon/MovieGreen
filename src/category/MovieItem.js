@@ -60,7 +60,7 @@ const MovieItemBlock = styled.div`
   width: 100%;
   font-weight: bold;
   color: #000;
-
+  
   /* overflow: hidden; */
   text-overflow: ellipsis;
   white-space: normal;
@@ -82,6 +82,7 @@ const MovieItemBlock = styled.div`
   align-items: center;
   text-align: center;
   display: none;
+  
 }
 
   &:hover .additional-info {
@@ -89,9 +90,11 @@ const MovieItemBlock = styled.div`
     background: rgba(200,228,112, 0.5);
     color: #000;
     font-weight: bolder;
+    text-align: center;
   }
   .opening {
     white-space: nowrap;
+    transform: translateX(-12px);
   }
 `;
 
@@ -136,6 +139,7 @@ function MovieItem({ movie }) {
       <h2>{rank}</h2>
       {showInfo && movieDetails && (
         <div className="additional-info" onClick={() => navigate(`/movie-detail/${movie.id}`)}>
+          <br></br>
           {movieDetails.release_date && <p className='opening'>개봉: {movieDetails.release_date}</p>}<br></br>
           {movieDetails.genres && <p>장르: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>}<br></br>
           {movieDetails.vote_average && <p>평점: {movieDetails.vote_average}</p>}<br></br>
