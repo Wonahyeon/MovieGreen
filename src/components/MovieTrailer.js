@@ -52,7 +52,7 @@ function MovieTrailer({ movieId }) {
     <Trailer>
       {trailerKey ? (
         <a href={trailerUrl} target="_blank" rel="noopener noreferrer" >
-          트레일러 보기
+          트레일러 보러가기
         </a>
       ) : (
         <p>트레일러가 존재하지않음</p>

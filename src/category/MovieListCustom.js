@@ -5,19 +5,14 @@ import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
   /* background: linear-gradient(to bottom,#ffffff, #FF6699, #33CCFF, #FF6699,#ffffff); */
-  background-color: #fff;
-  color: ${props => props.theme.text};
-
   padding: 2rem;
 
-  
   .title {
     font-size: 2rem;
     font-weight: bold;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #000;
+    border-bottom: .2rem solid ${props => props.theme.main};
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .content {
@@ -35,11 +30,11 @@ const MovieListBlock = styled.div`
     text-align: center;
     margin-top: 2rem;
   }
-
+  
   .see-All button,
   .see-NotAll button {
     padding: 0.5rem 1rem;
-    color: ${props => props.theme.main};
+    background: transparent;
     border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;
     cursor: pointer;
@@ -58,7 +53,7 @@ const MovieListBlock = styled.div`
       padding: 0.5rem 1rem;
       background: none;
       color: #000;
-      border: 0.1rem solid #000;
+      border: 0.2rem solid ${props => props.theme.main};
       border-radius: 0.5rem;
       cursor: pointer;
       font-size: 1rem;
@@ -75,21 +70,26 @@ const MovieListBlock = styled.div`
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 2rem;
-    font-size: 50px;
+    font-size: 2rem;
     input {
-      font-size: 50px;
+      font-size: 2rem;
       width: 130px;
       text-align: center;
+      border-radius: .5rem;
+      border: .2rem solid ${props => props.theme.main};
+      background: transparent;
+      outline: none;
     }
 
     button,
     .selectCountry {
-      margin: 0 0.5rem;
+      margin: 0.5rem;
       padding: 0.5rem 1rem;
       background: none;
       color: #000;
-      border: 0.1rem solid #000;
+      border: 0.2rem solid ${props => props.theme.main};
       border-radius: 0.5rem;
       cursor: pointer;
       font-size: 1rem;
@@ -102,13 +102,13 @@ const ButtonContainer = styled.div`
       }
 
 &:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: ${props => props.theme.main};
+  color: ${props => props.theme.text};
 }
 
 
 &:focus {
-  border-color: #00bfff;
-  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+  box-shadow: 0 0 0.5rem ${props => props.theme.main};
 }
 
 
@@ -130,15 +130,13 @@ const ButtonContainer = styled.div`
 const SelectGenre = styled.select`
 margin: 0 0.5rem;
 padding: 0.5rem 1rem;
-background: none;
-color: #000;
-border: 0.1rem solid #000;
+border: 0.1rem solid rgba(0, 0, 0, 0.1);
 border-radius: 0.5rem;
 cursor: pointer;
 font-size: 1rem;
 font-weight: bold;
 outline: none;
-
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
 &:hover {
   background-color: rgba(0, 0, 0, 0.1);
@@ -146,8 +144,8 @@ outline: none;
 
 
 &:focus {
-  border-color: #00bfff;
-  box-shadow: 0 0 0.5rem rgba(0, 191, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -350,6 +348,7 @@ function MovieListCustomContainer() {
         <input
           type="text"
           value={inputValue}
+          maxLength={4}
           onChange={handleInputChange}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
@@ -382,12 +381,12 @@ function MovieListCustomContainer() {
         {targetDates.map((date) => (
           <div key={date}>
             <MovieListCustom
-  targetDate={date}
-  selectedGenre={selectedGenres[date] || ''}
-  targetCountry={targetCountry}
-  handleGenreChange={(event) => handleGenreChange(event, date)} 
-  handleDelete={handleDelete}
-/>
+              targetDate={date}
+              selectedGenre={selectedGenres[date] || ''}
+              targetCountry={targetCountry}
+              handleGenreChange={(event) => handleGenreChange(event, date)} 
+              handleDelete={handleDelete}
+            />
           </div>
         ))}
       </div>

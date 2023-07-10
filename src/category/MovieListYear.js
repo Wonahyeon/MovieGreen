@@ -5,9 +5,6 @@ import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
   /* background: linear-gradient(to bottom, #ffffff,#CCFFFF, #669933, #CCFFFF, #ffffff); */
-  background-color: #fff;
-  
-  color: #000;
   padding: 2rem;
 
   .title {
@@ -16,7 +13,6 @@ const MovieListBlock = styled.div`
     padding-bottom: 1rem;
     border-bottom: 2px solid #000;
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .content {
@@ -34,6 +30,7 @@ const MovieListBlock = styled.div`
   .see-All button,
   .see-NotAll button {
     padding: 0.5rem 1rem;
+    background: none;
     color: ${props => props.theme.main};
     border: 0.2rem solid ${props => props.theme.main};
     border-radius: 0.5rem;

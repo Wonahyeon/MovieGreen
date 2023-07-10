@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import chatbotImg from '../images/chatbotimg.jpg';
 
 const WholeWraper = styled.div`
-  margin-top: 170px;
-  margin-bottom: 170px;
+  /* margin-top: 170px;
+  margin-bottom: 170px; */
 `;
 
 
@@ -251,11 +251,11 @@ function Chatbot() {
   return (
     <>
       <WholeWraper>
-        <Mainheader>
+        {/* <Mainheader>
           <div className='head'>
             <p className='main'>상담챗봇</p>
           </div>              
-        </Mainheader>
+        </Mainheader> */}
         <ChatbotWrapper>
 
           <div className='profile'>

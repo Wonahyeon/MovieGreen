@@ -110,13 +110,15 @@ function MovieDetail(props) {
   }, [dispatch, movieId]);
 
   const handlePick = () => {
-    // pick data
-    const pickData = {
-      id: movieId,
-      userName,
-      movieDetails
-    };
-   dispatch(togglePick(pickData));
+    if (userName) {
+      // pick data
+      const pickData = {
+        id: movieId,
+        userName,
+        movieDetails
+      };
+     dispatch(togglePick(pickData));
+    }
   };
 
   // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status
@@ -228,11 +230,16 @@ function MovieDetail(props) {
               <OTTLinks movie={movieDetails} />
             </Content>
             <Pick className='cursor-pointer'>
-            {pick ?
-            <MdFavorite onClick={handlePick}/>:
-            <MdFavoriteBorder onClick={handlePick}/>
-            }
-          </Pick>
+              {userName ? (
+              pick ? (
+                <MdFavorite onClick={handlePick} />
+              ) : (
+                <MdFavoriteBorder onClick={handlePick} />
+              )
+              ) : (
+              <MdFavoriteBorder disabled />
+              )}
+            </Pick>
         </div>
       </DetailWrapper>
       <TabContent movieDetails={movieDetails} movieCredits={movieCredits}  onError={handleImgError} imgError={imgError} setImgError={setImgError}/>

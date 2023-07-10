@@ -14,6 +14,7 @@ let persistor = persistStore(store);
 const theme = {
   pick: '#F26052', // 하트 색
   main: '#7BA65D', // 메인 색
+  second: '#F2A341', // 세컨드 색
   text: '#fff', // 배경 있는데서는 텍스트 흰색
   chatbot: '#3B3659'
 };

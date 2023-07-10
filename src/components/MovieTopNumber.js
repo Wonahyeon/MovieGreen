@@ -12,7 +12,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 
 const MovieBlock = styled.div`
-   background: #ffffff;
    color: #000;
    width: 100%;
    margin: 0 auto;
