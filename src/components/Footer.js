@@ -2,10 +2,19 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { BsFacebook, BsYoutube, BsInstagram } from "react-icons/bs";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay} from "swiper";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/scrollbar';
 
 const FooterWrapper = styled.div`
+  /* position: fixed; */
+  /* bottom: 0; */
   background: ${props => props.theme.main};
   height: 200px;
+  width: 100%;
   position: relative;
   transform: translateY(100%);
 `;
@@ -16,12 +25,20 @@ const NoticeWrapper = styled.div`
 const NoticeInner = styled.div`
   width: 1024px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  
+  .slide {
+    color: #d9d9d9;
+  }
 `;
 const Notice = styled.div`
   padding: 10px;
   margin: 0 auto;
   .notice {
+    width: 100px;
     font-size: 20px;
+    color: #d9d9d9;
   }
 `;
 const Mainarea = styled.div`
@@ -43,6 +60,7 @@ const Menu = styled.div`
     }
   }
 `;
+
 const Icons = styled.div`
   color: #717171;
   font-size: 20px;
@@ -76,6 +94,19 @@ function Footer(props) {
             <Notice>
               <h2 className='notice'>공지사항</h2>
             </Notice>
+            <Swiper
+              className='swiper'
+              modules={[Autoplay]}
+              spaceBetween={50}
+              slidesPerView={1}
+              autoplay={{ delay: 5000 }}
+            >
+              <SwiperSlide  className='slide'>고객센터 여름휴가 안내</SwiperSlide>
+              <SwiperSlide  className='slide'>[TOP 10] 영화 안내</SwiperSlide>
+              <SwiperSlide  className='slide'>Movie Green 이용약관 변경 안내</SwiperSlide>
+              <SwiperSlide  className='slide'>[직원 채용] 하반기 채용 예정 안내</SwiperSlide>
+
+            </Swiper>
           </NoticeInner>          
         </NoticeWrapper>
 
