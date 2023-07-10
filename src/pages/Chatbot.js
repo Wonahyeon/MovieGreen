@@ -101,7 +101,7 @@ const ChatbotWrapper = styled.div`
   .btn {
     width: 100px;
     height: 30px;
-    background: rgb(200, 228, 122);
+    background: ${props => props.theme.main};
     border-radius: 30px;
     box-sizing: border-box;
     margin-right: 10px;
@@ -122,7 +122,7 @@ const ChatbotWrapper = styled.div`
   .inputBtn {
     width: 50px;
     height: 35px;
-    background: rgb(200, 228, 122);
+    background: ${props => props.theme.main};
     margin-left: 3px;
     border-radius: 10px;
     &:active {

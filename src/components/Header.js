@@ -12,14 +12,14 @@ const Nav = styled.div`
   display: flex;
   justify-content: end;
   top: 0;
-  background: rgb(200, 228, 122);
+  background: ${props => props.theme.main};
   color: #a8b0bf;
   right: 0;
   padding: 5px 30px;
 `;
 
 const HeaderWrapper = styled.div`
-  background: rgb(200, 228, 122);
+  background: ${props => props.theme.main};
 `;
 
 const Container  = styled.div`
@@ -37,12 +37,12 @@ const Navbar  = styled.div`
     text-decoration: none;
     margin-right: 10px;
     font-size: 20px;
-    color: gray;
+    color: ${props => props.theme.text};
     cursor: pointer;
       &:hover {
-      color: black;
-      transition: 1s;
-    }   
+        color: black;
+        transition: 1s;
+      }   
   }
 `;
 
@@ -129,16 +129,15 @@ function Header(props) {
       <HeaderWrapper>
         <Container className='container'>
         <Navbar className='navBar'>
-        <a href='#' className='home' onClick={() => { navigate('/'); }} >홈</a>
-        <a className='categori' onClick={() => {navigate('/movie-category');}}>카테고리</a>
-        <a className='community' onClick={() => {navigate('/movie-community');}}>게시판</a>        
-        <a className='categori' onClick={() => {navigate('/live-chat');}}>라이브톡</a>
-        
+          <a href='#' className='home' onClick={() => { navigate('/'); }} >홈</a>
+          <a className='categori' onClick={() => {navigate('/movie-category');}}>카테고리</a>
+          <a className='community' onClick={() => {navigate('/movie-community');}}>게시판</a>        
+          <a className='categori' onClick={() => {navigate('/live-chat');}}>라이브톡</a>
         </Navbar>
+        
         <LogoWrapper>
           <a href='#' className='Logo' onClick={() => { navigate('/'); }}>Movie Green</a>          
         </LogoWrapper>
-
 
         <Form className='form' onSubmit={handleSubmit} onClick={handleClick}>
           <Input type='text'
@@ -148,25 +147,12 @@ function Header(props) {
             ref={inputRef}
             onChange={handleChange}
             />
-            
             <MdSearch className='searchIcon' />
         </Form>
         </Container>
-        {/* { submenuView &&
-          <ul className='submenu'>
-            <li className='li' onClick={() => {navigate('/movie-category/year');}}>연도</li>
-            <li className='li' onClick={() => {navigate('/movie-category/genre');}}>장르</li>
-            <li className='li'>평점</li>
-            <li className='li'>연령</li>
-            <li className='li' onClick={() => {navigate('/movie-category/country');}}>국가</li>
-          </ul>
-        } */}
       </HeaderWrapper>
-
-
       <Outlet />
     </>
-
   );
 }
 

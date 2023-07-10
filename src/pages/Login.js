@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { selectLogin, selectUser } from '../feature/user/userSlice';
 
 const LoginWrapper = styled.div`
-  background: rgb(200, 228, 122);
+  background: ${props => props.theme.main};
   /* opacity: 0.6; */
   max-width: 450px;
   height: 450px;

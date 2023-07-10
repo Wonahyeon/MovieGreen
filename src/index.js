@@ -13,6 +13,8 @@ let persistor = persistStore(store);
 
 const theme = {
   pick: '#F26052',
+  main: '#7BA65D', // 메인 색
+  text: '#fff' // 기본 텍스트 흰색
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
