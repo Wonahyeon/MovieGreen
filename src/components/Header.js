@@ -40,7 +40,7 @@ const Navbar  = styled.div`
     color: ${props => props.theme.text};
     cursor: pointer;
       &:hover {
-        color: black;
+        color: #586F8C;
         transition: 1s;
       }   
   }
