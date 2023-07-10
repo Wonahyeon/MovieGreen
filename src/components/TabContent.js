@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import CastItem from './CastItem';
 import ReviewPage from '../pages/ReviewPage';
+import errorImg from '../images/profile-error-img.png';
+
 
 const TabContentWrapper = styled.div`
   margin-top: 3rem;
@@ -90,10 +92,12 @@ const DetailInfoTab = styled.div`
 `;
 
 const CreditTab = styled.div`
+  margin: 0 auto;
+  width: 60rem;
   img {
     width: 10rem;
     height: 15rem;
-    margin-right: 1rem;
+    border-radius: 1rem;
   }
   .cast-wrapper {
     display: flex;
@@ -101,10 +105,12 @@ const CreditTab = styled.div`
     flex-wrap: wrap;
     margin-bottom: 2rem;
   }
-  h2 {
+  .cast-title {
     font-weight: bold;
     font-size: 1.5rem;
     padding: 1rem;
+    border-bottom: .2rem solid ${props => props.theme.main};
+    margin: 2rem 0;
   }
 `;
 
@@ -123,6 +129,11 @@ function TabContent(props) {
       return '';
     }
     return `https://image.tmdb.org/t/p/w500${path}`;
+  };
+
+  // 이미지 없는 경우 대체이미지
+  const handleImgError = (e) => {
+    e.target.src = errorImg;
   };
 
   // 주요 정보 탭 출연진 리스트 셋업(감독, 주연 3명)
@@ -171,7 +182,7 @@ function TabContent(props) {
             <div className='movie-cast'>
               {mainCast.map((cast) => (
                 <div key={cast.id} className='cursor-pointer cast-item '>
-                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' onError={onError}/>
+                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' onError={handleImgError}/>
                   <h3 className='profile-name'>{cast?.name}</h3>
                 </div>
               ))}
@@ -181,24 +192,25 @@ function TabContent(props) {
           // 출연/제작 탭 내용
           'credit' :
           <CreditTab>
-            <h2>감독</h2>
+            <h2 className='cast-title'>감독</h2>
             <div className='cast-wrapper cursor-pointer'>
-              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} />
+              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} style={{marginRight: '2rem'}} onError={handleImgError}/>
               <h3>{movieCredits.crew[2]?.name}</h3>
             </div>
-            <h2>주연</h2>
+            <h2 className='cast-title'>주연</h2>
             <div className='cast-wrapper cursor-pointer'>
               {movieCredits.cast?.slice(0,2).map((cast) => (
-                <CastItem key={cast.id} cast={cast}/>
+                <CastItem key={cast.id} cast={cast} onError={handleImgError}/>
               ))}
             </div>
-            <h2>출연</h2>
+            <h2 className='cast-title'>출연</h2>
             <div className='cast-wrapper cursor-pointer'>
-              {movieCredits.cast?.slice(2 ,movieCredits.cast?.length).map((cast) => (
-                <CastItem key={cast.id} cast={cast}/>
+              {movieCredits.cast?.slice(2 ,12).map((cast) => (
+                <CastItem key={cast.id} cast={cast} onError={handleImgError}/>
               ))}
             </div>
-            <h2>제작진</h2>
+            <h2 className='cast-title'>제작진</h2>
+            <h2 className='cast-title'>제작사</h2>
             
           </CreditTab>
           ,
