@@ -4,21 +4,21 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from "html-react-parser";
 import axios from "axios";
-import { MdDelete } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 
 const StyledCommunity = styled.div`
    height: 700px;
    h1 {
       text-align: center;
       font-weight: 700;
-      margin-top: 30px;
+      margin-top: 25px;
       font-size: 25px;
    }
 `;
 
 const CommunityWrapper = styled.div`
    position: relative;
-   top: 60px;
+   top: 30px;
    display: flex;
 `;
 
@@ -29,7 +29,7 @@ const CommunityCheck = styled.div`
    & ::-webkit-scrollbar {
       height: 10px;
    }
-   height: 590px;
+   height: 750px;
    position: absolute;
    left: 30px;
    width: 48%;
@@ -37,15 +37,39 @@ const CommunityCheck = styled.div`
    padding: 10px 0 30px 0;
 
    .date {
-      margin-left: 87%;
+      position: absolute;
+      right: 40px;
       font-weight: bold;
    }
 
    .deletebutton {
+      color: #F26052;
       position: absolute;
       font-size: 25px;
       right: 15px;
    } 
+
+   .comment{
+      width: 100%;
+      height: 50px;
+      position: relative;
+      border: 1px solid rgb(200, 228, 122);
+      border-radius: 0.5rem;
+   }
+   .comment + .comment {
+      margin-top: 10px;
+   }
+
+   .commenttext{
+      word-break: keep-all;
+   }
+
+   .commentbtn{
+      color: rgb(200, 228, 122);
+      border: 1px solid rgb(200, 228, 122);
+      border-radius: 0.5rem;
+      cursor: pointer;
+   }
 `;
 
 const CommunityText = styled.div`
@@ -56,22 +80,25 @@ const CommunityText = styled.div`
 
    input {
       width: 100%;
-      height: 50px;
+      height: 60px;
    }
 
    button {
-      width: 100px;
+      color: rgb(200, 228, 122);
+      border: 0.2rem solid rgb(200, 228, 122);
       padding: 8px 16px;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       font-size: 16px;
-      border: 1px solid #dcdcde;
       cursor: pointer;
    }
 
    .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-      min-height: 500px;
+      min-height: 648px;
    }
 `;
+
+// 댓글 시간 map함수로 댓글 - 같은 시간 표기됨
+// 게시판 나열 - 최신정렬, 오래된 정렬 해보기
 
 function Community(props) {
    const [communityContent, setCommunityContent] = useState({
@@ -81,6 +108,11 @@ function Community(props) {
    const [viewContent, setViewContent] = useState([]);
    const [comment, setComment] = useState({});
    const [isValid, setIsValid] = useState(false);
+
+   const date = new Date();
+   const currentdate = date.getFullYear() + "-" + (date.getMonth() +1) + "-"+ date.getDate();
+   const commentdate = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();;
+
 
    const getValue = (e) => {
       const { name, value } = e.target;
@@ -103,7 +135,7 @@ function Community(props) {
       await axios.get("http://localhost:3000", newPost);
 
       setViewContent([newPost, ...viewContent]);
-      setCommunityContent({ title: "", content: "" });
+      setCommunityContent({ title: "", content: ""});
    };
 
    const handleComment = useCallback((postId, commentText) => {
@@ -122,6 +154,7 @@ function Community(props) {
          ...comment,
          [postId]: "",
       });
+
       }
    }, [viewContent, comment]);
 
@@ -142,12 +175,12 @@ function Community(props) {
             <div key={text.id}>
                <h1>{text.title}</h1>
                <div>{ReactHtmlParser(text.content)}</div>
-               <div className="date">{text.date}</div>
+               <div className="date">{currentdate}</div>
                
-               <MdDelete onClick={() => handleDelete(text.id)} className="deletebutton">삭제</MdDelete>
+               <MdDeleteOutline onClick={() => handleDelete(text.id)} className="deletebutton">삭제</MdDeleteOutline>
                <br />
 
-               <input className="comment"
+               <input
                   type="text"
                   placeholder="댓글 달기"
                   value={comment[text.id] || ""}
@@ -163,7 +196,7 @@ function Community(props) {
                      : setIsValid(false);
                   }}
                />
-               <button
+               <button className="commentbtn"
                   type="button"
                   onClick={() => handleComment(text.id, comment[text.id])}
                   disabled={!isValid}
@@ -172,11 +205,9 @@ function Community(props) {
                </button>
 
                {text.comments.map((commentText, index) => (
-                  <div key={index}>
-                     <ul >
-                        <li>{commentText}</li>
-                     </ul>
-                     
+                  <div className="comment" key={index}  >
+                     <p className="commenttext">{commentText}</p>
+                     <p>{commentdate}</p>
                   </div>
                ))}
 
