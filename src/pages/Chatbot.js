@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from "uuid";
+import chatbotImg from '../images/chatbotimg.jpg';
 
 const Mainheader = styled.div`
   width: 1024px;
@@ -247,7 +248,7 @@ function Chatbot() {
     <ChatbotWrapper>
 
       <div className='profile'>
-        <img className='img' alt='img' src='./chatbotimg.jpg' />
+        <img className='img' alt='img' src={chatbotImg}/>
         <h1 className='botname'>챗봇</h1>        
       </div>
 
