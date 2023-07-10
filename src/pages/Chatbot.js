@@ -198,7 +198,7 @@ const botData = [
 function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [msgNum, setMsgNum] = useState(0);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState([]);
   const [sendMs, setSendMs] = useState(false);
 
   const handleQuestionSelect = (selectedQuestion) => {
@@ -234,17 +234,18 @@ function Chatbot() {
     nextId.current += 1;
   }, []);
 
+  // const handleSubmit = (e) => {
+  //   handleInsert(inputText);
+  //   setInputText(''); 
+  //   e.preventDefault();
+  // };
   const handleSubmit = (e) => {
-    handleInsert(inputText);
-    setInputText(''); 
+    const copyText = [inputText];
+    inputText(copyText);
+    setInputText('');
+    setSendMs(true);
     e.preventDefault();
   };
-  // const handleSubmit = () => {
-  //   const copyText = [inputText, ...messages];
-  //   setMessages(copyText);
-  //   setInputText('');
-  //   setSendMs(true);
-  // };
 
 
   return (
@@ -270,17 +271,17 @@ function Chatbot() {
                 3. WI-FI 신호가 약해서 동영상이 잘 재생되지 않아요.<br />
                 4. movie Green을 원활하게 이용하기 위한 인터넷 환경을 알려주세요.<br />
                 5. 고객센터 연락처를 못 찾겠어요.</p>
-              <p className='time-left'>{new Date().toLocaleTimeString().slice(0,7)}</p>            
+              <p className='time-left'>{new Date().toLocaleTimeString().slice(0,8)}</p>            
             </div> 
 
             {messages.map((message, index) => (
               <div key={index} className="message" isUserMessage={index % 2 === 0}>
               
                 <div className='user-wrapper'>
-                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,7)}</p>               
+                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,8)}</p>               
                   <p className='user-message'>{message.question}</p>   
                 </div>
-            {/* {sendMs && <p className='user-message'>{inputText}</p>}             */}
+                
                 <div className='profile'>
                   <img className='img' alt='img'  src={chatbotImg} />
                   <h1 className='botname'>챗봇</h1>        
@@ -288,11 +289,19 @@ function Chatbot() {
             
                 <div className='bot-message'>
                   <p className='botms-ds'>{message.answer}</p>              
-                  <p className='time-left'>{new Date().toLocaleTimeString().slice(0,7)}</p>            
+                  <p className='time-left'>{new Date().toLocaleTimeString().slice(0,8)}</p>            
                 </div>     
             
               </div>
             ))}
+            {sendMs && messages.map((info, index) => {
+              <div key={index} className='message' >
+                <div className='user-wrapper'>
+                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,8)}</p>               
+                  <p className='user-message'>{info}</p>   
+                </div>
+              </div>
+            })}
 
           </div>
           <div className='btnWrapper'>

@@ -56,12 +56,12 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 3px;
-  margin: 10px 0 5px;
+  margin: 5px 0 5px;
 `;
 const PwShow = styled.div`
   position: relative;
   left: 130px;
-  bottom: 38px;
+  bottom: 53px;
   color: #212126;
 `;
 
@@ -99,7 +99,7 @@ const GenderSelect = styled.select`
   width: 300px;
   height: 50px;
   padding: 7px;
-  margin-top: 15px;
+  margin-top: 5px;
   background: #D9D9D9;
   outline: none;
   border: none;
@@ -177,11 +177,6 @@ function Signin(props) {
       return { type: 'password', visible: false}
     })
   }
-  
-  // jsonserver 열림 유무에 따라 회원가입 가능/불가능
-  // jsonserver 닫혀있으면 alert창 뜨긴 하는데 성공해도 뜸
-  // 회원가입시 실패면 catch에 있는 alert뜸 post 실패??
-  
   const handleButton = (e) => { //회원가입 버튼
     e.preventDefault();
     if (isEmail && isPassword) {
