@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
+import { MdOutlineVisibilityOff, MdOutlineVisibility, MdInfoOutline } from "react-icons/md";
 import axios from "axios";
 
 const SigninWrapper = styled.div`
@@ -14,13 +14,10 @@ const SigninWrapper = styled.div`
 `;
 
 const MainSignin = styled.div`
-  /* margin: 0 auto; */
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   .SignContent{
     color: #fff;
     font-size: 26px;
@@ -60,8 +57,8 @@ const Input = styled.input`
 `;
 const PwShow = styled.div`
   position: relative;
-  left: 130px;
-  bottom: 53px;
+  left: 267px;
+  bottom: 39px;
   color: #212126;
 `;
 
@@ -111,7 +108,16 @@ const Warn = styled.div`
   color: orange;
   font-size: 12px;
   margin: 5px 0 10px;
-
+  position: relative;
+  bottom: 19px;
+`;
+const WarnMail = styled.div`
+  display: flex;
+  color: orange;
+  font-size: 12px;
+  margin: 5px  10px;
+  position: relative;
+  bottom: 4px;
 `;
 
 function Signin(props) {
@@ -237,30 +243,37 @@ function Signin(props) {
               />
           </label>
 
-          <label for='email'></label>
-          <input 
-            type='text' 
-            id='email' 
-            name='name' 
-            placeholder='moviegreen@example.com'
-            value={signEmail}
-            onChange={handleEmail}             
-          />
-          <Warn>{emailMessage}</Warn>
-          
-          <label for='pw'></label>
-          <input 
-            type={passwordType.type} 
-            id='pw' 
-            placeholder='moviegreen 비밀번호 설정'
-            value={password}
-            onChange={handlePassword}
-          />
-          <Warn>{passwordMessage}</Warn>
+          <label>
+            <input 
+              type='text' 
+              id='email' 
+              name='name' 
+              placeholder='moviegreen@example.com'
+              value={signEmail}
+              onChange={handleEmail}             
+            />
+          </label>          
+            <WarnMail>{emailMessage}</WarnMail>
 
-          <PwShow>
-            {passwordType.visible ? <MdOutlineVisibility  onClick={handlePasswordType}/> : <MdOutlineVisibilityOff onClick={handlePasswordType}/>}            
-          </PwShow>
+          <label>
+            <input 
+              type={passwordType.type} 
+              id='pw' 
+              placeholder='moviegreen 비밀번호 설정'
+              value={password}
+              onChange={handlePassword}
+              onKeyUp={ (e) => {
+                if(e.key === 'Enter') {
+                  register();
+                }}}
+            />
+            <PwShow>
+              {!passwordType.visible && <MdOutlineVisibilityOff onClick={handlePasswordType}/>}
+              {passwordType.visible && <MdOutlineVisibility  onClick={handlePasswordType}/>}         
+            </PwShow>
+          </label>
+
+          <Warn>{passwordMessage}</Warn>
 
           <Button type='button' onClick={handleButton}>MovieGreen 회원가입</Button>
         </MainSignin>

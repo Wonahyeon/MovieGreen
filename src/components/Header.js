@@ -13,7 +13,7 @@ const Nav = styled.div`
   justify-content: end;
   top: 0;
   background: ${props => props.theme.main};
-  color: #a8b0bf;
+  color: ${props => props.theme.text};
   right: 0;
   padding: 5px 30px;
 `;
