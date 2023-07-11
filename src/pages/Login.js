@@ -8,7 +8,6 @@ import { selectLogin, selectUser } from '../feature/user/userSlice';
 
 const LoginWrapper = styled.div`
   background: ${props => props.theme.main};
-  /* opacity: 0.6; */
   max-width: 450px;
   height: 450px;
   margin: auto;
@@ -19,7 +18,6 @@ const MainLogin = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   .LogText {
     color: #fff;
     font-size: 26px;
@@ -27,7 +25,6 @@ const MainLogin = styled.div`
     padding: 50px 0 20px;
   }
 `;
-
 const Input = styled.input`
   width: 300px;
   height: 50px;
@@ -39,7 +36,6 @@ const Input = styled.input`
   border-radius: 3px;
   margin: 10px 0 5px;
 `;
-
 // Id 경고
 const Warn = styled.div`
   display: flex;
@@ -53,7 +49,6 @@ const Warn = styled.div`
     margin: 0 55px 0 5px;
   }
 `;
-
 const PwShow = styled.div`
   position: relative;
   left: 267px;
@@ -62,7 +57,6 @@ const PwShow = styled.div`
   display: block;
   height: 0px;
 `;
-
 const Btn = styled.button`
   width: 300px;
   height: 50px;
@@ -73,20 +67,17 @@ const Btn = styled.button`
   border: none;
   border-radius: 3px;
   &:active{
-    background: #AD8888;
+    background: #D9D9D9;
   }
 `;
-
 const InFo = styled.div`
   margin-top: 20px;
   color: black;
   display: flex;
   flex-direction: row;
-
   .SignIn {
     margin-right: 20px;
   }
-
 `;
 const GoToSign = styled.a`
   color: black;
@@ -96,8 +87,6 @@ const GoToSign = styled.a`
       color: white;
   }
 `;
-
-// 비밀번호 보이기
 
 function Login(props) {
 
@@ -151,7 +140,7 @@ function Login(props) {
       } else if (existingMember.idMail !== idValue) {
         console.log('id 틀림');
         setWarnMsShow(true); 
-      } 
+      }
     })
     .catch((error) => {
       alert('서버가 끊겼습니다');
@@ -189,10 +178,10 @@ function Login(props) {
                 handleRegister();
               }}}
             />
-        <PwShow>
-          {!showPassward.visible && <MdOutlineVisibilityOff onClick={handleShowPw}/>}
-          {showPassward.visible && <MdOutlineVisibility  onClick={handleShowPw}/>}
-        </PwShow>
+          <PwShow>
+            {!showPassward.visible && <MdOutlineVisibilityOff onClick={handleShowPw}/>}
+            {showPassward.visible && <MdOutlineVisibility  onClick={handleShowPw}/>}
+          </PwShow>
         </label>
 
         {warnPwMsShow && <Warn>

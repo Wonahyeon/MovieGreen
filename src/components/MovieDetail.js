@@ -56,6 +56,20 @@ const DetailWrapper = styled.div`
     color: gray;
     margin-bottom: 2rem;
   }
+  @keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.bounce-animation {
+  animation: bounce 0.5s;
+}
 `;
 
 const Content = styled.div`
@@ -238,7 +252,7 @@ function MovieDetail(props) {
             </Content>
             <Pick className='cursor-pointer'>
               {pick ? (
-                <MdFavorite onClick={handlePick} />
+                <MdFavorite onClick={handlePick} className={pick ? "bounce-animation" : ""} />
               ) : (
                 <MdFavoriteBorder onClick={handlePick} />
               )
