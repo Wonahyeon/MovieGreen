@@ -4,9 +4,12 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
 import MovieItemVertical from './MovieItemVertical';
+import MovieListVote from '../components/MovieListVote';
 
 const MovieSearchWrapper = styled.div`
   min-height: 80vh;
+  margin: 0 auto;
+  width: 60rem;
   .search-recent {
     font-size: 1rem;
     display: flex;
@@ -83,7 +86,9 @@ function MovieSearch() {
       </div>
       }
         <div className='search-result'>
-          {searchResults.map((movie) => (
+          {searchResults? 
+          <MovieListVote/>
+          : searchResults.map((movie) => (
             <div
               key={movie.id}
               className='search-result-item'
