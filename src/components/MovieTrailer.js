@@ -17,8 +17,11 @@ const Trailer = styled.div`
 
    :hover {
       background: ${props => props.theme.main};
-      color: #fff;
+      color: ${props => props.theme.text};
     }
+  }
+  p {
+    color: #3b3659;
   }
 `
 function MovieTrailer({ movieId }) {

@@ -112,6 +112,14 @@ const CreditTab = styled.div`
     border-bottom: .2rem solid ${props => props.theme.main};
     margin: 2rem 0;
   }
+
+  ul {
+    padding: 1rem;
+    margin-bottom: 3rem;
+  }
+  li {
+    margin-bottom: 1rem;
+  }
 `;
 
 function TabContent(props) {
@@ -209,8 +217,12 @@ function TabContent(props) {
                 <CastItem key={cast.id} cast={cast} onError={handleImgError}/>
               ))}
             </div>
-            <h2 className='cast-title'>제작진</h2>
             <h2 className='cast-title'>제작사</h2>
+            <ul>
+              {movieDetails?.production_companies.map((pc) =>
+                <li key={pc.id}>{pc.name}</li>
+              )}
+            </ul>
             
           </CreditTab>
           ,
