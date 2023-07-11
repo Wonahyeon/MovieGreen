@@ -22,16 +22,20 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     box-sizing: border-box;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'content_font', sans-serif;
     background: #FDF6EE;
   }
-
+  
   * {
     box-sizing: border-box;
   }
-
+  
   .cursor-pointer {
     cursor: pointer;
+  }
+
+  button, select, input {
+    font-family: 'content_font', sans-serif;
   }
 `;
 

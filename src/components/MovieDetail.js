@@ -36,7 +36,7 @@ const DetailWrapper = styled.div`
     .title-name {
       font-size: 2rem;
       font-weight: bold;
-      font-family: 'Black Han Sans',sans-serif;
+      /* font-family: 'Black Han Sans',sans-serif; */
       margin-right: 1rem;
       margin-bottom: 1rem;
     }
