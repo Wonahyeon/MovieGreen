@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
-import {  useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
@@ -56,6 +56,22 @@ const DetailWrapper = styled.div`
     color: gray;
     margin-bottom: 2rem;
   }
+  @keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 0.5s;
+}
+
 `;
 
 const Content = styled.div`
@@ -119,8 +135,8 @@ function MovieDetail(props) {
         userName,
         movieDetails
       };
-     dispatch(togglePick(pickData));
-     setShowPickNotification(true); // 찜하기 알림 메시지 표시
+      dispatch(togglePick(pickData));
+      setShowPickNotification(true); // 찜하기 알림 메시지 표시
     }
   };
 
@@ -130,7 +146,7 @@ function MovieDetail(props) {
 
   // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status
   const pick = userPick.filter(pick => pick.userName === userName).find(pick => pick.id === movieId);
-  
+
   // 이미지 경로를 절대 경로로 변환하는 함수
   const getImageUrl = (path) => {
     if (!path) {
@@ -152,24 +168,24 @@ function MovieDetail(props) {
     case 'All':
       certificationImg = 'https://i.namu.wiki/i/MyvTzUe8CU4Utl-aB4wt1S2OfdUcKhZuy42T3yDECI8bzGP9XrnwUljYAAwZ7NUuo0upLrtXboukNY7GtX7cM32gmFvtMbBIgCqOH8sysOWYYvADwv61hN5nNxw3CuyuGAIKheM_Zz8sXcLNnSuFng.svg';
       break;
-      case '18':
-        certificationImg = 'https://i.namu.wiki/i/zZwPEFHiuRY-OkmxWRKy_o2cneH-BU69Fazp8Ur-QWA_bUBlNsKHJpR3q3HL7eQv4TucOMGGDri7R5sM_EDihwHSFGl8YNmZDE4ys1o5K4kate_6q-5wQPuHgh3ByNr234vTSIFGbnGYY6Zz5bq5dg.svg';
+    case '18':
+      certificationImg = 'https://i.namu.wiki/i/zZwPEFHiuRY-OkmxWRKy_o2cneH-BU69Fazp8Ur-QWA_bUBlNsKHJpR3q3HL7eQv4TucOMGGDri7R5sM_EDihwHSFGl8YNmZDE4ys1o5K4kate_6q-5wQPuHgh3ByNr234vTSIFGbnGYY6Zz5bq5dg.svg';
       break;
-      case '15':
-      case '15세 이상 관람가':
-        certificationImg = 'https://i.namu.wiki/i/bkeDe_FYXnkoS1UT9WJOr3U1yV9GOarGnh-hF5u6zqF5DwMH8fIrbf7z8i8ijpAhxdTLXTB_OfJrbbECNLsbUD4W7X0TlqdhUlCbXwvLb-Ki2YjMZGYLdKZssX5S4FsMwVi1D9o4PajIIi4E461gKg.svg';
+    case '15':
+    case '15세 이상 관람가':
+      certificationImg = 'https://i.namu.wiki/i/bkeDe_FYXnkoS1UT9WJOr3U1yV9GOarGnh-hF5u6zqF5DwMH8fIrbf7z8i8ijpAhxdTLXTB_OfJrbbECNLsbUD4W7X0TlqdhUlCbXwvLb-Ki2YjMZGYLdKZssX5S4FsMwVi1D9o4PajIIi4E461gKg.svg';
       break;
-      case '12':
-        certificationImg = 'https://i.namu.wiki/i/SM8udWHcYzJ3O92qcIm_NtYveGa4JULu_1qyqtREQf4b684c_aThkbLH2FPM6Wq0DowKNGzo80rGI-vva2vF8e93lzAjvuutkvxsAqrv0G12eEji0txnwcKB9mUwB384dv9mNdh2jOf6UG8-PqwRUw.svg';
+    case '12':
+      certificationImg = 'https://i.namu.wiki/i/SM8udWHcYzJ3O92qcIm_NtYveGa4JULu_1qyqtREQf4b684c_aThkbLH2FPM6Wq0DowKNGzo80rGI-vva2vF8e93lzAjvuutkvxsAqrv0G12eEji0txnwcKB9mUwB384dv9mNdh2jOf6UG8-PqwRUw.svg';
       break;
-      case '':
-        certificationImg = '';
+    case '':
+      certificationImg = '';
       break;
     default:
       break;
   };
-  
-  
+
+
   if (loading) {
     return <div>Loading...</div>; // 로딩 컴포넌트
   }
@@ -180,83 +196,87 @@ function MovieDetail(props) {
 
 
   return (
-      <>
+    <>
       <DetailWrapper>
         <div className='detail-top'>
           <img className='movie-poster' src={getImageUrl(movieDetails?.poster_path)} alt={movieDetails.title} />
-            <Content>
-              <div className='movie-title'>
-                <h1 className='title-name'>{movieDetails.title}</h1>
-                <div className='certification-img' onError={handleImgError}
-                  style={{display: imgError ? 'block' : 'block', backgroundImage:`url(${certificationImg})`}}>
-                </div>
+          <Content>
+            <div className='movie-title'>
+              <h1 className='title-name'>{movieDetails.title}</h1>
+              <div className='certification-img' onError={handleImgError}
+                style={{ display: imgError ? 'block' : 'block', backgroundImage: `url(${certificationImg})` }}>
               </div>
-              <h2 className='origin-title'>{movieDetails?.original_title}</h2>
-              <h2 className='series-name'>{movieDetails?.belongs_to_collection?.name}</h2>
-              <h3>
-                평점{' '}
-                <span>
-                  <StarRatings
-                    rating={movieDetails?.vote_average / 2}
-                    starRatedColor={ratingColor}
-                    starHoverColor={ratingColor}
-                    numberOfStars={5}
-                    starDimension='1.4rem'
-                    starSpacing='.08rem'
-                    name={`rating-${movieDetails.title}`}
-                    />
-                  ({movieDetails.vote_average} / 10)</span>
-              </h3>
-              <h3>
-                장르{' '}
-                <span>
-                  {movieDetails.genres.map((genre) => genre.name).join('/')}
-                </span>
-              </h3>
-              <h3>
-                국가{' '}
-                <span>
-                  {movieDetails?.production_countries
-                      .map((country) => country.name)
-                      .join(', ')}
-                </span>
-              </h3>
-              <h3>
-                개봉{' '}
-                <span>
-                  {movieDetails?.release_date}
-                </span>
-              </h3>
-              <h3>
-                러닝타임{' '}
-                <span>
-                  {movieDetails?.runtime}분
-                </span>
-              </h3>
-              <MovieTrailer movieId={movieId} />
-              <OTTLinks movie={movieDetails} />
-            </Content>
-            <Pick className='cursor-pointer'>
-              {userName ? (
+            </div>
+            <h2 className='origin-title'>{movieDetails?.original_title}</h2>
+            <h2 className='series-name'>{movieDetails?.belongs_to_collection?.name}</h2>
+            <h3>
+              평점{' '}
+              <span>
+                <StarRatings
+                  rating={movieDetails?.vote_average / 2}
+                  starRatedColor={ratingColor}
+                  starHoverColor={ratingColor}
+                  numberOfStars={5}
+                  starDimension='1.4rem'
+                  starSpacing='.08rem'
+                  name={`rating-${movieDetails.title}`}
+                />
+                ({movieDetails.vote_average} / 10)</span>
+            </h3>
+            <h3>
+              장르{' '}
+              <span>
+                {movieDetails.genres.map((genre) => genre.name).join('/')}
+              </span>
+            </h3>
+            <h3>
+              국가{' '}
+              <span>
+                {movieDetails?.production_countries
+                  .map((country) => country.name)
+                  .join(', ')}
+              </span>
+            </h3>
+            <h3>
+              개봉{' '}
+              <span>
+                {movieDetails?.release_date}
+              </span>
+            </h3>
+            <h3>
+              러닝타임{' '}
+              <span>
+                {movieDetails?.runtime}분
+              </span>
+            </h3>
+            <MovieTrailer movieId={movieId} />
+            <OTTLinks movie={movieDetails} />
+          </Content>
+          <Pick className='cursor-pointer'>
+            {userName ? (
               pick ? (
-                <MdFavorite onClick={handlePick} />
+                <MdFavorite
+                  onClick={handlePick}
+                  className={pick ? "bounce-animation" : ""}
+                />
+
               ) : (
                 <MdFavoriteBorder onClick={handlePick} />
               )
-              ) : (
+            ) : (
               <MdFavoriteBorder disabled />
-              )}
-            </Pick>
-            {showPickNotification && (
-              <PickNotificationModal  onClose={handleClosePickNotification}>
-                찜한 콘텐트에 {movieDetails.title}이 추가되었습니다!
-              </PickNotificationModal>
             )}
+          </Pick>
+          {showPickNotification && (
+            <PickNotificationModal onClose={handleClosePickNotification}>
+              찜한 콘텐트에 {movieDetails.title}이 추가되었습니다!
+            </PickNotificationModal>
+          )}
         </div>
       </DetailWrapper>
-      <TabContent movieDetails={movieDetails} movieCredits={movieCredits}  onError={handleImgError} imgError={imgError} setImgError={setImgError}/>
+      <TabContent movieDetails={movieDetails} movieCredits={movieCredits} onError={handleImgError} imgError={imgError} setImgError={setImgError} />
       <Recommendations movieId={movieId} />
-      </>
+    </>
   );
 }
 
