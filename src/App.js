@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  button, select, input {
+  button, select, input, textarea {
     font-family: 'content_font', sans-serif;
   }
 `;

@@ -11,7 +11,7 @@ import { selectUserName, togglePick, userPickMovie } from "../feature/user/userS
 import MovieItem from "../category/MovieItem";
 
 const MovieBlock = styled.div`
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 
   .title{
@@ -65,7 +65,7 @@ function MoviePick(props) {
             .map((movie) => (
               <SwiperSlide key={movie.id}>
                   <MovieItem  movie={movie.movieDetails} />
-                  <RemovePick onClick={() => dispatch(togglePick(movie))}/>
+                  <RemovePick className="cursor-pointer" onClick={() => dispatch(togglePick(movie))}/>
               </SwiperSlide>
         ))}
         </div>
