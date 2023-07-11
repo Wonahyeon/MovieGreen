@@ -54,7 +54,7 @@ margin: 0 auto;
   h3 {
     width: 60rem;
     margin: 0 auto;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     padding: 1rem;
     border-bottom: 0.2rem solid ${props => props.theme.main};

@@ -43,18 +43,29 @@ const CommunityCheck = styled.div`
    }
 
    .deletebutton {
-      color: #F26052;
+      color: ${props => props.theme.pick};
       position: absolute;
       font-size: 25px;
       right: 15px;
+      cursor: pointer;
    } 
 
    .comment{
       width: 100%;
-      height: 50px;
+      height: 5rem;
+      padding: 1rem;
       position: relative;
-      border: 1px solid rgb(200, 228, 122);
+      border: 1px solid ${props => props.theme.main};
       border-radius: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+   }
+   .comment p:first-child {
+      width: 80%;
+      overflow-wrap: break-word;
+   }
+   .comment p:nth-child(2) {
+      width: fit-content;
    }
    .comment + .comment {
       margin-top: 10px;
@@ -65,12 +76,17 @@ const CommunityCheck = styled.div`
    }
 
    .commentbtn{
-      color: rgb(200, 228, 122);
-      border: 1px solid rgb(200, 228, 122);
+      color: ${props => props.theme.main};
+      border: 1px solid ${props => props.theme.main};
       border-radius: 0.5rem;
       cursor: pointer;
+
+      &:hover {
+         color: ${props => props.theme.text};
+         background-color: ${props => props.theme.main};
+      }
    }
-`;
+   `;
 
 const CommunityText = styled.div`
    position: absolute;
@@ -84,13 +100,19 @@ const CommunityText = styled.div`
    }
 
    button {
-      color: rgb(200, 228, 122);
-      border: 0.2rem solid rgb(200, 228, 122);
+      margin-top: 1rem;
+      color: ${props => props.theme.main};
+      border: 0.2rem solid ${props => props.theme.main};
       padding: 8px 16px;
       border-radius: 0.5rem;
       font-size: 16px;
       cursor: pointer;
+      &:hover {
+         color: ${props => props.theme.text};
+         background-color: ${props => props.theme.main};
+      }
    }
+
 
    .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
       min-height: 648px;

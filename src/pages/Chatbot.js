@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import chatbotImg from '../images/chatbotimg.jpg';
 
 const WholeWraper = styled.div`
-  /* margin-top: 170px;
-  margin-bottom: 170px; */
+  margin-top: 170px;
+  margin-bottom: 170px;
 `;
 
 
@@ -31,10 +31,11 @@ const ChatbotWrapper = styled.div`
   /* min-height: 100vh; */
   /* height: 70px; */
   padding: 20px;
-  width: 1024px;
+  /* width: 1024px; */
+  width: 500px;
   margin: 0 auto;
   background: #A6A6A6;
-  border-radius: 3px;
+  border-radius: 1rem;
   .chat-container .message {
     display: flex;
     flex-direction: column;
@@ -55,7 +56,7 @@ const ChatbotWrapper = styled.div`
   .user-message {
     justify-content: flex-end;
     align-self: flex-end;
-    background-color: #e6e6e6;
+    background-color: #d2d1d1;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -76,7 +77,7 @@ const ChatbotWrapper = styled.div`
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    width: fit-content;
+    width: 20rem;
     line-height: 19px;
   }
   .time-left {
@@ -271,14 +272,14 @@ function Chatbot() {
                 3. WI-FI 신호가 약해서 동영상이 잘 재생되지 않아요.<br />
                 4. movie Green을 원활하게 이용하기 위한 인터넷 환경을 알려주세요.<br />
                 5. 고객센터 연락처를 못 찾겠어요.</p>
-              <p className='time-left'>{new Date().toLocaleTimeString().slice(0,8)}</p>            
+              <p className='time-left'>{new Date().toLocaleTimeString().slice(0,7)}</p>            
             </div> 
 
             {messages.map((message, index) => (
               <div key={index} className="message" isUserMessage={index % 2 === 0}>
               
                 <div className='user-wrapper'>
-                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,8)}</p>               
+                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,7)}</p>               
                   <p className='user-message'>{message.question}</p>   
                 </div>
                 
@@ -289,7 +290,7 @@ function Chatbot() {
             
                 <div className='bot-message'>
                   <p className='botms-ds'>{message.answer}</p>              
-                  <p className='time-left'>{new Date().toLocaleTimeString().slice(0,8)}</p>            
+                  <p className='time-left'>{new Date().toLocaleTimeString().slice(0,7)}</p>            
                 </div>     
             
               </div>
@@ -297,7 +298,7 @@ function Chatbot() {
             {sendMs && messages.map((info, index) => {
               <div key={index} className='message' >
                 <div className='user-wrapper'>
-                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,8)}</p>               
+                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,7)}</p>               
                   <p className='user-message'>{info}</p>   
                 </div>
               </div>

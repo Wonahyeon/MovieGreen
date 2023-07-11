@@ -3,17 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MovieItemVerticalBlock = styled.div`
-  font-size: 1rem;
   display: flex;
+  flex-direction: column;
   background: transparent;
-  color: #aabb93;
   justify-content: space-between;
   align-items: center;
   margin: 1.5rem 0;
   padding: 1rem;
-  flex-direction: column;
   border-radius: 10px;
-  cursor: pointer;
+  color: #aabb93;
+  font-size: 1rem;
   transition: transform 0.3s ease;
   
   &:hover {
@@ -126,7 +125,7 @@ function MovieItemVertical({ movie }) {
   };
 
   return (
-    <MovieItemVerticalBlock showInfo={showInfo} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <MovieItemVerticalBlock className='cursor-pointer' showInfo={showInfo} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <img src={posterUrl} alt={movieNm} onClick={() => navigate(`/movie-detail/${movie.id}`)} />
       <h2>{rank}</h2>
       {showInfo && movieDetails && (
