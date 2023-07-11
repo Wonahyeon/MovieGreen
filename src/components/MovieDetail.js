@@ -11,6 +11,7 @@ import MovieTrailer from './MovieTrailer';
 import Recommendations from './Recommendations';
 import TabContent from './TabContent';
 import OTTLinks from './OttLinks';
+import PickNotificationModal from '../modal/PickNotificationModal';
 
 const DetailWrapper = styled.div`
   display: flex;
@@ -90,6 +91,7 @@ const Pick = styled.div`
 function MovieDetail(props) {
   const [loading, setLoading] = useState(true);
   const [imgError, setImgError] = useState(false);
+  const [showPickNotification, setShowPickNotification] = useState(false); // 찜하기 알림
   const movieDetails = useSelector((state) => state.movie.movieDetails);
   const movieCredits = useSelector((state) => state.movie.movieCredits);
   const userName = useSelector(selectUserName);
@@ -118,7 +120,12 @@ function MovieDetail(props) {
         movieDetails
       };
      dispatch(togglePick(pickData));
+     setShowPickNotification(true); // 찜하기 알림 메시지 표시
     }
+  };
+
+  const handleClosePickNotification = () => {
+    setShowPickNotification(false); // 찜하기 알림 메시지 감추기
   };
 
   // pick data에서 사용자로 필터, 영화 아이디로 필터하여 pick status
@@ -240,6 +247,11 @@ function MovieDetail(props) {
               <MdFavoriteBorder disabled />
               )}
             </Pick>
+            {showPickNotification && (
+              <PickNotificationModal  onClose={handleClosePickNotification}>
+                찜한 콘텐트에 {movieDetails.title}이 추가되었습니다!
+              </PickNotificationModal>
+            )}
         </div>
       </DetailWrapper>
       <TabContent movieDetails={movieDetails} movieCredits={movieCredits}  onError={handleImgError} imgError={imgError} setImgError={setImgError}/>

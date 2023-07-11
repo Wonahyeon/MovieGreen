@@ -4,7 +4,7 @@ import MovieItem from '../category/MovieItem';
 import styled from 'styled-components';
 
 const MovieListBlock = styled.div`
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   .title {
     font-size: 1.8rem;

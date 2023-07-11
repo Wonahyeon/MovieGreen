@@ -13,7 +13,7 @@ import 'swiper/css/scrollbar';
 
 const MovieBlock = styled.div`
    color: #000;
-   width: 100%;
+   width: 90%;
    margin: 0 auto;
 
    .title{
