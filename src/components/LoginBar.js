@@ -7,7 +7,7 @@ const NavWapper = styled.div`
     padding: 10px;
     cursor: pointer;
     &:hover{
-      color: white;
+      color: #586F8C;
       transition: 1s ease-in-out;
     }
   } 

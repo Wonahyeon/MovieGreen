@@ -1,13 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from "uuid";
 import chatbotImg from '../images/chatbotimg.jpg';
 
 const WholeWraper = styled.div`
   margin-top: 170px;
   margin-bottom: 170px;
 `;
-
 
 const Mainheader = styled.div`
   width: 1024px;
@@ -24,14 +22,10 @@ const Mainheader = styled.div`
   }
 `;
 
-
 const ChatbotWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* min-height: 100vh; */
-  /* height: 70px; */
   padding: 20px;
-  /* width: 1024px; */
   width: 500px;
   margin: 0 auto;
   background: #A6A6A6;
@@ -102,7 +96,6 @@ const ChatbotWrapper = styled.div`
     width: 100px;
     height: 30px;
     background: ${props => props.theme.main};
-    /* background-color: #586F8C; */
     border-radius: 30px;
     box-sizing: border-box;
     margin-right: 10px;
@@ -116,7 +109,6 @@ const ChatbotWrapper = styled.div`
     width: 50px;
     height: 35px;
     background: ${props => props.theme.main};
-    /* background-color: #586F8C; */
     margin-left: 3px;
     border-radius: 10px;
     outline: none;
@@ -199,8 +191,6 @@ const botData = [
 function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [msgNum, setMsgNum] = useState(0);
-  const [inputText, setInputText] = useState([]);
-  const [sendMs, setSendMs] = useState(false);
 
   const handleQuestionSelect = (selectedQuestion) => {
     const generatedAnswer = botData.find((data) => data.question === selectedQuestion)?.answer || '';
@@ -222,41 +212,9 @@ function Chatbot() {
     ));
   };
 
-  const handleChange = (e) => {
-    setInputText(e.target.value);
-  };
-
-  const nextId = useRef(4);
-  const handleInsert = useCallback((text) => {
-    const message = {
-      id: uuidv4()
-    };
-
-    nextId.current += 1;
-  }, []);
-
-  // const handleSubmit = (e) => {
-  //   handleInsert(inputText);
-  //   setInputText(''); 
-  //   e.preventDefault();
-  // };
-  const handleSubmit = (e) => {
-    const copyText = [inputText];
-    inputText(copyText);
-    setInputText('');
-    setSendMs(true);
-    e.preventDefault();
-  };
-
-
   return (
     <>
       <WholeWraper>
-        {/* <Mainheader>
-          <div className='head'>
-            <p className='main'>상담챗봇</p>
-          </div>              
-        </Mainheader> */}
         <ChatbotWrapper>
 
           <div className='profile'>
@@ -295,24 +253,11 @@ function Chatbot() {
             
               </div>
             ))}
-            {sendMs && messages.map((info, index) => {
-              <div key={index} className='message' >
-                <div className='user-wrapper'>
-                  <p className='time-right'>{new Date().toLocaleTimeString().slice(0,7)}</p>               
-                  <p className='user-message'>{info}</p>   
-                </div>
-              </div>
-            })}
 
           </div>
           <div className='btnWrapper'>
             {renderButtons()}
           </div>
-          {/* <Form className='inputWrapper' onSubmit={handleSubmit}>
-            <Input className='input' type='text' placeholder='입력하세요' value={inputText} onChange={handleChange} />        
-            <button className='inputBtn' type='subnit' onClick={handleSubmit} >전송</button>
-          </Form> */}
-            
         </ChatbotWrapper>
       </WholeWraper>
     </>    

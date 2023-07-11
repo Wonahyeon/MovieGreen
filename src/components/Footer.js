@@ -10,8 +10,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 
 const FooterWrapper = styled.div`
-  /* position: fixed; */
-  /* bottom: 0; */
   background: ${props => props.theme.main};
   height: 200px;
   width: 100%;
@@ -27,7 +25,6 @@ const NoticeInner = styled.div`
   margin: 0 auto;
   display: flex;
   align-items: center;
-  
   .slide {
     color: #d9d9d9;
   }
@@ -88,7 +85,6 @@ function Footer(props) {
   return (
     <>
       <FooterWrapper>
-
         <NoticeWrapper>
           <NoticeInner>
             <Notice>
@@ -109,7 +105,6 @@ function Footer(props) {
             </Swiper>
           </NoticeInner>          
         </NoticeWrapper>
-
 
         <Mainarea>        
           <Menu>
