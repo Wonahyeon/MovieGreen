@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import axios from 'axios';
 import MovieItem from "../category/MovieItem";
+import errorImg from "../images/error-img.png";
+
 const RecommendationsWrapper = styled.div`
 width: fit-content;
 margin: 0 auto;
@@ -15,6 +17,14 @@ margin: 0 auto;
     font-size: 1rem;
   }
 }
+.errorImg {
+    width: 10rem;
+    height: 15rem;
+    display: flex;
+  }
+  .noPick {
+    font-size: 1.5rem;
+  }
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -128,6 +138,7 @@ function Recommendations({ movieId }) {
   const [visibleMovies, setVisibleMovies] = useState(4);
   const [showSeeMore, setShowSeeMore] = useState(true);
   const [showSeeLess, setShowSeeLess] = useState(false);
+  const noPickMessage = "추천 영화가 없습니다.";
 
   const handleSeeMore = () => {
     setVisibleMovies(recommendedMovies.length);
@@ -160,12 +171,18 @@ function Recommendations({ movieId }) {
     <RecommendationsWrapper>
       <h3>추천 영화</h3>
       <div className="recommendation-list">
-        {recommendedMovies
+      {recommendedMovies.length === 0 ? (
+            <div>
+              <img src={errorImg} alt="No content" className="errorImg" />
+              <p className="noPick">{noPickMessage}</p>
+            </div>
+          ) : (
+        recommendedMovies
           .filter((movie) => movie.vote_count > 0 && movie.backdrop_path !== null)
           .slice(0, visibleMovies)
           .map((movie) => (
             <MovieItem key={movie.id} movie={movie} />
-          ))}
+          )))}
       </div>
       <ButtonWrapper>
       {showSeeMore && (
