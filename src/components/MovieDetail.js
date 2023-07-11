@@ -119,8 +119,8 @@ function MovieDetail(props) {
         userName,
         movieDetails
       };
-     dispatch(togglePick(pickData));
-     setShowPickNotification(true); // 찜하기 알림 메시지 표시
+    dispatch(togglePick(pickData));
+    setShowPickNotification(true); // 찜하기 알림 메시지 표시
     }
   };
 
@@ -237,20 +237,17 @@ function MovieDetail(props) {
               <OTTLinks movie={movieDetails} />
             </Content>
             <Pick className='cursor-pointer'>
-              {userName ? (
-              pick ? (
+              {pick ? (
                 <MdFavorite onClick={handlePick} />
               ) : (
                 <MdFavoriteBorder onClick={handlePick} />
               )
-              ) : (
-              <MdFavoriteBorder disabled />
-              )}
+              }
             </Pick>
-            {showPickNotification && (
-              <PickNotificationModal  onClose={handleClosePickNotification}>
-                찜한 콘텐트에 {movieDetails.title}이 추가되었습니다!
-              </PickNotificationModal>
+              {showPickNotification && (
+                <PickNotificationModal  onClose={handleClosePickNotification}>
+                    찜한 콘텐트에 {movieDetails.title}이 {!pick? '삭제' : '추가'}되었습니다!
+                </PickNotificationModal>
             )}
         </div>
       </DetailWrapper>

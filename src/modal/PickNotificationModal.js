@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ModalWrapper = styled.div`
   position: fixed;
   top: 50%;
-  right: 20%;
+  right: 11%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 1rem;
@@ -17,7 +17,7 @@ function PickNotificationModal({onClose, children}) {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 1000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [onClose]);
   return (
