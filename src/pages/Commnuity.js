@@ -20,7 +20,7 @@ const CommunityWrapper = styled.div`
    position: relative;
    top: 30px;
    display: flex;
-`;
+   `;
 
 const CommunityCheck = styled.div`
    background: white;
@@ -35,7 +35,7 @@ const CommunityCheck = styled.div`
    width: 48%;
    border: 1px solid #dcdcde;
    padding: 10px 0 30px 0;
-
+   
    .date {
       position: absolute;
       right: 40px;

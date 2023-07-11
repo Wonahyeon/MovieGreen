@@ -11,7 +11,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 2rem;
-
+  
   button {
     margin: 0 0.5rem;
     padding: 0.5rem 1rem;

@@ -1,1 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Luckiest+Guy&family=Nanum+Gothic:wght@400;800&display=swap');
+
+@font-face {
+  font-family: "content_font";
+  src: url("./fonts/오뮤_다예쁨체.ttf");
+}
