@@ -260,7 +260,7 @@ function MovieDetail(props) {
             </Pick>
               {showPickNotification && (
                 <PickNotificationModal  onClose={handleClosePickNotification}>
-                    찜한 콘텐트에 {movieDetails.title}이 {!pick? '삭제' : '추가'}되었습니다!
+                    찜한 콘텐츠에 {movieDetails.title}이 {!pick? '삭제' : '추가'}되었습니다!
                 </PickNotificationModal>
             )}
         </div>
