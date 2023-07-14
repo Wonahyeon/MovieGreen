@@ -189,8 +189,8 @@ function TabContent(props) {
             </div>
             <div className='movie-cast'>
               {mainCast.map((cast) => (
-                <div key={cast.id} className='cursor-pointer cast-item '>
-                  <img src={getImageUrl(cast.profile_path)} alt={cast.name} className='profile-img' onError={handleImgError}/>
+                <div key={cast?.id} className='cursor-pointer cast-item '>
+                  <img src={getImageUrl(cast?.profile_path)} alt={cast?.name} className='profile-img' onError={handleImgError}/>
                   <h3 className='profile-name'>{cast?.name}</h3>
                 </div>
               ))}

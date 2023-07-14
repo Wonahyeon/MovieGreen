@@ -11,7 +11,7 @@ const MovieListBlock = styled.div`
     font-size: 2rem;
     font-weight: bold;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid ${props => props.theme.main};
     margin-bottom: 2rem;
   }
 
@@ -218,39 +218,6 @@ function MovieListYearContainer() {
   };
   return (
     <>
-      {/* <ButtonContainer>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter') {
-              addItem();
-            }
-          }}
-        />
-        년
-        <button onClick={addItem} className="addItem">
-          추가
-        </button>
-        <button onClick={deleteItem} className="deleteItem"  disabled={targetDates.length === 4}>
-          모두 삭제
-        </button>
-        <select value={selectedGenre} onChange={handleGenreChange} className='selectGenre'>
-          <option value="">모든 장르</option>
-          {targetGenres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
-        <select value={targetCountry} onChange={handleCountryChange} className='selectCountry'>
-          <option value="한국">한국</option>
-          <option value="외국">외국</option>
-        </select>
-        
-      </ButtonContainer> */}
-
       <div>
         {targetDates.map((date) => (
           <MovieListYear key={date} targetDate={date} selectedGenre={selectedGenre} targetCountry={targetCountry} />
