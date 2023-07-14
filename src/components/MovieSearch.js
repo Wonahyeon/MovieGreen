@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { searchMovies, selectMovie } from '../feature/movie/movieSlice';
 import MovieItemVertical from './MovieItemVertical';
-import MovieListVote from '../components/MovieListVote';
+import Lottie from "lottie-react";
+import loadingLottie from "../lottie/animation_lk2i29a8.json";
+import errorLottie from "../lottie/animation_lk2j1580.json";
 
 const MovieSearchWrapper = styled.div`
   min-height: 80vh;
@@ -29,6 +31,10 @@ const MovieSearchWrapper = styled.div`
     justify-content: space-between;
     padding: 3rem;
     width: fit-content;
+  }
+  .search-result > div {
+    width: 40%;
+    margin: 0 auto;
   }
   .search-result-item {
     width: 24rem;
@@ -56,13 +62,6 @@ function MovieSearch() {
     dispatch(searchMovies('')); // 검색어
   }, [dispatch]);
 
-  // 이미지  상대 경로를 절대 경로로 변환하는 함수
-  const getImageUrl = (path) => {
-    if (!path) {
-      return '';
-    }
-    return `https://image.tmdb.org/t/p/w500${path}`;
-  };
 
   const handleMovieClick = (movie) => {
     dispatch(selectMovie(movie));
@@ -70,11 +69,19 @@ function MovieSearch() {
   };
 
   if (status === 'loading') {
-    return <div>Loading...</div>; // <MovieSearchWrapper>Loading anmation
+    return (
+      <MovieSearchWrapper>
+        <Lottie animationData={loadingLottie} />
+      </MovieSearchWrapper>
+    );
   }
 
   if (status === 'failed') {
-    return <div>Error: {error}</div>;
+    return (
+      <MovieSearchWrapper>
+        <Lottie animationData={errorLottie} />
+      </MovieSearchWrapper>
+    );
   }
 
   return (
@@ -86,17 +93,19 @@ function MovieSearch() {
       </div>
       }
         <div className='search-result'>
-          {searchResults? 
-          <MovieListVote/>
-          : searchResults.map((movie) => (
-            <div
+          {searchResults.length !== 0 ?
+            searchResults.map((movie) => (
+              <div
               key={movie.id}
               className='search-result-item'
               onClick={() => {handleMovieClick(movie);}}
-            >
-              <MovieItemVertical  movie={movie}/>
-            </div>
-          ))}
+              >
+                <MovieItemVertical  movie={movie}/>
+              </div>
+            ))
+          :
+            <Lottie animationData={loadingLottie} />
+          }
         </div>
     </MovieSearchWrapper>
   );

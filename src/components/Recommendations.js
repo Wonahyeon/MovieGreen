@@ -17,10 +17,15 @@ margin: 0 auto;
     font-size: 1rem;
   }
 }
+.noPick-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .errorImg {
     width: 10rem;
     height: 15rem;
-    display: flex;
+    border-radius: 1rem;
   }
   .noPick {
     font-size: 1.5rem;
@@ -172,7 +177,7 @@ function Recommendations({ movieId }) {
       <h3>추천 영화</h3>
       <div className="recommendation-list">
       {recommendedMovies.length === 0 ? (
-            <div>
+            <div className='noPick-block'>
               <img src={errorImg} alt="No content" className="errorImg" />
               <p className="noPick">{noPickMessage}</p>
             </div>

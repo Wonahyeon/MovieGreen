@@ -10,14 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserName, togglePick, userPickMovie } from "../feature/user/userSlice";
 import MovieItem from "../category/MovieItem";
 import errorImg from "../images/error-img.png";
+import PickNotificationModal from "../modal/PickNotificationModal";
+import { useState } from "react";
 const MovieBlock = styled.div`
   width: 90%;
   margin: 0 auto;
+  .noPick-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .errorImg {
     width: 10rem;
     height: 15rem;
-    display: flex;
+    margin-top: 2rem;
+    border-radius: 1rem;
   }
   .noPick {
     font-size: 1.5rem;
@@ -49,15 +57,21 @@ const MovieBlock = styled.div`
 const RemovePick = styled(FiMinusCircle)`
   color: ${props => props.theme.second};
   position: relative;
-  left: 14.5rem;
+  left: 11.8rem;
   bottom: 24.5rem;
 `;
 function MoviePick(props) {
+  const [showPickNotification, setShowPickNotification] = useState(false); // 찜하기 알림
   const userName = useSelector(selectUserName);
   const userPickMovieList = useSelector(userPickMovie);
   const dispatch = useDispatch();
-  const errorImg = require("../images/error-img.png");  
   const noPickMessage = "찜한 영화가 없습니다.";
+  const handlePick = (movie) => {
+    dispatch(togglePick(movie));
+    setShowPickNotification(true);
+  };
+  console.log(userPickMovieList.filter(pick => pick.userName === userName));
+
   return (
     <MovieBlock>
       <div className="title">
@@ -65,12 +79,7 @@ function MoviePick(props) {
       </div>
       <Swiper modules={[Navigation]} navigation slidesPerView={5} spaceBetween={50}>
         <div className="content">
-          {userPickMovieList.length === 0 ? (
-            <div>
-              <img src={errorImg} alt="No content" className="errorImg" />
-              <p className="noPick">{noPickMessage}</p>
-            </div>
-          ) : (
+          {userPickMovieList.filter(pick => pick.userName === userName).length !== 0 ? (
             userPickMovieList
               .filter((pick) => pick.userName === userName)
               .slice(0, 15)
@@ -79,12 +88,22 @@ function MoviePick(props) {
                   <MovieItem movie={movie.movieDetails} />
                   <RemovePick
                     className="cursor-pointer"
-                    onClick={() => dispatch(togglePick(movie))}
+                    onClick={() => handlePick(movie)}
                   />
                 </SwiperSlide>
               ))
-          )}
+          ) : (
+            <div className="noPick-block">
+              <img src={errorImg} alt="No content" className="errorImg" />
+              <p className="noPick">{noPickMessage}</p>
+            </div>
+              )}
         </div>
+        {showPickNotification && (
+          <PickNotificationModal onClose={() => setShowPickNotification(false)} >
+          찜한 콘텐츠에서 삭제되었습니다!
+          </PickNotificationModal>
+        )}
       </Swiper>
     </MovieBlock>
   );

@@ -10,6 +10,7 @@ const ModalWrapper = styled.div`
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  z-index: 10;
 `;
 
 
