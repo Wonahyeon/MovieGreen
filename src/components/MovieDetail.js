@@ -4,6 +4,9 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {  useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Lottie from "lottie-react";
+import loadingLottie from "../lottie/animation_lk2i29a8.json";
+import errorLottie from "../lottie/animation_lk2j1580.json";
 import { fetchMovieCredits, fetchMovieDetails } from '../feature/movie/movieSlice';
 import StarRatings from 'react-star-ratings';
 import { selectUserName, togglePick, userPickMovie } from '../feature/user/userSlice';
@@ -185,11 +188,19 @@ function MovieDetail(props) {
   
   
   if (loading) {
-    return <div>Loading...</div>; // 로딩 컴포넌트
+    return (
+      <DetailWrapper>
+        <Lottie animationData={loadingLottie} />
+      </DetailWrapper>
+    ); // 로딩 컴포넌트
   }
 
   if (!movieDetails || !movieCredits) {
-    return <div>데이터를 가져오지 못했습니다.</div> // 데이터 못가져오면
+    return (
+      <DetailWrapper>
+        <Lottie animationData={errorLottie} />
+      </DetailWrapper>
+    ); // 데이터 못가져오면
   }
 
 

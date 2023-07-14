@@ -70,6 +70,7 @@ function MoviePick(props) {
     dispatch(togglePick(movie));
     setShowPickNotification(true);
   };
+  console.log(userPickMovieList.filter(pick => pick.userName === userName));
 
   return (
     <MovieBlock>
@@ -78,12 +79,7 @@ function MoviePick(props) {
       </div>
       <Swiper modules={[Navigation]} navigation slidesPerView={5} spaceBetween={50}>
         <div className="content">
-          {userPickMovieList.filter(pick => pick.userName === userName) ? (
-            <div className="noPick-block">
-              <img src={errorImg} alt="No content" className="errorImg" />
-              <p className="noPick">{noPickMessage}</p>
-            </div>
-          ) : (
+          {userPickMovieList.filter(pick => pick.userName === userName).length !== 0 ? (
             userPickMovieList
               .filter((pick) => pick.userName === userName)
               .slice(0, 15)
@@ -96,6 +92,11 @@ function MoviePick(props) {
                   />
                 </SwiperSlide>
               ))
+          ) : (
+            <div className="noPick-block">
+              <img src={errorImg} alt="No content" className="errorImg" />
+              <p className="noPick">{noPickMessage}</p>
+            </div>
               )}
         </div>
         {showPickNotification && (
