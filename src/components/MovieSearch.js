@@ -86,27 +86,21 @@ function MovieSearch() {
 
   return (
     <MovieSearchWrapper>
-      {searchResults &&
-      <div className='search-recent'>
-        <h1>최근 검색 기록</h1>
-        <h2>{selectedMovie.title}</h2>
+      <div className='search-result'>
+        {searchResults.length !== 0 ?
+          searchResults.map((movie) => (
+            <div
+            key={movie.id}
+            className='search-result-item'
+            onClick={() => {handleMovieClick(movie);}}
+            >
+              <MovieItemVertical  movie={movie}/>
+            </div>
+          ))
+        :
+          <Lottie animationData={loadingLottie} />
+        }
       </div>
-      }
-        <div className='search-result'>
-          {searchResults.length !== 0 ?
-            searchResults.map((movie) => (
-              <div
-              key={movie.id}
-              className='search-result-item'
-              onClick={() => {handleMovieClick(movie);}}
-              >
-                <MovieItemVertical  movie={movie}/>
-              </div>
-            ))
-          :
-            <Lottie animationData={loadingLottie} />
-          }
-        </div>
     </MovieSearchWrapper>
   );
 }

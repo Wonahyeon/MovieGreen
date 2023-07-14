@@ -45,6 +45,14 @@
       "idMail": "lje516@naver.com",
       "passWord": "Lee918",
       "id": "PqqBtv3"
+    },
+    {
+      "name": "김남준",
+      "idMail": "namjoon@naver.com",
+      "passWord": "Rm94912",
+      "age": "30",
+      "gender": "남자",
+      "id": "MF5UpbD"
     }
   ],
   "user": {
