@@ -37,7 +37,7 @@
 2. 의존성 설치: 프로젝트에 필요한 의존성 패키지를 설치하기 위해 npm install 명령을 실행합니다.
 3. 프론트엔드 실행: 프론트엔드 애플리케이션을 실행하기 위해 npm start 명령을 실행합니다. 이 명령은 개발 서버를 시작하고, 웹 애플리케이션을 브라우저에서 볼 수 있도록 합니다.
 4. 백엔드 실행: 회원가입과 로그인 기능을 다루기 위해 백엔드 서버를 실행해야 합니다.  json-server를 사용하고 있어 json-sever를 설치해야합니다. npm i -g json-server를 통해 설치한 후  json-server --watch membership-db.json --port 4000와 같은 명령을 실행하여 백엔드 서버를 실행할 수 있습니다.
-5. 웹 애플리케이션 접속: 웹 브라우저에서 https://preeminent-queijadas-1432a7.netlify.app/search 접속하여 애플리케이션을 확인할 수 있습니다.
+5. 웹 애플리케이션 접속: 웹 브라우저에서 https://preeminent-queijadas-1432a7.netlify.app 접속하여 애플리케이션을 확인할 수 있습니다.
 
 
 ## 구현
