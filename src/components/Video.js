@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Youtube from "react-youtube";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCreative } from "swiper";
-import { async } from 'q';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovieDetails, selectMovie } from '../feature/movie/movieSlice';
+import { useDispatch } from 'react-redux';
+import { selectMovie } from '../feature/movie/movieSlice';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -41,34 +40,7 @@ let opts;
 function Video(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const movieDetails = useSelector((state) => state.movie.movieDetails);
-  const movieCredits = useSelector((state) => state.movie.movieCredits);
 
-  // const [start, setStart] = useState('');
-  // const [stop, setStop] = useState('');
-  // const [heroSwiper, setSwiperRef] = useRef(null);
-  // const [slidebutton, setSlidebutton] = useState(null);
-  // const playbutton = (e) => {
-  //   e.preventDefault()
-  //   if (slidebutton === null) {
-  //     setSlidebutton(slidebutton.swiper.autoplay.start())
-  //   } else {
-  //     setSlidebutton(slidebutton.swiper.autoplay.stop())
-  //   }
-  // }
-  // const playstart = (e) => {
-  //   setSlidebutton(e.target.value)
-  //   if (slidebutton === null) {
-  //     slidebutton.autoplay.start();
-  //   }
-  // }
-  // const playstop = (e) => {
-  //   setSlidebutton(e.target.value)
-  //   e.preventDefault()
-  //   if (slidebutton === 1000) {
-  //     slidebutton.autoplay.stop();
-  //   }
-  // }
 
   opts = {
     width: '100%',
@@ -154,12 +126,20 @@ function Video(props) {
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
         >
-        {trailerIds.map(({videoId, movieId}) => (
-          <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
-            <Youtube videoId={videoId} opts={opts}/>
-            <StyledVideoWrapper />
-          </SwiperSlide>
-        ))}
+        {trailerIds.map((trailer) => {
+        // trailer undefined check
+        if (trailer && trailer.videoId && trailer.movieId) {
+          const { videoId, movieId } = trailer;
+          return (
+            <SwiperSlide key={videoId} onClick={() => hanldeTrailerClick(movieId)}>
+              <Youtube videoId={videoId} opts={opts} />
+              <StyledVideoWrapper />
+            </SwiperSlide>
+          );
+        } else {
+          return null;
+        }
+      })}
       </StyledSwiper>
     </VideoCover>
     );

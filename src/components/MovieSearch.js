@@ -54,9 +54,7 @@ function MovieSearch() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.movie.searchResults);
-  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
   const status = useSelector((state) => state.movie.status);
-  const error = useSelector((state) => state.movie.error);
 
   useEffect(() => {
     dispatch(searchMovies('')); // 검색어
