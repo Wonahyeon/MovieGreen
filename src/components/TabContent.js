@@ -123,7 +123,7 @@ const CreditTab = styled.div`
 `;
 
 function TabContent(props) {
-  const {movieDetails, movieCredits, onError, imgError, setImgError} = props;
+  const {movieDetails, movieCredits} = props;
   const [showTab, setShowTab] = useState('detail'); // 탭 상태
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -158,12 +158,12 @@ function TabContent(props) {
           <div className={showTab === 'credit' ? 'nav-item active' : 'nav-item'} onClick={() => {
             setShowTab('credit');
           }}>
-            <a>출연/제작</a>
+            <div>출연/제작</div>
           </div>
           <div className={showTab === 'review' ? 'nav-item active' : 'nav-item'} onClick={() => {
             setShowTab('review');
           }}>
-            <a>리뷰</a>
+            <div>리뷰</div>
           </div>
         </div>
       {
