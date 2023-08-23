@@ -87,6 +87,17 @@ const GoToSign = styled.a`
       color: white;
   }
 `;
+const Test = styled.div`
+  margin-top: .5rem;
+  text-align: center;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #fff;
+  background: ${props => props.theme.second};
+  .title {
+    margin-bottom: .5rem;
+  }
+`;
 
 function Login(props) {
 
@@ -119,33 +130,35 @@ function Login(props) {
       }
     })
   }
-// json-server --watch ./src/membership-db.json --port 4000
-
-    const handleRegister = () => {
-    axios.get('http://localhost:4000/members') // 데이터 요청
+  
+  // json-server --watch membership-db.json --port 4000
+  const handleRegister = () => {
+    // axios.get('http://localhost:4000/members')
+    axios.get('https://my-json-server.typicode.com/Wonahyeon/db-moviegreen/user')
     .then((response) => { // response 받아옴
       const members = response.data;
       const existingMember = members.find(member => member.idMail === idValue || member.passWord === pwValue);
       
       if (existingMember.passWord === pwValue && existingMember.idMail === idValue) {
-        console.log('로그인 완료');
+        // console.log('로그인 완료');
         dispatch(selectUser(existingMember.name));
         dispatch(selectLogin(true));
         navigate('/');  
       } else if (existingMember.passWord !== pwValue) {
-        console.log('비번 틀림');
+        // console.log('비번 틀림');
         setwarnPwMsShow(true);
         setIdValue('');
         setPwValue('');
       } else if (existingMember.idMail !== idValue) {
-        console.log('id 틀림');
+        // console.log('id 틀림');
         setWarnMsShow(true); 
       }
     })
     .catch((error) => {
-      alert('서버가 끊겼습니다');
-    })
-  }
+      // alert('서버가 끊겼습니다');
+      if(idValue === "test@naver.com" && pwValue === "Test1") navigate('/');
+    });
+  };
 
   return (
     <LoginWrapper>
@@ -195,7 +208,12 @@ function Login(props) {
           <p className='SignIn'>아직 계정이 없으신가요?</p>
           <GoToSign href='/sign-in'>회원가입하기</GoToSign>          
         </InFo>
-
+        <Test>
+          <p className='title'>테스트용 아이디 / 비밀번호</p>
+          <p>test1@naver.com / Test1</p>
+          <p>test1@naver.com / Test1</p>
+          <p>test1@naver.com / Test1</p>
+        </Test>
       </MainLogin>
     </LoginWrapper>
     
