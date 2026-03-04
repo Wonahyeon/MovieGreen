@@ -7,27 +7,45 @@ import errorImg from '../images/error-img.png';
 
 const TabContentWrapper = styled.div`
   margin-top: 3rem;
+  width: 100%;
   .nav-tab {
-  width: 60rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  border-bottom: .2rem solid ${props => props.theme.main};
+    width: 100%;
+    max-width: 60rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: .2rem solid ${props => props.theme.main};
+    padding: 0;
+    box-sizing: border-box;
   }
   .nav-item {
-    width: 10rem;
-    height: 3rem;
-    padding: 1.4rem;
+    flex: 1;
+    height: 100%;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
   .nav-item:hover, .active {
     font-weight: bold;
     color: white;
     border-radius: .5rem .5rem 0 0;
     background-color: ${props => props.theme.main};
+  }
+  @media (max-width: 768px) {
+    .nav-item {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-item {
+      font-size: 0.7rem;
+    }
   }
 `;
 const DetailInfoTab = styled.div`
@@ -40,7 +58,8 @@ const DetailInfoTab = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60rem;
+    max-width: 60rem;
+    width: 100%;
     margin: 2rem auto;
     padding: 1rem;
     border-bottom: .2rem solid ${props => props.theme.main};
@@ -55,7 +74,8 @@ const DetailInfoTab = styled.div`
   .movie-intro {
     display: flex;
     flex-direction: column;
-    width: 60rem;
+    width: 100%;
+    max-width: 60rem;
     margin: 0 auto;
     padding: 1rem;
     span:hover{
@@ -72,34 +92,40 @@ const DetailInfoTab = styled.div`
     height: 300px;
   }
   .profile-img {
-    width: 100%;
-    height: auto;
+    width: 10rem;
+    height: 15rem;
     margin-bottom: 1rem;
     border-radius: 1rem;
+    flex-shrink: 0;
   }
   .intro {
     margin: 1rem 0;
-    width: 55rem;
+    width: 100%;
+    max-width: 55rem;
     line-height: 3rem;
   }
   .movie-cast {
     display: flex;
     justify-content: center;
     text-align: center;
-    width: fit-content;
+    width: 100%;
     margin: 0 auto;
+    flex-wrap: wrap;
+    
   }
 `;
 
 const CreditTab = styled.div`
   margin: 0 auto;
-  width: 60rem;
+  width: 100%;
+  max-width: 60rem;
   img {
     width: 10rem;
     height: 15rem;
     border-radius: 1rem;
   }
   .cast-wrapper {
+    width: 100%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -119,6 +145,10 @@ const CreditTab = styled.div`
   }
   li {
     margin-bottom: 1rem;
+  }
+  .producer{
+    width: 30rem;
+    justify-content: space-around;
   }
 `;
 
@@ -202,8 +232,10 @@ function TabContent(props) {
           <CreditTab>
             <h2 className='cast-title'>감독</h2>
             <div className='cast-wrapper cursor-pointer'>
-              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} style={{marginRight: '2rem'}} onError={handleImgError}/>
-              <h3>{movieCredits.crew[2]?.name}</h3>
+              <div className='cast-wrapper producer'>
+              <img src={getImageUrl(movieCredits.crew[2]?.profile_path)} alt={movieCredits.crew[2]?.name} onError={handleImgError}/>
+              <h3 style={{width:'10rem', fontWeight: 'bold'}}>{movieCredits.crew[2]?.name}</h3>
+              </div>
             </div>
             <h2 className='cast-title'>주연</h2>
             <div className='cast-wrapper cursor-pointer'>

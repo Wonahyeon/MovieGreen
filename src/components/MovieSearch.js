@@ -11,7 +11,9 @@ import errorLottie from "../lottie/animation_lk2j1580.json";
 const MovieSearchWrapper = styled.div`
   min-height: 80vh;
   margin: 0 auto;
-  width: 60rem;
+  width: 100%;
+  max-width: 60rem;
+  padding: 0 1rem; // 모바일 패딩
   .search-recent {
     font-size: 1rem;
     display: flex;
@@ -28,9 +30,10 @@ const MovieSearchWrapper = styled.div`
   .search-result {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 3rem;
-    width: fit-content;
+    justify-content: center;  // 중앙 정렬
+    gap: 2rem;  // 아이템 간격
+    padding: 2rem 1rem;  // 반응형 패딩
+    margin: 0 auto;
   }
   .search-result > div {
     width: 40%;
@@ -38,15 +41,40 @@ const MovieSearchWrapper = styled.div`
   }
   .search-result-item {
     width: 24rem;
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
   }
   .search-result-item img {
     width: 100%;
     border-radius: 1.2rem;
+  }
+  /* 태블릿 */
+  @media (max-width: 1024px) {
+    .search-result-item {
+      width: 18rem;
+    }
+  }
+  
+  /* 모바일 */
+  @media (max-width: 768px) {
+    padding: 0 0.5rem;
+    
+    .search-result {
+      padding: 1.5rem 0.5rem;
+    }
+    
+    .search-result-item {
+      width: 100% !important; //  한 줄에 하나씩
+      max-width: 15rem;  //  최대 너비 제한
+      margin: 0 auto;  //  중앙 정렬
+    }
+  }
+  
+  /* 초소형 모바일 */
+  @media (max-width: 480px) {
+    .search-result-item {
+      width: 100%;  // 한 줄에 하나씩
+      max-width: 15rem;  //  최대 너비 제한
+      margin: 0 auto;  // 중앙 정렬
+    }
   }
 `;
 
@@ -86,7 +114,9 @@ function MovieSearch() {
     <MovieSearchWrapper>
       <div className='search-result'>
         {searchResults.length !== 0 ?
-          searchResults.map((movie) => (
+          searchResults
+          .filter(movie => movie.backdrop_path || movie.poster_path)
+          .map((movie) => (
             <div
             key={movie.id}
             className='search-result-item'

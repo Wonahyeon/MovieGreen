@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import errorImg from '../images/error-img.png';
 
 const MovieItemVerticalBlock = styled.div`
   display: flex;
@@ -41,6 +42,8 @@ const MovieItemVerticalBlock = styled.div`
   height: auto;
   margin-bottom: 1rem;
   border-radius: 20px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 .poster {
   width: 200px;
@@ -91,7 +94,11 @@ const MovieItemVerticalBlock = styled.div`
 
 function MovieItemVertical({ movie }) {
   const { title, rank, movieNm, backdrop_path, id } = movie;
-  const posterUrl = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
+  const posterUrl = backdrop_path 
+    ? `https://image.tmdb.org/t/p/w500${backdrop_path}`
+    : movie.poster_path 
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : '';
   const navigate = useNavigate();
   const [showInfo, setShowInfo] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
@@ -124,9 +131,14 @@ function MovieItemVertical({ movie }) {
     navigate(`/movie-detail/${movie.id}`);
   };
 
+  // 이미지 없는 경우 대체 이미지
+  const handleImgError = (e) => {
+    e.target.src = errorImg;
+  };
+
   return (
     <MovieItemVerticalBlock className='cursor-pointer' showInfo={showInfo} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <img src={posterUrl} alt={movieNm} onClick={() => navigate(`/movie-detail/${movie.id}`)} />
+      <img src={posterUrl} alt={movieNm} onClick={() => navigate(`/movie-detail/${movie.id}`)} onError={handleImgError}/>
       <h2>{rank}</h2>
       {showInfo && movieDetails && (
         <div className="additional-info" onClick={() => navigate(`/movie-detail/${movie.id}`)}>

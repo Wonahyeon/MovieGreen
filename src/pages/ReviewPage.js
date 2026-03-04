@@ -10,9 +10,15 @@ const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: fit-content;
+  width: 100%;
+  max-width: 60rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
   height: fit-content;
   .review-write {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     border-radius: .2rem;
@@ -26,16 +32,22 @@ const ReviewWrapper = styled.div`
     align-items: center;
     padding-bottom: 1rem;
     border-bottom: 1px solid ${props => props.theme.main};
+    gap: 1rem;
+    flex-wrap: wrap;
 
     .review-user {
       width: 48rem;
       text-align: right;
+      white-space: nowrap;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
   }
   .review-submit {
     display: flex;
       div {
         flex: 1;
+        min-width: 150px;
       }
     }
     .review-intro {
@@ -65,7 +77,9 @@ const ReviewWrapper = styled.div`
     resize: none;
     border: none;
     background: none;
-    width: 58rem;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
     min-height: 4rem;
     padding: 1rem;
     font-size: 1rem;
@@ -74,7 +88,7 @@ const ReviewWrapper = styled.div`
     }
   }
   .review-list {
-    width: 60rem;
+    width: 100%;
     margin: 0 auto;
     border-top: .2rem solid ${props => props.theme.main};
     border-bottom: .2rem solid ${props => props.theme.main};
@@ -82,8 +96,10 @@ const ReviewWrapper = styled.div`
   
   .review-item {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
     padding: 1rem;
     margin: 1rem;
     min-height: 3rem;
@@ -92,8 +108,9 @@ const ReviewWrapper = styled.div`
       font-weight: bold;
     }
     h4 {
-      width: 40rem;
-      margin-left: 2rem;
+      flex: 1;
+      min-width: 150px;
+      word-break: break-word;
     }
   } 
   .review-item:last-child {
@@ -103,10 +120,224 @@ const ReviewWrapper = styled.div`
     padding: 1rem 0;
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
     h3 {
       margin-bottom: 1rem;
     }
+    span {
+      font-size: 0.85rem;
+      color: #666;
+    }
   }
+  /* 태블릿 (≤1024px) */
+  @media (max-width: 1024px) {
+    padding: 0 0.8rem;
+
+    .review-write {
+      margin: 1.5rem auto;
+      padding: 0.8rem;
+    }
+
+    .review-write-top {
+      padding-bottom: 0.8rem;
+    }
+
+    textarea {
+      padding: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .review-intro {
+      padding: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .review-list {
+      margin: 0 auto;
+    }
+
+    .review-item {
+      padding: 0.8rem;
+      margin: 0.8rem;
+      gap: 1rem;
+
+      h4 {
+        font-size: 0.95rem;
+      }
+    }
+
+    .review-user {
+      h3 {
+        font-size: 0.9rem;
+      }
+
+      span {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  /* 모바일 (≤768px) */
+  @media (max-width: 768px) {
+    padding: 0 0.5rem;
+
+    .review-write {
+      margin: 1.2rem auto;
+      padding: 0.6rem;
+      border: .15rem solid ${props => props.theme.main};
+    }
+
+    .review-write-top {
+      padding-bottom: 0.6rem;
+      flex-direction: column;
+      align-items: flex-start;
+
+      h2 {
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: right;
+      }
+
+      .review-user {
+        width: 100%;
+        text-align: right;
+        font-size: 0.9rem;
+      }
+    }
+
+    .review-submit {
+      gap: 0.5rem;
+      flex-direction: column;
+
+      div {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: .4rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      padding: 0.6rem;
+      min-height: 3rem;
+      font-size: 0.9rem;
+    }
+
+    .review-intro {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .review-list {
+      border: .15rem solid ${props => props.theme.main};
+    }
+
+    .review-item {
+      padding: 0.6rem;
+      margin: 0.6rem;
+      gap: 0.8rem;
+      flex-direction: column;
+
+      h4 {
+        font-size: 0.9rem;
+        width: 100%;
+      }
+    }
+
+    .review-user {
+      width: 100%;
+      padding: 0.6rem 0;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        margin-bottom: 0;
+        font-size: 0.85rem;
+      }
+
+      span {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  /* 초소형 모바일 (≤480px) */
+  @media (max-width: 480px) {
+    padding: 0 0.3rem;
+
+    .review-write {
+      margin: 1rem auto;
+      padding: 0.5rem;
+      border: .1rem solid ${props => props.theme.main};
+    }
+
+    .review-write-top {
+      padding-bottom: 0.5rem;
+      gap: 0.3rem;
+
+      h2 {
+        font-size: 0.8rem;
+      }
+
+      .review-user {
+        font-size: 0.8rem;
+      }
+    }
+
+    button {
+      padding: .3rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    textarea {
+      padding: 0.5rem;
+      min-height: 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    .review-intro {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .review-list {
+      border: .1rem solid ${props => props.theme.main};
+    }
+
+    .review-item {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      gap: 0.5rem;
+
+      h4 {
+        font-size: 0.85rem;
+      }
+
+      h3 {
+        font-size: 0.8rem;
+      }
+    }
+
+    .review-user {
+      padding: 0.5rem 0;
+
+      h3 {
+        margin-bottom: 0;
+        font-size: 0.75rem;
+      }
+
+      span {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
 `;
 
 

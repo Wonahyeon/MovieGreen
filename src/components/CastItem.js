@@ -12,7 +12,7 @@ justify-content: space-around;
     height: 15rem;
   }
   .profile-text {
-    width: 15rem;
+    width: 10rem;
   }
   .profile-name {
     font-weight: bold;
