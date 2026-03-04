@@ -47,11 +47,14 @@ const Navbar  = styled.div`
 `;
 
 const LogoWrapper  = styled.div`
+  display: flex;
+  justify-content: center;
   .Logo {
     text-decoration: none;
     color: white;
     font-size: 35px;
     text-decoration: none;
+    text-align: center;
     font-family: 'Luckiest Guy', sans-serif;
   }
 `;

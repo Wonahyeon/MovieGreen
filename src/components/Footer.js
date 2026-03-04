@@ -39,7 +39,7 @@ const Notice = styled.div`
   }
 `;
 const Mainarea = styled.div`
-  width: 1024px;
+  width: 100%;
   margin: 0 auto;
 `;
 const Menu = styled.div`
